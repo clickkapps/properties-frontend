@@ -13,7 +13,6 @@ function App() {
               <Button>Click me</Button>
           </div>
       </div>
-
   )
 }
 
