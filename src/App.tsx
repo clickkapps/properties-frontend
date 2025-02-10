@@ -1,4 +1,5 @@
 import {Button} from "@/components/ui/button.tsx";
+import Searchbar from "./components/website/Searchbar";
 
 function App() {
 
@@ -12,6 +13,8 @@ function App() {
           <div>
               <Button>Click me</Button>
           </div>
+
+          <Searchbar />
       </div>
 
   )
