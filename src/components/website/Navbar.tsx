@@ -1,8 +1,9 @@
 import { shellImg } from '@/assets'
+import {Button} from "@/components/ui/button.tsx";
 
-const Navbar = () => {
+const Navbar = ({ className } : { className? : string }) => {
   return (
-    <nav className='bg-primary/90'>
+    <nav className={ `${className || ''}` } >
       <div className='container mx-auto flex justify-between items-center py-2'>
         <div className='flex justify-center items-center space-x-2'>
           <img src={shellImg} className='w-[50px] h-[50px]' alt="Company logo" />
@@ -18,7 +19,11 @@ const Navbar = () => {
           <li><a href="#blog">Blog</a></li>
         </ul>
 
-        <button className='text-white bg-blue-800 hover:bg-blue-900 px-4 py-2 rounded-md'>Sign In</button>
+        <div className="flex">
+          <Button className="">Register</Button>
+          <Button variant="link" className="text-white">Login</Button>
+        </div>
+
       </div>
     </nav>
   )
