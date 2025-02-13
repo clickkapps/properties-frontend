@@ -3,8 +3,9 @@ import spaceImg from "./images/ai-video-generator-v2.svg"
 import womanImg from "./images/ai-image-generator.svg"
 import forestImg from "./images/reimagine.svg"
 import parrotImg from "./images/upscale.svg"
+import propertyImg from "./images/property.svg"
 
-export {shellImg}
+export {shellImg, propertyImg, womanImg}
 
 export const features = [
   {

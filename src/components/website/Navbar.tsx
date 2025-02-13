@@ -1,10 +1,30 @@
 import { shellImg } from '@/assets'
 import {Button} from "@/components/ui/button.tsx";
+import {useEffect, useState} from "react";
 
 const Navbar = ({ className } : { className? : string }) => {
+
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 0); // Updates on scroll and removes when at top
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    }
+
+  }, []);
+
+  console.log("Nav bar rendered")
+
   return (
-    <nav className={ `${className || ''}` } >
-      <div className='container mx-auto flex justify-between items-center py-2'>
+    <nav className={ `${scrolled && 'bg-black animated fadeInDown'} ${className || ''}` } >
+      <div className={`container mx-auto flex justify-between items-center py-2`}>
         <div className='flex justify-center items-center space-x-2'>
           <img src={shellImg} className='w-[50px] h-[50px]' alt="Company logo" />
           <span className='italic text-white'>Name</span>

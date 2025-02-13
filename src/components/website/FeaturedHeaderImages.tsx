@@ -11,7 +11,7 @@ import Autoplay from "embla-carousel-autoplay"
 
 
 function FeaturedHeaderImages({ className }: { className: string }) {
-    const classes = `w-full container mx-auto p-4 bg-black ${className} -mt-[116px] z-20`;
+    const classes = `w-full container mx-auto p-4 bg-black ${className} -mt-[116px]`;
     return (
         <Carousel
             opts={{

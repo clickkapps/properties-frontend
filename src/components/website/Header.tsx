@@ -16,9 +16,9 @@ function Header() {
                         <div className="h-full w-full bg-black/50 absolute"></div>
                         <div className="absolute h-full w-full">
                             <div className="flex flex-col justify-center items-center h-full text-white gap-4">
-                                <h1 className="">Find Your Dream Home With Ease</h1>
-                                <p className="">Explore Smart Listings with Beautiful Custom Designs</p>
-                                <Searchbar/>
+                                <h1 className="animated fadeInUp">Find Your Dream Home With Ease</h1>
+                                <p className="animated fadeInUp">Explore Smart Listings with Beautiful Custom Designs</p>
+                                <Searchbar className="animated fadeInUp animate__delay-5s" />
                             </div>
                         </div>
                     </div>
@@ -26,6 +26,7 @@ function Header() {
 
                 <div className="">
                     <FeaturedHeaderImages className="mx-auto" />
+
                 </div>
 
 

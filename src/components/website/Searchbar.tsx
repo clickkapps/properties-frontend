@@ -1,8 +1,11 @@
 import { Search } from "lucide-react"
 
-const Searchbar = () => {
-  return (
-    <div className='bg-white shadow-md p-2 rounded-full flex items-center w-full max-w-5xl mx-auto'>
+const Searchbar = ({ className }: { className: string}) => {
+
+    const classes  = `bg-white shadow-md p-2 rounded-full flex items-center w-full max-w-5xl mx-auto ${className}`
+
+    return (
+    <div className={classes}>
 
       <input type="text"
       placeholder="Location" 
