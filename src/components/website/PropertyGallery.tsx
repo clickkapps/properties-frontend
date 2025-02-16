@@ -19,7 +19,7 @@ const PropertyGallery = () => {
   };
 
   return (
-    <div className="max-w-[900px] mx-auto bg-white p-4 rounded-lg shadow-lg">
+    <div className="max-w-[600px] mx-auto bg-white p-4 rounded-lg shadow-lg">
       {/* Main Image with Navigation */}
       <div className="relative">
         {/* Click to Open Fancybox */}
@@ -31,7 +31,7 @@ const PropertyGallery = () => {
           />
         </a>
 
-        {/* Left Arrow - Inside Image */}
+        {/* arrow navigations */}
         <button
           onClick={handlePrev}
           className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md hover:bg-gray-200"
@@ -39,7 +39,6 @@ const PropertyGallery = () => {
           <ChevronLeft className="w-6 h-6 text-gray-700" />
         </button>
 
-        {/* Right Arrow - Inside Image */}
         <button
           onClick={handleNext}
           className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md hover:bg-gray-200"

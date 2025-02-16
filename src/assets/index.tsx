@@ -12,7 +12,6 @@ import house4 from "./images/house4.svg"
 import house5 from "./images/house5.svg"
 import house6 from "./images/house6.svg"
 
-
 export {shellImg}
 
 export const features = [
