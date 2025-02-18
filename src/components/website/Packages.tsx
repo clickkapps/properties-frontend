@@ -1,9 +1,9 @@
 import { Check } from "lucide-react";
 
 const pricingPlans = [
-  { title: "BASIC", price: "$1500", color: "bg-[#F2B2D7]" },
-  { title: "BASIC", price: "$1500", color: "bg-[#7DE2D5]" },
-  { title: "BASIC", price: "$1500", color: "bg-[#FFBB04]" },
+  { title: "BASIC", description: "Basic", price: "$1500", color: "bg-[#F2B2D7]" },
+  { title: "STANDARD", description: "Standard", price: "$1500", color: "bg-[#7DE2D5]" },
+  { title: "PREMIUM", description: "Premium", price: "$1500", color: "bg-[#FFBB04]" },
 ];
 
 const features = [
@@ -27,7 +27,7 @@ const Packages = () => {
           className={`${plan.color} p-8 rounded-xl w-80 shadow-md`}
         >
           <h3 className="text-lg font-semibold mb-4">{plan.title}</h3>
-          <p className="text-4xl font-semibold mb-6">{plan.price}</p>
+          <p className="text-4xl font-semibold mb-6 font-[Inter]">{plan.price}</p>
           <p className="text-md font-semibold text-gray-700 mb-6">
             Basic plan for all users
           </p>
@@ -46,7 +46,7 @@ const Packages = () => {
           </ul>
 
           <button className="mt-6 bg-black text-white text-[15px] py-2 px-3 rounded-md">
-            Get Basic Plan
+            Get {plan.description} Plan
           </button>
         </div>
       ))}

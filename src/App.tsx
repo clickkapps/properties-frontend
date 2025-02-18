@@ -1,4 +1,4 @@
-import LandingPage from "@/presentation/website/LandingPage.tsx";
+// import LandingPage from "@/presentation/website/LandingPage.tsx";
 import Packages from "./components/website/Packages";
 
 function App() {
