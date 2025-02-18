@@ -23,7 +23,7 @@ const Navbar = ({ className } : { className? : string }) => {
   console.log("Nav bar rendered")
 
   return (
-    <nav className={ `${scrolled && 'bg-black animated fadeInDown'} ${className || ''}` } >
+    <nav className={ `${scrolled && 'bg-black animated fadeInDown'} ${className || ''} px-4 md:px-0` } >
       <div className={`container mx-auto flex justify-between items-center py-2`}>
         <div className='flex justify-center items-center space-x-2'>
           <img src={shellImg} className='w-[50px] h-[50px]' alt="Company logo" />

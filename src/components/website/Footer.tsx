@@ -9,7 +9,7 @@ function Footer() {
 
                 <div className="container mx-auto px-6 py-20">
 
-                    <div className="flex flex-row justify-between">
+                    <div className="flex flex-col  md:flex-row justify-between gap-10">
 
                         <ul className="flex flex-col decoration-0 gap-4 ">
                             <li className='tracking-tight hover:text-primary hover:font-bold text-sm mb-4 font-bold'>Quick
@@ -48,16 +48,17 @@ function Footer() {
                 <div className="h-[1px] bg-slate-700"></div>
 
                 {/* Bottom Footer */}
-                <div className="container mx-auto flex justify-between px-6 py-4">
+                <div className="container mx-auto flex flex-col md:flex-row justify-between px-6 py-4 gap-4">
                     <div className="inline-flex gap-8">
                         {/*<img src={GuideMeLogoWhite} alt="GuidMe Logo" className='-mt-1'/>*/}
-                        <div className='flex justify-center items-center space-x-2'>
+                        <div className='flex justify-center items-center space-x-1'>
                             <img src={shellImg} className='w-[25px] h-[25px]' alt="Company logo"/>
                             <span className='italic text-white'>Name</span>
                         </div>
-                        © <span className="font[Inter]">2025</span> GuideMe, Inc.
+                        <span>©</span>
+                        <span className="font[Inter]">2025</span> Properties, Inc.
                     </div>
-                    <div className="inline-flex gap-4">
+                    <div className="hidden md:inline-flex gap-4 ">
                         <Globe/>
                         <p>Canada</p>
                     </div>

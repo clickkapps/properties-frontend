@@ -1,6 +1,7 @@
 import Header from "@/components/website/Header.tsx";
 import PropertyListItem from "@/components/website/PropertyListItem.tsx";
 import Footer from "@/components/website/Footer.tsx";
+import Packages from "@/components/website/Packages.tsx";
 
 
 function LandingPage() {
@@ -11,29 +12,42 @@ function LandingPage() {
             {/*------- End of Header ------------*/}
 
 
-            <div className="-mt-[116px] container mx-auto">
+            <div className="-mt-[60px] md:-mt-[100px] container mx-auto">
 
                 {/*------- Exclusive Listings ------------*/}
                 <section id="listings">
-                    <h1 className="text-center"> Exclusive Listings For Sale </h1>
-                    <p className="text-center my-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa dicta ex itaque neque officia repellat sunt. Inventore similique totam voluptates?</p>
+                    <h2 className="mx-12 text-3xl font-bold text-center"> Exclusive Listings </h2>
+                    <p className="text-center my-2 mx-12">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa
+                        dicta ex itaque neque officia repellat sunt. Inventore similique totam voluptates?</p>
                     <div className="h-[52px]"></div>
-                    <div className="grid grid-cols-5">
-                        {Array.from({length: 10}).map((_, index) => (
-                            <PropertyListItem key={"item-" + index}/>
-                        ))}
+                    {/*<div className="grid grid-cols-5">*/}
+
+
+                    {/*Listing content*/}
+
+                    <div className="space-y-8">
+                        {/* Featured Row 1*/}
+                        <div className="columns-1 md:columns-5 gap-8 mx-4 space-y-8">
+                            {Array.from({length: 5}).map((_, index) => (
+                                <PropertyListItem key={"item-" + index}/>
+                            ))}
+                        </div>
+
+                        {/* Featured Row 2*/}
+                        <div className="columns-1 md:columns-5 gap-8 mx-4 space-y-8">
+                            {Array.from({length: 5}).map((_, index) => (
+                                <PropertyListItem key={"item-" + index}/>
+                            ))}
+                        </div>
                     </div>
+
                 </section>
                 {/*------- End of Exclusive Listings ------------*/}
 
 
                 {/*------- Packages ------------*/}
                 <section id="packages">
-                    <div className="my-[52px]">
-                        <h1 className="text-center "> Packages </h1>
-                        <p className="text-center my-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa
-                            dicta ex itaque neque officia repellat sunt. Inventore similique totam voluptates?</p>
-                    </div>
+                    <Packages/>
                 </section>
                 {/*------- End of Packages ------------*/}
 

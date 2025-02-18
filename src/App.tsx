@@ -1,5 +1,5 @@
-// import LandingPage from "@/presentation/website/LandingPage.tsx";
-import Packages from "./components/website/Packages";
+import LandingPage from "@/presentation/website/LandingPage.tsx";
+// import Packages from "./components/website/Packages";
 
 function App() {
 
@@ -7,7 +7,7 @@ function App() {
 
   return (
       <div >
-          <Packages />
+          <LandingPage />
       </div>
   )
 }
