@@ -1,14 +1,19 @@
 import LandingPage from "@/presentation/website/LandingPage.tsx";
+import {BrowserRouter, Route, Routes} from "react-router";
+import SignIn from "@/components/website/SignIn.tsx";
 
 
 function App() {
 
-  // const [count, setCount] = useState(0)
 
   return (
-      <div >
-          <LandingPage />
-      </div>
+      <BrowserRouter>
+          <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/login" element={<SignIn />} />
+              <Route path="/signup" element={<SignIn />} />
+          </Routes>
+      </BrowserRouter>
   )
 }
 

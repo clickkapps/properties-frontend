@@ -1,10 +1,12 @@
 import { shellImg } from '@/assets'
 import {Button} from "@/components/ui/button.tsx";
 import {useEffect, useState} from "react";
+import { NavLink, useNavigate} from "react-router";
 
 const Navbar = ({ className } : { className? : string }) => {
 
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
 
@@ -25,11 +27,12 @@ const Navbar = ({ className } : { className? : string }) => {
   return (
     <nav className={ `${scrolled && 'bg-black animated fadeInDown'} ${className || ''} px-4 md:px-0` } >
       <div className={`container mx-auto flex justify-between items-center py-2`}>
-        <div className='flex justify-center items-center space-x-2'>
-          <img src={shellImg} className='w-[50px] h-[50px]' alt="Company logo" />
-          <span className='italic text-white'>Name</span>
-        </div>
-
+        <NavLink to="/">
+          <div className='flex justify-center items-center space-x-2'>
+            <img src={shellImg} className='w-[50px] h-[50px]' alt="Company logo"/>
+            <span className='italic text-white'>Name</span>
+          </div>
+        </NavLink>
         <ul className='hidden  md:flex text-white space-x-6'>
           <li><a href="#forSale">For Sale</a></li>
           <li><a href="#forRent">For Rent</a></li>
@@ -40,8 +43,8 @@ const Navbar = ({ className } : { className? : string }) => {
         </ul>
 
         <div className="flex">
-          <Button className="">Register</Button>
-          <Button variant="link" className="text-white">Login</Button>
+          <Button className="" onClick={ () => { navigate("/signup") } } >Register</Button>
+          <Button variant="link" className="text-white" onClick={ () => { navigate("/login") } } >Login</Button>
         </div>
 
       </div>
