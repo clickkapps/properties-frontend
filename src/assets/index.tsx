@@ -3,9 +3,13 @@ import spaceImg from "./images/ai-video-generator-v2.svg"
 import womanImg from "./images/ai-image-generator.svg"
 import forestImg from "./images/reimagine.svg"
 import parrotImg from "./images/upscale.svg"
+import googleLogo from "./images/google.svg"
+import appleLogo from "./images/apple.svg"
+import facebookLogo from "./images/facebook.svg"
+import emailLogo from "./images/mail.svg"
 import propertyImg from "./images/property.svg"
 
-export {shellImg, propertyImg, womanImg}
+export {shellImg, propertyImg, womanImg, googleLogo, appleLogo, facebookLogo, emailLogo}
 
 export const features = [
   {
