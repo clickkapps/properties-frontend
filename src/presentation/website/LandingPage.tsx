@@ -12,7 +12,7 @@ function LandingPage() {
             {/*------- End of Header ------------*/}
 
 
-            <div className="-mt-[60px] md:-mt-[100px] container mx-auto">
+            <div className="-mt-[0px] md:-mt-[0px] container mx-auto">
 
                 {/*------- Exclusive Listings ------------*/}
                 <section id="listings">
@@ -27,7 +27,7 @@ function LandingPage() {
 
                     <div className="space-y-8">
                         {/* Featured Row 1*/}
-                        <div className="columns-1 md:columns-5 gap-8 mx-4 space-y-8">
+                        <div className="columns-1 md:columns-5 gap-8 mx-4 md:mx-0 space-y-8">
                             {Array.from({length: 5}).map((_, index) => (
                                 <PropertyListItem key={"item-" + index}/>
                             ))}

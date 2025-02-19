@@ -10,7 +10,7 @@ function Header() {
             <Navbar  className="fixed w-full z-20"/>
             <div className="h-screen w-full">
 
-                <div className="h-[70%] w-full">
+                <div className="h-[80%] w-full">
                     <div className={`h-full w-full bg-cover bg-center relative`}
                          style={{backgroundImage: `url(${HeaderImageItem1})`}}>
                         <div className="h-full w-full bg-black/50 absolute"></div>

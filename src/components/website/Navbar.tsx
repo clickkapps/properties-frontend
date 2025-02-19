@@ -3,7 +3,7 @@ import {Button} from "@/components/ui/button.tsx";
 import {useEffect, useState} from "react";
 import { NavLink, useNavigate} from "react-router";
 
-const Navbar = ({ className } : { className? : string }) => {
+const Navbar = ({ animate = true, className } : { className? : string, animate?: boolean }) => {
 
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ const Navbar = ({ className } : { className? : string }) => {
   console.log("Nav bar rendered")
 
   return (
-    <nav className={ `${scrolled && 'bg-black animated fadeInDown'} ${className || ''} px-4 md:px-0` } >
+    <nav className={ `${scrolled ? `bg-black ${animate ? 'animated fadeInDown' : ''}` : '' } ${className || ''} px-4 md:px-0` } >
       <div className={`container mx-auto flex justify-between items-center py-2`}>
         <NavLink to="/">
           <div className='flex justify-center items-center space-x-2'>
