@@ -4,13 +4,13 @@ import { Bed, Bath, Toilet, Star, Heart } from "lucide-react"
 
 const PropertyListItem = () => {
   return (
-    <div className="w-full">
+    <div className="w-full ">
       {/* Image Section */}
       <div className="relative">
         <img
           src={propertyImg} 
           alt="House for Sale"
-          className="aspect-square object-cover rounded-lg"
+          className="aspect-square object-cover rounded-lg hover:scale-125 cursor-pointer hover:rounded hover:z-100 transition duration-150"
         />
         
         <span className="absolute top-3 left-2 bg-white text-black text-[14px] font-medium px-3 py-1 rounded-full shadow">

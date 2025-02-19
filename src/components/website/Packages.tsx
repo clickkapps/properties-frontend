@@ -30,7 +30,7 @@ const Packages = () => {
           {pricingPlans.map((plan, index) => (
               <div
                   key={index}
-                  className={`${plan.color} p-8 rounded-xl w-80`}
+                  className={`${plan.color} p-8 rounded-xl w-80 hover:scale-125 cursor-pointer hover:rounded hover:z-100 transition duration-150`}
               >
                 <h3 className="text-lg font-semibold mb-4">{plan.title}</h3>
                 <p className="text-4xl font-semibold mb-6 font-[Inter]">{plan.price}</p>
