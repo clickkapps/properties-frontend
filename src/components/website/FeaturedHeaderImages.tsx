@@ -30,23 +30,24 @@ function FeaturedHeaderImages({ className }: { className: string }) {
                     <CarouselItem key={index} className="md:basis-1/6 cursor-pointer h-[200px]">
                         <div
                             key={index}
-                            className="relative rounded-lg w-full h-full"
+                            className="relative rounded-lg w-full h-full group"
                         >
                             {/* Image */}
                             <img
                                 src={feature.image}
                                 alt={feature.title}
-                                className=" object-cover w-full h-full"
+                                className="absolute object-cover w-full h-full  group-hover:scale-95 cursor-pointer hover:rounded hover:z-100 transition duration-150"
                             />
+                            <div className="w-full h-full group-hover:bg-primary/50 absolute transition duration-150"></div>
                             <div
-                                className="absolute top-0 left-0 bg-gradient-to-b from-black/60 via-transparent to-transparent p-4">
+                                className="absolute top-0 left-0 bg-gradient-to-b w-full from-black/60 via-transparent to-transparent p-4">
                                 <h3 className="text-white font-bold text-lg">{feature.title}</h3>
                                 <p className="text-gray-300 text-sm">{feature.description}</p>
                             </div>
                         </div>
                     </CarouselItem>
                 ))}
-            </CarouselContent>
+                </CarouselContent>
 
             <CarouselPrevious className="left-8"/>
             <CarouselNext className="right-8"/>

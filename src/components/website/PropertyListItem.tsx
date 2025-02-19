@@ -6,18 +6,18 @@ const PropertyListItem = () => {
   return (
     <div className="w-full ">
       {/* Image Section */}
-      <div className="relative">
+      <div className="relative group">
         <img
           src={propertyImg} 
           alt="House for Sale"
-          className="aspect-square object-cover rounded-lg hover:scale-125 cursor-pointer hover:rounded hover:z-100 transition duration-150"
+          className="aspect-square object-cover rounded-lg hover:scale-110 cursor-pointer hover:rounded hover:z-100 transition duration-150"
         />
         
-        <span className="absolute top-3 left-2 bg-white text-black text-[14px] font-medium px-3 py-1 rounded-full shadow">
+        <span className="absolute top-3 left-2 bg-white text-black text-[14px] font-medium px-3 py-1 rounded-full  group-hover:scale-110  transition duration-150">
           For Sale
         </span>
 
-        <button className="absolute top-2 right-2 p-2 rounded-full">
+        <button className="absolute top-2 right-2 p-2 rounded-full group-hover:scale-110  transition duration-150">
           <Heart className="w-[24px] h-[24px] text-white" />
         </button>
       </div>

@@ -30,11 +30,11 @@ const Packages = () => {
           {pricingPlans.map((plan, index) => (
               <div
                   key={index}
-                  className={`${plan.color} p-8 rounded-xl w-80 hover:scale-125 cursor-pointer hover:rounded hover:z-100 transition duration-150`}
+                  className={`${plan.color} group p-8 rounded-xl w-80 hover:bg-slate-800 hover:text-white cursor-pointer transition duration-150`}
               >
                 <h3 className="text-lg font-semibold mb-4">{plan.title}</h3>
                 <p className="text-4xl font-semibold mb-6 font-[Inter]">{plan.price}</p>
-                <p className="text-md font-semibold text-gray-700 mb-6">
+                <p className="text-md font-semibold text-gray-700 mb-6 group-hover:text-gray-400">
                   Basic plan for all users
                 </p>
 
@@ -43,8 +43,8 @@ const Packages = () => {
                   {features.map((feature, i) => (
                       <li key={i} className="flex items-center space-x-3">
 
-                        <div className="w-6 h-6 flex items-center justify-center border-2 border-black rounded-full">
-                          <Check className="w-3 h-3 text-black"/>
+                        <div className="w-6 h-6 flex items-center justify-center border-2 group-hover:border-white border-black rounded-full">
+                          <Check className="w-3 h-3 text-black group-hover:text-white" />
                         </div>
                         <span className="text-sm">{feature}</span>
                       </li>
