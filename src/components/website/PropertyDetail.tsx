@@ -19,7 +19,7 @@ const PropertyDetail = () => {
   };
 
   return (
-    <div className="max-w-[600px] mx-auto bg-white p-4">
+    <div className="max-w-[700px] mx-auto p-4">
       
       <h3 className="font-medium text-base mb-4 text-center sm:text-left">
         5 - BEDROOM HOUSE FOR SALE AT <br /> LABADI, ACCRA

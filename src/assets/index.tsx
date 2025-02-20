@@ -13,6 +13,9 @@ import phoneIcon from "./images/Phone.svg"
 import whatsappIcon from "./images/whatsapp.svg"
 import websiteIcon from "./images/Website.svg"
 import reportIcon from "./images/megaphone.svg"
+import user1 from "./images/userImg1.svg"
+import user2 from "./images/userImg2.svg"
+import advertImg from "./images/adImg.svg"
 
 //GAllery images
 import house1 from "./images/house1.svg"
@@ -25,7 +28,7 @@ import house6 from "./images/house6.svg"
 // exporting gallery images
 export const propertyGalleryImages = [house1, house2, house3, house4, house5, house6]
 
-export {shellImg, propertyImg, womanImg, googleLogo, appleLogo, facebookLogo, emailLogo, locationIcon, phoneIcon, whatsappIcon, websiteIcon, reportIcon}
+export {shellImg, propertyImg, womanImg, googleLogo, appleLogo, facebookLogo, emailLogo, locationIcon, phoneIcon, whatsappIcon, websiteIcon, reportIcon, user1, user2, advertImg}
 
 export const features = [
   {

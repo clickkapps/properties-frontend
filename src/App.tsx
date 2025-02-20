@@ -7,6 +7,7 @@ import MarketedBy from "./components/website/MarketedBy";
 import SafetyTips from "./components/website/SafetyTips";
 import ReportListing from "./components/website/ReportListing";
 import PropertyDetail from "./components/website/PropertyDetail";
+import PropertyDetailsPage from "./presentation/website/PropertyDetailsPage";
 
 
 function App() {
@@ -19,6 +20,8 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<SignIn />} />
               <Route path="/signup" element={<SignIn />} />
+              <Route path="/propertydetail" 
+              element={<PropertyDetailsPage />} />
           </Routes>
       </BrowserRouter>
   )

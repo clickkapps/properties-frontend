@@ -1,4 +1,4 @@
-import { userImg1, userImg2 } from "@/assets";
+import { user1, user2 } from "@/assets";
 import { Star } from "lucide-react";
 
 
@@ -9,7 +9,7 @@ const reviews = [
     rating: 5,
     date: "5 days ago",
     text: "I was very impressed with the house designs. Very very amazing.",
-    image: userImg1,
+    image: user1,
   },
   {
     name: "John",
@@ -17,7 +17,7 @@ const reviews = [
     rating: 5,
     date: "5 days ago",
     text: "Prime location, affordable house right in the heart of the city.",
-    image: userImg2,
+    image: user2,
   },
 ];
 
@@ -31,7 +31,7 @@ const ratingsData = [
 
 const ReviewSection = () => {
   return (
-    <div className="bg-white p-6 m-10 shadow-md w-full max-w-2xl border border-gray-300">
+    <div className="p-6 shadow-md w-full max-w-3xl border border-gray-300">
       <h2 className="text-lg font-medium">Reviews</h2>
       <div className="flex items-center space-x-2 mt-2">
         <Star className="w-5 h-5" style={{ fill:"black" }}/>

@@ -1,6 +1,6 @@
 const PropertyDetailsTable = () => {
   return (
-    <div className="border shadow-sm p-4 bg-white">
+    <div className="border shadow-sm p-4 ">
       <h2 className="text-2xl font-medium mb-6 text-left">Property Details</h2>
 
       {/* Property Details Table */}
