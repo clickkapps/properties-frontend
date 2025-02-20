@@ -19,12 +19,6 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<SignIn />} />
               <Route path="/signup" element={<SignIn />} />
-              <Route path="/details"
-              element={<PropertyDetailsTable />} />
-              <Route path="market" element={<MarketedBy />} />
-              <Route path="safety" element={<SafetyTips />} />
-              <Route path="report" element={<ReportListing />} />
-              <Route path="detail" element={<PropertyDetail />} />
           </Routes>
       </BrowserRouter>
   )
