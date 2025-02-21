@@ -8,8 +8,13 @@ import appleLogo from "./images/apple.svg"
 import facebookLogo from "./images/facebook.svg"
 import emailLogo from "./images/mail.svg"
 import propertyImg from "./images/property.svg"
+import locationIcon from "./images/Location.svg"
+import phoneIcon from "./images/Phone.svg"
+import whatsappIcon from "./images/whatsapp.svg"
+import websiteIcon from "./images/Website.svg"
+import agentsImg from "./images/agentsImg.svg"
 
-export {shellImg, propertyImg, womanImg, googleLogo, appleLogo, facebookLogo, emailLogo}
+export {shellImg, propertyImg, womanImg, googleLogo, appleLogo, facebookLogo, emailLogo, locationIcon, phoneIcon, whatsappIcon, websiteIcon, agentsImg}
 
 export const features = [
   {
