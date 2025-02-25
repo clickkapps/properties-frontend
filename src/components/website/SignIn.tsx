@@ -1,4 +1,4 @@
-import { appleLogo, emailLogo, facebookLogo, googleLogo } from "@/assets";
+import { googleLogo } from "@/assets";
 import { ChevronDown } from "lucide-react";
 import Navbar from "@/components/website/Navbar.tsx";
 import Footer from "@/components/website/Footer.tsx";
@@ -28,7 +28,7 @@ const SignIn = () => {
                       {/* Phone Number Input */}
                       <input
                           type="tel"
-                          placeholder="Phone number"
+                          placeholder="Enter phone number here"
                           className="w-full p-3 mt-2 text-sm outline-none"
                       />
                   </div>
@@ -63,41 +63,41 @@ const SignIn = () => {
           </span>
                   </button>
 
-                  <button
-                      className="flex items-center w-full border border-gray-300 rounded-lg py-3 px-4 mb-4 hover:bg-gray-100 relative">
-                      <img
-                          src={appleLogo}
-                          alt="Apple Logo"
-                          className="w-6 h-6 absolute left-4"
-                      />
-                      <span className="text-sm font-medium mx-auto">
-            Continue with Apple
-          </span>
-                  </button>
+          {/*        <button*/}
+          {/*            className="flex items-center w-full border border-gray-300 rounded-lg py-3 px-4 mb-4 hover:bg-gray-100 relative">*/}
+          {/*            <img*/}
+          {/*                src={appleLogo}*/}
+          {/*                alt="Apple Logo"*/}
+          {/*                className="w-6 h-6 absolute left-4"*/}
+          {/*            />*/}
+          {/*            <span className="text-sm font-medium mx-auto">*/}
+          {/*  Continue with Apple*/}
+          {/*</span>*/}
+          {/*        </button>*/}
 
-                  <button
-                      className="flex items-center w-full border border-gray-300 rounded-lg py-3 px-4 mb-4 hover:bg-gray-100 relative">
-                      <img
-                          src={facebookLogo}
-                          alt="Facebook Logo"
-                          className="w-6 h-6 absolute left-4"
-                      />
-                      <span className="text-sm font-medium mx-auto">
-            Continue with Facebook
-          </span>
-                  </button>
+          {/*        <button*/}
+          {/*            className="flex items-center w-full border border-gray-300 rounded-lg py-3 px-4 mb-4 hover:bg-gray-100 relative">*/}
+          {/*            <img*/}
+          {/*                src={facebookLogo}*/}
+          {/*                alt="Facebook Logo"*/}
+          {/*                className="w-6 h-6 absolute left-4"*/}
+          {/*            />*/}
+          {/*            <span className="text-sm font-medium mx-auto">*/}
+          {/*  Continue with Facebook*/}
+          {/*</span>*/}
+          {/*        </button>*/}
 
-                  <button
-                      className="flex items-center w-full border border-gray-300 rounded-lg py-3 px-4 hover:bg-gray-100 relative">
-                      <img
-                          src={emailLogo}
-                          alt="Email Logo"
-                          className="w-6 h-6 absolute left-4"
-                      />
-                      <span className="text-sm font-medium mx-auto">
-            Continue with Email
-          </span>
-                  </button>
+          {/*        <button*/}
+          {/*            className="flex items-center w-full border border-gray-300 rounded-lg py-3 px-4 hover:bg-gray-100 relative">*/}
+          {/*            <img*/}
+          {/*                src={emailLogo}*/}
+          {/*                alt="Email Logo"*/}
+          {/*                className="w-6 h-6 absolute left-4"*/}
+          {/*            />*/}
+          {/*            <span className="text-sm font-medium mx-auto">*/}
+          {/*  Continue with Email*/}
+          {/*</span>*/}
+          {/*        </button>*/}
               </div>
           </div>
           <div className="h-4 md:h-16"></div>

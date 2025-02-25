@@ -1,5 +1,6 @@
 import { propertyImg } from "@/assets"
 import { Bed, Bath, Toilet, Star, Heart } from "lucide-react"
+import {Link} from "react-router";
 
 
 const PropertyListItem = () => {
@@ -7,11 +8,14 @@ const PropertyListItem = () => {
     <div className="w-full ">
       {/* Image Section */}
       <div className="relative group">
+
+        <Link to="/propertydetail" >
         <img
           src={propertyImg} 
           alt="House for Sale"
-          className="aspect-square object-cover rounded-lg hover:scale-110 cursor-pointer hover:rounded hover:z-100 transition duration-150"
+          className="aspect-square object-cover rounded-lg hover:scale-110 cursor-pointer hover:z-100 transition duration-150"
         />
+        </Link>
         
         <span className="absolute top-3 left-2 bg-white text-black text-[14px] font-medium px-3 py-1 rounded-full  group-hover:scale-110  transition duration-150">
           For Sale
