@@ -2,7 +2,7 @@ import { locationIcon, phoneIcon, websiteIcon, whatsappIcon } from "@/assets"
 
 const MarketedBy = () => {
   return (
-    <div className="border border-gray-300 shadow-sm bg-white m-4">
+    <div className="border border-gray-300 bg-white m-4">
   
       <div className="bg-[#d9d9d9] px-4 py-2 font-medium text-[15px]">Marketed by</div>
 
@@ -10,7 +10,7 @@ const MarketedBy = () => {
         <h3 className="font-semibold text-sm">AA COMPANY LIMITED</h3>
 
         {/* Contact Details */}
-        <div className="space-y-4 text-sm">
+        <div className="space-y-6 text-sm">
           <div className="flex items-center space-x-2">
             <img src={locationIcon} alt="Location" className="w-5 h-5" />
             <span>Cantonment, Greater Accra</span>

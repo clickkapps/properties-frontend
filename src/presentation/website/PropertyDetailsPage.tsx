@@ -16,7 +16,7 @@ const PropertyDetailsPage = () => {
       <Navbar className="bg-black" />
 
       {/* Main Content */}
-      <div className="max-w-6xl mx-auto p-4 lg:p-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="container mx-auto p-4 lg:p-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
         
         {/* Left Section */}
         <div className="lg:col-span-2 space-y-6">
@@ -27,12 +27,12 @@ const PropertyDetailsPage = () => {
 
         {/* Right Section */}
         <div className="flex flex-col gap-6">
-          {/* Move the Advert Image to the Bottom on Mobile */}
+          {/* Advert Image */}
           <div className="order-3 lg:order-1">
             <img 
               src={advertImg} 
               alt="advert" 
-              className="w-full h-auto"
+              className="w-full lg:w-[90%] h-auto mx-auto mt-20"
             />
           </div>
 
@@ -42,23 +42,21 @@ const PropertyDetailsPage = () => {
           </div>
 
           {/* Report Listing Section */}
-          <div className="order-2 lg:order-3">
+          <div className="order-2 lg:order-3 mt-6">
             <ReportListing />
           </div>
 
           {/* Safety Tips Section */}
-          <div className="order-3 lg:order-4">
+          <div className="order-3 lg:order-4 mt-6">
             <SafetyTips />
           </div>
         </div>
       </div>
 
       {/* Related Properties */}
-      <div className="max-w-6xl mx-auto p-4 lg:p-8">
-        <h2 className="text-lg text-center font-semibold mb-4">Related Properties</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-          <PropertyListItem />
-          <PropertyListItem />
+      <div className="container mx-auto p-4 lg:p-8">
+        <h2 className="text-3xl text-center font-semibold mb-4">Related Properties</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <PropertyListItem />
           <PropertyListItem />
           <PropertyListItem />

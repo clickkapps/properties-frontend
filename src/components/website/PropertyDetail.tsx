@@ -19,9 +19,9 @@ const PropertyDetail = () => {
   };
 
   return (
-    <div className="max-w-[700px] mx-auto p-4">
+    <div className="container mx-auto p-4">
       
-      <h3 className="font-medium text-base mb-4 text-center sm:text-left">
+      <h3 className="font-medium text-3xl mb-4 text-center sm:text-left">
         5 - BEDROOM HOUSE FOR SALE AT <br /> LABADI, ACCRA
       </h3>
 
@@ -30,7 +30,7 @@ const PropertyDetail = () => {
         <img 
           src={propertyGalleryImages[currentIndex]} 
           alt="Property"
-          className="w-full h-[300px] object-cover rounded-lg"
+          className="w-full h-[350px] object-cover rounded-lg"
         />
 
         {/* Left navigation */}
@@ -56,7 +56,7 @@ const PropertyDetail = () => {
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
-            className={`w-20 h-16 rounded-lg overflow-hidden border-2 ${
+            className={`w-[18%] h-20 rounded-lg overflow-hidden border-2 ${
               index === currentIndex ? "border-blue-500" : "border-transparent"
             }`}
           >
@@ -66,7 +66,7 @@ const PropertyDetail = () => {
 
         {/* Extra image thumbnail */}
         {propertyGalleryImages.length > 4 && (
-          <div className="w-20 h-16 flex items-center justify-center bg-gray-300 text-white text-lg font-bold rounded-lg">
+          <div className="w-[18%] h-20 flex items-center justify-center bg-gray-300 text-white text-lg font-bold rounded-lg">
             +{propertyGalleryImages.length - 4}
           </div>
         )}
