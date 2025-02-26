@@ -31,7 +31,7 @@ const ratingsData = [
 
 const ReviewSection = () => {
   return (
-    <div className="bg-white p-6 m-10 shadow-md w-full max-w-2xl border border-gray-300">
+    <div className="bg-white p-6 m-10 w-full max-w-2xl border border-gray-300">
       <h2 className="text-lg font-medium">Reviews</h2>
       <div className="flex items-center space-x-2 mt-2">
         <Star className="w-5 h-5" style={{ fill:"black" }}/>
