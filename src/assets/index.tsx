@@ -13,8 +13,10 @@ import phoneIcon from "./images/Phone.svg"
 import whatsappIcon from "./images/whatsapp.svg"
 import websiteIcon from "./images/Website.svg"
 import agentsImg from "./images/agentsImg.svg"
+import userImg1 from "./images/user1.svg"
+import userImg2 from "./images/user2.svg"
 
-export {shellImg, propertyImg, womanImg, googleLogo, appleLogo, facebookLogo, emailLogo, locationIcon, phoneIcon, whatsappIcon, websiteIcon, agentsImg}
+export {shellImg, propertyImg, womanImg, googleLogo, appleLogo, facebookLogo, emailLogo, locationIcon, phoneIcon, whatsappIcon, websiteIcon, agentsImg,  userImg1, userImg2}
 
 export const features = [
   {
