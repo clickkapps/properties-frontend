@@ -18,6 +18,7 @@ function App() {
               <Route path="/login" element={<SignInPage />} />
               <Route path="/signup" element={<SignInPage />} />
               <Route path="/property-detail" element={<PropertyDetailPage />} />
+              {/*<Route path="/pd" element={<PropertyDetailsPage />} />*/}
           </Routes>
       </BrowserRouter>
   )

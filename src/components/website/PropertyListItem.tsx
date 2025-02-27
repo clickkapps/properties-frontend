@@ -12,7 +12,7 @@ const PropertyListItem = () => {
             <img
                 src={propertyImg}
                 alt="House for Sale"
-                className="aspect-square object-cover rounded-lg hover:scale-110 cursor-pointer hover:rounded hover:z-100 transition duration-150"
+                className="aspect-square object-cover rounded-lg hover:scale-110 cursor-pointer hover:z-100 transition duration-150"
             />
 
             <span

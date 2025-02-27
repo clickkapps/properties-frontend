@@ -51,7 +51,12 @@ const Packages = () => {
                   ))}
                 </ul>
 
-                <button className="mt-6 bg-black text-white text-[15px] py-2 px-3 rounded-md">
+                <button className="mt-6 bg-black text-white text-[15px] py-2 px-3 rounded-md
+                 group-hover:border-white
+                 group-hover:border
+                 group-hover:scale-110
+                 transition duration-1000
+                 ">
                   Get {plan.description} Plan
                 </button>
               </div>

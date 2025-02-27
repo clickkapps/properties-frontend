@@ -1,7 +1,7 @@
 import Header from "@/components/website/Header.tsx";
-import PropertyListItem from "@/components/website/PropertyListItem.tsx";
 import Footer from "@/components/website/Footer.tsx";
 import Packages from "@/components/website/Packages.tsx";
+import FeaturedProperties from "@/components/website/FeaturedProperties.tsx";
 
 
 function LandingPage() {
@@ -32,21 +32,7 @@ function LandingPage() {
 
                     {/*Listing content*/}
 
-                    <div className="space-y-8">
-                        {/* Featured Row 1*/}
-                        <div className="columns-1 md:columns-5 gap-8 mx-4 md:mx-0 space-y-8">
-                            {Array.from({length: 5}).map((_, index) => (
-                                <PropertyListItem key={"item-" + index}/>
-                            ))}
-                        </div>
-
-                        {/* Featured Row 2*/}
-                        <div className="columns-1 md:columns-5 gap-8 mx-4 md:mx-0 space-y-8">
-                            {Array.from({length: 5}).map((_, index) => (
-                                <PropertyListItem key={"item-" + index}/>
-                            ))}
-                        </div>
-                    </div>
+                    <FeaturedProperties />
 
                 </section>
                 {/*------- End of Exclusive Listings ------------*/}
