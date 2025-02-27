@@ -2,14 +2,14 @@ import { agentsImg, locationIcon, phoneIcon, websiteIcon, whatsappIcon } from "@
 
 const AgentInfoCard = () => {
   return (
-    <div className="border rounded-md shadow-sm p-6 w-full max-w-2xl mx-auto bg-white">
+    <div className="border rounded-md p-6 w-full mx-auto bg-white">
       
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Image */}
         <img 
           src={agentsImg} 
           alt="agent image" 
-          className="w-full lg:w-1/2 h-[250px] object-cover rounded-md"
+          className="aspect-square max-h-[250px] object-cover rounded-md"
         />
 
         {/* Agent info */}

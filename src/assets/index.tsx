@@ -1,8 +1,5 @@
 import shellImg from "./images/shell.svg"
-import spaceImg from "./images/ai-video-generator-v2.svg"
 import womanImg from "./images/ai-image-generator.svg"
-import forestImg from "./images/reimagine.svg"
-import parrotImg from "./images/upscale.svg"
 import googleLogo from "./images/google.svg"
 import appleLogo from "./images/apple.svg"
 import facebookLogo from "./images/facebook.svg"
@@ -38,64 +35,64 @@ export const propertyGalleryImages = [house1, house2, house3, house4, house5, ho
 
 export const features = [
   {
-    image: spaceImg,
-    title: "AI Video Generator",
-    description: "Create videos from text or images",
+    image: house1,
+    title: "2 Beds 1 Bath",
+    description: "East Legon Hills",
   },
   {
-    image: womanImg,
-    title: "AI Image Generator",
-    description: "From words to images",
+    image: house2,
+    title: "2 Beds 1 Bath",
+    description: "East Legon Hills",
   },
   {
-    image: forestImg,
-    title: "Reimagine",
-    description: "Variations with AI",
+    image: house3,
+    title: "2 Beds 1 Bath",
+    description: "East Legon Hills",
   },
   {
-    image: parrotImg,
-    title: "Upscale",
-    description: "Increase resolution and details",
+    image: house4,
+    title: "2 Beds 1 Bath",
+    description: "East Legon Hills",
   },
   {
-    image: spaceImg,
-    title: "AI Video Generator",
-    description: "Create videos from text or images",
+    image: house5,
+    title: "2 Beds 1 Bath",
+    description: "East Legon Hills",
   },
   {
-    image: womanImg,
-    title: "AI Image Generator",
-    description: "From words to images",
+    image: house3,
+    title: "2 Beds 1 Bath",
+    description: "East Legon Hills",
   },
   {
-    image: forestImg,
-    title: "Reimagine",
-    description: "Variations with AI",
+    image: house1,
+    title: "2 Beds 1 Bath",
+    description: "East Legon Hills",
   },
   {
-    image: parrotImg,
-    title: "Upscale",
-    description: "Increase resolution and details",
+    image: house2,
+    title: "2 Beds 1 Bath",
+    description: "East Legon Hills",
   },
   {
-    image: parrotImg,
-    title: "Upscale",
-    description: "Increase resolution and details",
+    image: house3,
+    title: "2 Beds 1 Bath",
+    description: "East Legon Hills",
   },
   {
-    image: spaceImg,
-    title: "AI Video Generator",
-    description: "Create videos from text or images",
+    image: house4,
+    title: "2 Beds 1 Bath",
+    description: "East Legon Hills",
   },
   {
-    image: womanImg,
-    title: "AI Image Generator",
-    description: "From words to images",
+    image: house5,
+    title: "2 Beds 1 Bath",
+    description: "East Legon Hills",
   },
   {
-    image: forestImg,
-    title: "Reimagine",
-    description: "Variations with AI",
+    image: house4,
+    title: "2 Beds 1 Bath",
+    description: "East Legon Hills",
   },
 
 ]

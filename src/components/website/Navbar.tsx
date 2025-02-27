@@ -1,7 +1,7 @@
 import { shellImg } from '@/assets'
 import {Button} from "@/components/ui/button.tsx";
 import {useEffect, useState} from "react";
-import { NavLink, useNavigate} from "react-router";
+import {Link, NavLink, useNavigate} from "react-router";
 
 const Navbar = ({ animate = true, className } : { className? : string, animate?: boolean }) => {
 
@@ -34,11 +34,17 @@ const Navbar = ({ animate = true, className } : { className? : string, animate?:
           </div>
         </NavLink>
         <ul className='hidden  md:flex text-white space-x-6'>
-          <li><a href="#forSale">For Sale</a></li>
-          <li><a href="#forRent">For Rent</a></li>
-          <li><a href="#agents">Agents</a></li>
-          <li><a href="#developers">Developers</a></li>
-          <li><a href="#advice">Advice</a></li>
+          <li>
+            <Link to={'/properties/sale'}> For Sale </Link>
+          </li>
+          <li>
+            <Link to={'/properties/rent'}> For Rent </Link>
+          </li>
+          <li>
+            <Link to="/agents">Agents</Link>
+          </li>
+          {/*<li><a href="#developers">Developers</a></li>*/}
+          {/*<li><a href="#advice">Advice</a></li>*/}
           <li><a href="#blog">Blog</a></li>
         </ul>
 
