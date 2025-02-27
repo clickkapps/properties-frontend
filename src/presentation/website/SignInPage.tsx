@@ -3,7 +3,7 @@ import { ChevronDown } from "lucide-react";
 import Navbar from "@/components/website/Navbar.tsx";
 import Footer from "@/components/website/Footer.tsx";
 
-const SignIn = () => {
+const SignInPage = () => {
   return (
       <div className="md:bg-gray-100 bg-white">
           <Navbar className="fixed bg-black w-full z-20 " animate={false}/>
@@ -106,4 +106,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignInPage;
