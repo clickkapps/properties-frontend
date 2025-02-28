@@ -2,7 +2,7 @@ import { Search } from "lucide-react"
 
 const Searchbar = ({ className }: { className: string}) => {
 
-    const classes  = `bg-white shadow-md p-2 rounded-full flex items-center w-full max-w-5xl mx-auto ${className}`
+    const classes  = `bg-white p-2 rounded-full flex items-center w-full max-w-5xl mx-auto ${className}`
 
     return (
     <div className={classes}>

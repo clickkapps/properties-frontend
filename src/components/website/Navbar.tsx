@@ -26,18 +26,18 @@ const Navbar = ({ animate = true, className, children } : { className? : string,
 
   // Default if no links are provided
   const defaultLinks = <ul className='hidden  md:flex text-white space-x-6'>
-    <li>
+    <li className="hover:text-white/70">
       <Link to={'/properties/sale'}> For Sale </Link>
     </li>
-    <li>
+    <li className="hover:text-white/70">
       <Link to={'/properties/rent'}> For Rent </Link>
     </li>
-    <li>
+    <li className="hover:text-white/70">
       <Link to="/agents">Agents</Link>
-    </li>
+    </li >
     {/*<li><a href="#developers">Developers</a></li>*/}
     {/*<li><a href="#advice">Advice</a></li>*/}
-    <li><a href="#blog">Blog</a></li>
+    <li className="hover:text-white/70"><a href="/">Blog</a></li>
   </ul>
 
 
