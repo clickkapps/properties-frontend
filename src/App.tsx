@@ -6,6 +6,10 @@ import PropertyDetailPage from "@/presentation/website/PropertyDetailPage.tsx";
 import AgentsPage from "@/presentation/website/AgentsPage.tsx";
 import AgentDetailPage from "@/presentation/website/AgentDetailPage.tsx";
 import PropertyListPage from "@/presentation/website/PropertyListPage.tsx";
+import HomePage from "@/presentation/agent-dashboard/HomePage.tsx";
+import AgentLayout from "@/components/agent-dashboard/AgentLayout.tsx";
+import MyListings from "@/presentation/agent-dashboard/MyListings.tsx";
+import OfficeLayout from "@/components/office-dashboard/OfficeLayout.tsx";
 // import AgentCard from "./components/website/AgentCard";
 // import AgentInfoCard from "./components/website/AgentInfoCard";
 
@@ -24,6 +28,11 @@ function App() {
               <Route path="/property-detail" element={<PropertyDetailPage />} />
               <Route path="/agents" element={<AgentsPage />} />
               <Route path="/agent-detail" element={<AgentDetailPage />} />
+              <Route path="/agent" element={<AgentLayout />} >
+                  <Route index element={<HomePage />} />
+                  <Route path="listings" element={<MyListings />} />
+              </Route>
+              <Route path="/office" element={<OfficeLayout />} />
           </Routes>
       </BrowserRouter>
   )

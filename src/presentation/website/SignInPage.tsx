@@ -2,8 +2,12 @@ import { googleLogo } from "@/assets";
 import { ChevronDown } from "lucide-react";
 import Navbar from "@/components/website/Navbar.tsx";
 import Footer from "@/components/website/Footer.tsx";
+import {useNavigate} from "react-router";
 
 const SignInPage = () => {
+
+  const navigate = useNavigate();
+
   return (
       <div className="md:bg-gray-100 bg-white">
           <Navbar className="fixed bg-black w-full z-20 " animate={false}/>
@@ -39,7 +43,9 @@ const SignInPage = () => {
                   </p>
 
                   {/* Confirm Button */}
-                  <button className="w-full bg-red-600 text-white py-3 rounded-lg mt-4 hover:bg-red-700">
+                  <button className="w-full bg-red-600 text-white py-3 rounded-lg mt-4 hover:bg-red-700"
+                    onClick={() => navigate('/agent')}
+                  >
                       Confirm
                   </button>
 
@@ -58,9 +64,9 @@ const SignInPage = () => {
                           alt="Google Logo"
                           className="w-6 h-6 absolute left-4"
                       />
-                      <span className="text-sm font-medium mx-auto">
-            Continue with Google
-          </span>
+                      <span className="text-sm font-medium mx-auto" onClick={() => navigate('/agent')}>
+                        Continue with Google
+                      </span>
                   </button>
 
           {/*        <button*/}
