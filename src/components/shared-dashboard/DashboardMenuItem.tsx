@@ -1,14 +1,18 @@
-import { LayoutDashboard } from 'lucide-react';
+import {Link} from "react-router";
+import {ReactNode} from "react";
 
-function DashboardMenuItem({ title, selected = false }: { title: string, selected?: boolean}) {
+function DashboardMenuItem({ icon, title, to = "/", active = false }: { icon: ReactNode, title: string, active?: boolean, to? : string}) {
     return (
         <>
-            <menu className={` ${selected ? 'bg-[#f5f5f5]' : ''} `}>
-                <li className="py-4 flex px-6 gap-3 items-center">
-                    <LayoutDashboard size={20} />
-                    <span>{ title }</span>
-                </li>
-            </menu>
+            <Link to={to}>
+                <menu className={` ${active ? 'bg-[#f5f5f5]' : ''} `}>
+                    <li className="py-4 flex px-6 gap-3 items-center">
+                        { icon }
+
+                        <span className="text-sm">{title}</span>
+                    </li>
+                </menu>
+            </Link>
         </>
     )
 }

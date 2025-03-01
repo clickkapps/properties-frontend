@@ -1,29 +1,29 @@
-import {Button} from "@/components/ui/button.tsx";
-import { BellDot } from 'lucide-react';
-import { Settings } from 'lucide-react';
-import { CircleUser } from 'lucide-react';
+import Navbar from "@/components/website/Navbar.tsx";
+import {Link} from "react-router";
+import AgentTopBar from "@/components/agent-dashboard/AgentTopBar.tsx";
 
-function AgentHeader() {
-    return (
-        <div className="border-b">
-            <div className="flex">
-                <div id="dashboard-header-title" className="w-[20%] border-r "></div>
-                <div className="mr-[7.5%] w-full flex justify-end ">
-                    <div id="dashboard-header-actions" className="flex flex-row gap-4 py-2 ">
-                        <Button variant="ghost" size="icon">
-                            <Settings/>
-                        </Button>
-                        <Button variant="ghost" size="icon">
-                            <BellDot/>
-                        </Button>
-                        <Button variant="ghost" size="icon">
-                            <CircleUser/>
-                        </Button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
+const AgentHeader = () => {
+
+  return (
+      <div id="fixed-header">
+          <Navbar className="fixed bg-black w-full z-30 " animate={false}>
+              <ul className='hidden  md:flex text-white space-x-6'>
+                  <li>
+                      <Link to={'/properties/sale'}> My listings </Link>
+                  </li>
+                  <li>
+                      <Link to={'/properties/rent'}> Reviews </Link>
+                  </li>
+                  <li>
+                      <Link to="/agents">Membership</Link>
+                  </li>
+              </ul>
+          </Navbar>
+
+          <AgentTopBar/>
+      </div>
+
+  )
 }
 
-export default AgentHeader;
+export default AgentHeader

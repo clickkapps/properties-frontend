@@ -8,8 +8,10 @@ import AgentDetailPage from "@/presentation/website/AgentDetailPage.tsx";
 import PropertyListPage from "@/presentation/website/PropertyListPage.tsx";
 import HomePage from "@/presentation/agent-dashboard/HomePage.tsx";
 import AgentLayout from "@/components/agent-dashboard/AgentLayout.tsx";
-import MyListings from "@/presentation/agent-dashboard/MyListings.tsx";
+import MyListingsPage from "@/presentation/agent-dashboard/MyListingsPage.tsx";
 import OfficeLayout from "@/components/office-dashboard/OfficeLayout.tsx";
+import MembershipPage from "@/presentation/agent-dashboard/MembershipPage.tsx";
+import ReviewsPage from "@/presentation/agent-dashboard/ReviewsPage.tsx";
 // import AgentCard from "./components/website/AgentCard";
 // import AgentInfoCard from "./components/website/AgentInfoCard";
 
@@ -30,7 +32,9 @@ function App() {
               <Route path="/agent-detail" element={<AgentDetailPage />} />
               <Route path="/agent" element={<AgentLayout />} >
                   <Route index element={<HomePage />} />
-                  <Route path="listings" element={<MyListings />} />
+                  <Route path="listings" element={<MyListingsPage />} />
+                  <Route path="reviews" element={<ReviewsPage />} />
+                  <Route path="membership" element={<MembershipPage />} />
               </Route>
               <Route path="/office" element={<OfficeLayout />} />
           </Routes>
