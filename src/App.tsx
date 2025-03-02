@@ -42,11 +42,6 @@ function App() {
                   <Route path="membership" element={<MembershipPage />} />
               </Route>
               <Route path="/office" element={<OfficeLayout />} />
-              <Route path="/totalproperties" element={<TotalPropertiesCard />} />
-              <Route path="/advert" element={<AdvertiseCard />} />
-              <Route path="/list" element={<AddListingsCard />} />
-              <Route path="/msg" element={<RecentMessages />} />
-              <Route path="/chart" element={<PropertyViewChart />} />
           </Routes>
       </BrowserRouter>
   )
