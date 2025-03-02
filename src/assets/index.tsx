@@ -30,6 +30,7 @@ export { shellImg, propertyImg,
   facebookLogo, emailLogo, locationIcon, phoneIcon,
   whatsappIcon, websiteIcon, agentsImg,
   userImg1, userImg2, propGalleryImage, user1, user2, advertImg}
+
 // exporting gallery images
 export const propertyGalleryImages = [house1, house2, house3, house4, house5, house6]
 
