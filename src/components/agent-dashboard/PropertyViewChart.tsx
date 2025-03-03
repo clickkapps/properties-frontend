@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
 // Sample Data
 const data = [
@@ -10,6 +10,23 @@ const data = [
   { name: "42", views: 42, percentage: "19.2%" },
 ];
 
+// Custom X-Axis Tick Formatter
+const CustomXAxisTick = (props: any) => {
+  const { x, y, payload } = props;
+  const item = data.find((d) => d.name === payload.value);
+
+  return (
+    <g transform={`translate(${x},${y})`}>
+      <text x={0} y={0} dy={10} textAnchor="middle" fontSize={14} fontWeight="bold">
+        {payload.value}
+      </text>
+      <text x={0} y={15} dy={10} textAnchor="middle" fontSize={12} fill="gray">
+        {item?.percentage}
+      </text>
+    </g>
+  );
+};
+
 const PropertyViewChart = () => {
   return (
     <Card className="container mx-auto w-full p-6">
@@ -18,12 +35,22 @@ const PropertyViewChart = () => {
       </CardHeader>
 
       <CardContent>
-        <ResponsiveContainer width="100%" height={250}>
-          <BarChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 10 }}>
-            <XAxis dataKey="name" />
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 30 }}>
+            {/* Horizontal Grid Lines */}
+            <CartesianGrid strokeDasharray="3 3" vertical={false} />
+
+            {/* Custom X-Axis with Numbers and Percentages */}
+            <XAxis dataKey="name" tick={<CustomXAxisTick />} />
+
+            {/* Y-Axis */}
             <YAxis />
+
+            {/* Tooltip */}
             <Tooltip />
-            <Bar dataKey="views" fill="#4F46E5" radius={[4, 4, 0, 0]} />
+
+            {/* Bar Chart */}
+            <Bar dataKey="views" fill="#4F46E5" radius={[50, 50, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </CardContent>

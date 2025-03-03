@@ -6,7 +6,7 @@ import TotalPropertiesCard from "@/components/agent-dashboard/TotalPropertiesCar
 
 function HomePage() {
     return (
-        <div className="ontainer mx-auto">
+        <div className="container mx-auto">
             <h2 className="text-2xl font-semibold"> Dashboard</h2>
 
             <div className=" grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
@@ -16,14 +16,9 @@ function HomePage() {
                 <AddListingsCard />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-                <div className="">
-                    <PropertyViewChart />
-                </div>
-
-                <div className="pl-6">
-                    <RecentMessages />
-                </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-10 h-full">   
+                <PropertyViewChart />  
+                <RecentMessages />
             </div>
         </div>
     )

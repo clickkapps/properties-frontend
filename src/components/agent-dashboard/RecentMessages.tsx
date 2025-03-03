@@ -9,8 +9,8 @@ const messages = [
 
 const RecentMessages = () => {
   return (
-    <div className="bg-white border p-6 w-full max-w-md">
-      <h3 className="text-lg font-medium mb-4">Recent Messages</h3>
+    <div className="container mx-auto bg-white border p-6 w-[90%] h-full">
+      <h3 className="text-lg font-semibold mb-4">Recent Messages</h3>
 
       <div className="space-y-4">
         {messages.map((msg) => (
@@ -26,7 +26,7 @@ const RecentMessages = () => {
                 {msg.title} {msg.sender && <span className="font-bold text-black">.{msg.sender}</span>}
               </p>
 
-              <div className="flex fustify-between itemscenter">
+              <div className="flex fustify-between items-center">
                 {/* Text */}
                 <p className="text-xs text-gray-600 truncate sm:whitespace-normal ">{msg.text}</p>
 
@@ -34,7 +34,6 @@ const RecentMessages = () => {
                 <p className="text-xs text-gray-600 whitespace-nowrap">{msg.date}</p>
               </div>
               
-
             </div>
           </div>
 
