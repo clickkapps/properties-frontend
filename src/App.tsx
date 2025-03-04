@@ -38,6 +38,8 @@ function App() {
               <Route path="/agent" element={<AgentLayout />} >
                   <Route index element={<HomePage />} />
                   <Route path="listings" element={<MyListingsPage />} />
+                  <Route path="add-listing-decision" element={ <MyListingsPage />} />
+                  <Route path="add-listing" element={ <MyListingsPage />} />
                   <Route path="reviews" element={<ReviewsPage />} />
                   <Route path="membership" element={<MembershipPage />} />
               </Route>
