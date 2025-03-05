@@ -17,6 +17,7 @@ import AdvertiseCard from "./components/agent-dashboard/AdvertiseCard";
 import AddListingsCard from "./components/agent-dashboard/AddListingsCard";
 import RecentMessages from "./components/agent-dashboard/RecentMessages";
 import PropertyViewChart from "./components/agent-dashboard/PropertyViewChart";
+import MembershipCard from "./components/agent-dashboard/MembershipCard";
 // import AgentCard from "./components/website/AgentCard";
 // import AgentInfoCard from "./components/website/AgentInfoCard";
 
@@ -44,6 +45,7 @@ function App() {
                   <Route path="membership" element={<MembershipPage />} />
               </Route>
               <Route path="/office" element={<OfficeLayout />} />
+              <Route path="/membership" element={<MembershipCard />} />
           </Routes>
       </BrowserRouter>
   )
