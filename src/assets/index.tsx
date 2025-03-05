@@ -16,6 +16,7 @@ import propGalleryImage from "./images/prop-gallery-img-1.svg"
 import user1 from "./images/user1.svg"
 import user2 from "./images/user1.svg"
 import advertImg from "./images/adImg.svg"
+import reviewImg from "./images/reviewImg.svg"
 
 //GAllery images
 import house1 from "./images/house1.svg"
@@ -29,7 +30,7 @@ export { shellImg, propertyImg,
   womanImg, googleLogo, appleLogo,
   facebookLogo, emailLogo, locationIcon, phoneIcon,
   whatsappIcon, websiteIcon, agentsImg,
-  userImg1, userImg2, propGalleryImage, user1, user2, advertImg}
+  userImg1, userImg2, propGalleryImage, user1, user2, advertImg, reviewImg}
 
 // exporting gallery images
 export const propertyGalleryImages = [house1, house2, house3, house4, house5, house6]
