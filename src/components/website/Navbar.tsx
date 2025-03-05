@@ -43,7 +43,7 @@ const Navbar = ({ animate = true, className, children } : { className? : string,
 
   return (
       <nav
-          className={`${scrolled ? `bg-black ${animate ? 'animated fadeInDown' : ''}` : ''} ${className || ''} px-4 md:px-0`}>
+          className={`${scrolled ? ` ${animate ? 'bg-black animated fadeInDown' : ''}` : ''} ${className || ''} px-4 md:px-0`}>
         <div className={`container mx-auto flex justify-between items-center py-2`}>
           <NavLink to="/">
             <div className='flex justify-center items-center space-x-2'>
@@ -61,6 +61,9 @@ const Navbar = ({ animate = true, className, children } : { className? : string,
             <Button variant="link" className="text-white" onClick={() => {
               navigate("/login")
             }}>Login</Button>
+            <Button variant="link" className="text-white" onClick={() => {
+              navigate("/office")
+            }}>Admin</Button>
           </div>
 
         </div>

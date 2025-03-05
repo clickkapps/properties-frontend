@@ -1,15 +1,12 @@
 import AgentHeader from "@/components/agent-dashboard/AgentHeader.tsx";
 import Footer from "@/components/website/Footer.tsx";
-import {Outlet, useLocation} from "react-router";
-import DashboardMenuItem from "@/components/shared-dashboard/DashboardMenuItem.tsx";
-import {LayoutDashboard} from "lucide-react";
-import { Logs, Star, Award } from 'lucide-react';
+import {Outlet} from "react-router";
 import {useEffect, useState} from "react";
+import AgentSideBar from "@/components/agent-dashboard/AgentSideBar.tsx";
 
 
 function AgentLayout() {
     // <LayoutDashboard size={20}/>
-    const location = useLocation();
     const [headerMargin, setHeaderMargin] = useState(0)
 
     useEffect(() => {
@@ -28,31 +25,7 @@ function AgentLayout() {
 
                 {/* Sidebar */}
                 <div  className="w-[15%] border-r h-screen fixed overflow-y-auto" id="agent-dashboard-sidebar" >
-                    <DashboardMenuItem
-                        icon={<LayoutDashboard size={20}/>}
-                        title="Dashboard"
-                        to={"/agent"}
-                        active={location.pathname === "/agent"}
-                    />
-                    <DashboardMenuItem
-                        icon={<Logs size={20}/>}
-                        title="My Listings"
-                        to="/agent/listings"
-                        active={location.pathname === "/agent/listings"}
-                    />
-                    <DashboardMenuItem
-                        icon={<Star size={20}/>}
-                        title="Reviews"
-                        to={"/agent/reviews"}
-                        active={location.pathname === "/agent/reviews"}
-                    />
-                    <DashboardMenuItem
-                        icon={<Award size={20}/>}
-                        title="Membership"
-                        to={"/agent/membership"}
-                        active={location.pathname === "/agent/membership"}
-                    />
-
+                    <AgentSideBar />
                 </div>
 
                 {/* Content */}

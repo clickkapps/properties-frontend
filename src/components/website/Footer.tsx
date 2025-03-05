@@ -1,13 +1,14 @@
 import { Globe } from 'lucide-react';
 import {shellImg} from "@/assets";
 
-function Footer() {
+function Footer({collapse = false}: {collapse?: boolean}) {
     return (
         <>
             <div className="bg-black text-white">
 
 
-                <div className="container mx-auto px-6 py-20">
+                {!collapse &&
+                    <div className="container mx-auto px-6 py-20">
 
                     <div className="flex flex-col  md:flex-row justify-between gap-10">
 
@@ -29,7 +30,7 @@ function Footer() {
                             </li>
                             <li className='tracking-tight hover:text-primary text-sm'>Tel: +1709333333
                             </li>
-                            <li className='tracking-tight hover:text-primary text-sm'> Website: guideme.services </li>
+                            <li className='tracking-tight hover:text-primary text-sm'> Website: guideme.services</li>
                         </ul>
 
                         <ul className="flex flex-col decoration-0 gap-4 items-start">
@@ -44,6 +45,8 @@ function Footer() {
                     </div>
 
                 </div>
+                }
+
 
                 <div className="h-[1px] bg-slate-700"></div>
 
