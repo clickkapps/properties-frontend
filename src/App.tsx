@@ -19,6 +19,7 @@ import RecentMessages from "./components/agent-dashboard/RecentMessages";
 import PropertyViewChart from "./components/agent-dashboard/PropertyViewChart";
 import MembershipCard from "./components/agent-dashboard/MembershipCard";
 import ReviewCard from "./components/agent-dashboard/ReviewCard";
+import MembershipPackages from "./components/agent-dashboard/MembershipPackages";
 // import AgentCard from "./components/website/AgentCard";
 // import AgentInfoCard from "./components/website/AgentInfoCard";
 
@@ -47,7 +48,7 @@ function App() {
               </Route>
               <Route path="/office" element={<OfficeLayout />} />
               <Route path="/membership" element={<MembershipCard />} />
-              <Route path="/reviewcard" element={<ReviewCard />} />
+              <Route path="/mempack" element={<MembershipPackages />} />
           </Routes>
       </BrowserRouter>
   )
