@@ -3,7 +3,7 @@ import {Button} from "@/components/ui/button.tsx";
 import {ReactNode, useEffect, useState} from "react";
 import {Link, NavLink, useNavigate} from "react-router";
 
-const Navbar = ({ animate = true, className, children } : { className? : string, animate?: boolean, children?: ReactNode }) => {
+const Navbar = ({ animate = true, className, children, rightMenuLinks } : { className? : string, animate?: boolean, children?: ReactNode, rightMenuLinks?: ReactNode }) => {
 
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
@@ -40,6 +40,20 @@ const Navbar = ({ animate = true, className, children } : { className? : string,
     <li className="hover:text-white/70"><a href="/">Blog</a></li>
   </ul>
 
+  const defaultRightMenuLinks = (
+      <>
+        <Button className="" onClick={() => {
+          navigate("/signup")
+        }}>Register</Button>
+        <Button variant="link" className="text-white" onClick={() => {
+          navigate("/login")
+        }}>Login</Button>
+        <Button variant="link" className="text-white" onClick={() => {
+          navigate("/office")
+        }}>Admin</Button>
+      </>
+  )
+
 
   return (
       <nav
@@ -55,15 +69,10 @@ const Navbar = ({ animate = true, className, children } : { className? : string,
           { children || defaultLinks }
 
           <div className="flex">
-            <Button className="" onClick={() => {
-              navigate("/signup")
-            }}>Register</Button>
+            { rightMenuLinks || defaultRightMenuLinks }
             <Button variant="link" className="text-white" onClick={() => {
-              navigate("/login")
-            }}>Login</Button>
-            <Button variant="link" className="text-white" onClick={() => {
-              navigate("/office")
-            }}>Admin</Button>
+              navigate("/")
+            }}>Logout</Button>
           </div>
 
         </div>
