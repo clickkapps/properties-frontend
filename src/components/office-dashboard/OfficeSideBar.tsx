@@ -2,7 +2,7 @@ import DashboardMenuItem from "@/components/shared-dashboard/DashboardMenuItem.t
 import {
     BriefcaseConveyorBeltIcon, Camera, Eye, House,
     LayoutDashboard,
-    ScrollText, SquareCheckBig,
+    ScrollText, SquareCheckBig, UserCog,
     UsersRound,
     Video,
     WalletCards
@@ -26,6 +26,12 @@ function OfficeSideBar() {
                 title="Properties"
                 to="/office/properties"
                 active={location.pathname === "/office/properties"}
+            />
+            <DashboardMenuItem
+                icon={<UserCog size={20}/>}
+                title="Officers"
+                to={"/office/admins"}
+                active={location.pathname === "/office/admins"}
             />
             <DashboardMenuItem
                 icon={<UsersRound size={20}/>}

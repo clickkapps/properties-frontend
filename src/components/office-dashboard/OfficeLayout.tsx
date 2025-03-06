@@ -34,7 +34,7 @@ function OfficeLayout() {
                         <Outlet/>
                     </div>
                     {/* Footer */}
-                    <Footer collapse={true} className="bg-[#020050]"/>
+                    <Footer collapse={true} bgColor='bg-[#020050]'/>
                 </div>
 
             </div>

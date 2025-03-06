@@ -24,6 +24,7 @@ import ConveyancePage from "@/presentation/office-dashboard/ConveyancePage.tsx";
 import VirtualTourPage from "@/presentation/office-dashboard/VirtualTourPage.tsx";
 import FinancialsPage from "@/presentation/office-dashboard/FinancialsPage.tsx";
 import OfficeAgentsPage from "@/presentation/office-dashboard/OfficeAgentsPage.tsx";
+import AdminPage from "@/presentation/office-dashboard/AdminPage.tsx";
 // import TotalPropertiesCard from "./components/agent-dashboard/TotalPropertiesCard";
 // import AdvertiseCard from "./components/agent-dashboard/AdvertiseCard";
 // import AddListingsCard from "./components/agent-dashboard/AddListingsCard";
@@ -66,6 +67,7 @@ function App() {
                   <Route path='conveyance' element={<ConveyancePage />} />
                   <Route path='virtual-tour' element={<VirtualTourPage />} />
                   <Route path='financials' element={<FinancialsPage />} />
+                  <Route path='admins' element={<AdminPage />} />
               </Route>
           </Routes>
       </BrowserRouter>

@@ -1,10 +1,10 @@
 import { Globe } from 'lucide-react';
 import {shellImg} from "@/assets";
 
-function Footer({collapse = false, className}: {collapse?: boolean, className?: string}) {
+function Footer({collapse = false, bgColor, className}: {collapse?: boolean, bgColor?: string, className?: string}) {
     return (
         <>
-            <div className={`bg-black text-white ${className}`}>
+            <div className={`${bgColor || 'bg-black'} text-white ${className}`}>
 
 
                 {!collapse &&
