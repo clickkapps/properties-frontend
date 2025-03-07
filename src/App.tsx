@@ -47,8 +47,6 @@ function App() {
                   <Route path="membership" element={<MembershipPage />} />
               </Route>
               <Route path="/office" element={<OfficeLayout />} />
-              <Route path="/membership" element={<MembershipCard />} />
-              <Route path="/mempack" element={<MembershipPackages />} />
           </Routes>
       </BrowserRouter>
   )
