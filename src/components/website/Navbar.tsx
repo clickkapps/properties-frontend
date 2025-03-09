@@ -3,7 +3,7 @@ import {Button} from "@/components/ui/button.tsx";
 import {ReactNode, useEffect, useState} from "react";
 import {Link, NavLink, useNavigate} from "react-router";
 
-const Navbar = ({ animate = true, className, children } : { className? : string, animate?: boolean, children?: ReactNode }) => {
+const Navbar = ({ animate = true, className, children, rightMenuLinks } : { className? : string, animate?: boolean, children?: ReactNode, rightMenuLinks?: ReactNode }) => {
 
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
@@ -40,10 +40,24 @@ const Navbar = ({ animate = true, className, children } : { className? : string,
     <li className="hover:text-white/70"><a href="/">Blog</a></li>
   </ul>
 
+  const defaultRightMenuLinks = (
+      <>
+        <Button className="" onClick={() => {
+          navigate("/signup")
+        }}>Register</Button>
+        <Button variant="link" className="text-white" onClick={() => {
+          navigate("/login")
+        }}>Login</Button>
+        <Button variant="link" className="text-white" onClick={() => {
+          navigate("/office")
+        }}>Admin</Button>
+      </>
+  )
+
 
   return (
       <nav
-          className={`${scrolled ? `bg-black ${animate ? 'animated fadeInDown' : ''}` : ''} ${className || ''} px-4 md:px-0`}>
+          className={`${scrolled ? ` ${animate ? 'bg-black animated fadeInDown' : ''}` : ''} ${className || ''} px-4 md:px-0`}>
         <div className={`container mx-auto flex justify-between items-center py-2`}>
           <NavLink to="/">
             <div className='flex justify-center items-center space-x-2'>
@@ -55,12 +69,10 @@ const Navbar = ({ animate = true, className, children } : { className? : string,
           { children || defaultLinks }
 
           <div className="flex">
-            <Button className="" onClick={() => {
-              navigate("/signup")
-            }}>Register</Button>
+            { rightMenuLinks || defaultRightMenuLinks }
             <Button variant="link" className="text-white" onClick={() => {
-              navigate("/login")
-            }}>Login</Button>
+              navigate("/")
+            }}>Logout</Button>
           </div>
 
         </div>
