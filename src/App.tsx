@@ -12,14 +12,7 @@ import MyListingsPage from "@/presentation/agent-dashboard/MyListingsPage.tsx";
 import OfficeLayout from "@/components/office-dashboard/OfficeLayout.tsx";
 import MembershipPage from "@/presentation/agent-dashboard/MembershipPage.tsx";
 import ReviewsPage from "@/presentation/agent-dashboard/ReviewsPage.tsx";
-import TotalPropertiesCard from "./components/agent-dashboard/TotalPropertiesCard";
-import AdvertiseCard from "./components/agent-dashboard/AdvertiseCard";
-import AddListingsCard from "./components/agent-dashboard/AddListingsCard";
-import RecentMessages from "./components/agent-dashboard/RecentMessages";
-import PropertyViewChart from "./components/agent-dashboard/PropertyViewChart";
-import MembershipCard from "./components/agent-dashboard/MembershipCard";
-import ReviewCard from "./components/agent-dashboard/ReviewCard";
-import MembershipPackages from "./components/agent-dashboard/MembershipPackages";
+
 // import AgentCard from "./components/website/AgentCard";
 // import AgentInfoCard from "./components/website/AgentInfoCard";
 
