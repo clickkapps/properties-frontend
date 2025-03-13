@@ -24,7 +24,7 @@ function AgentLayout() {
             <div className="flex flex-row w-full">
 
                 {/* Sidebar */}
-                <div  className="w-[15%] border-r h-screen fixed overflow-y-auto" id="agent-dashboard-sidebar" >
+                <div  className="w-[15%] border-r fixed" id="agent-dashboard-sidebar" >
                     <AgentSideBar />
                 </div>
 

@@ -14,7 +14,7 @@ function OfficeSideBar() {
     const location = useLocation();
 
     return (
-        <menu className="overflow-y-auto">
+        <div className="h-screen overflow-y-auto" id="agent-dashboard-sidebar">
             <DashboardMenuItem
                 icon={<LayoutDashboard size={20}/>}
                 title="Dashboard"
@@ -81,16 +81,9 @@ function OfficeSideBar() {
                 to={"/office/financials"}
                 active={location.pathname === "/office/financials"}
             />
-            { Array.from({ length: 10 }).map((_, __) => (
-                <DashboardMenuItem
-                    icon={<WalletCards size={20}/>}
-                    title="Financials"
-                    to={"/office/financials"}
-                    active={location.pathname === "/office/financials"}
-                />
-            ))}
+            <div className="h-48"></div>
 
-        </menu>
+        </div>
     )
 }
 

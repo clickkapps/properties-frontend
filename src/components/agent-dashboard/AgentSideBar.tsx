@@ -6,7 +6,7 @@ function AgentSideBar() {
     const location = useLocation();
 
     return (
-        <>
+        <div className="h-screen overflow-y-auto">
             <DashboardMenuItem
                 icon={<LayoutDashboard size={20}/>}
                 title="Dashboard"
@@ -31,7 +31,8 @@ function AgentSideBar() {
                 to={"/agent/membership"}
                 active={location.pathname === "/agent/membership"}
             />
-        </>
+            <div className="h-48"></div>
+        </div>
     )
 }
 
