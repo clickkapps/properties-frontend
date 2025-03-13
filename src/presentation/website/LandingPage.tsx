@@ -44,6 +44,12 @@ function LandingPage() {
                 </section>
                 {/*------- End of Packages ------------*/}
 
+                {/*------- Partners ------------*/}
+                {/*<section id="partners" className="my-16">*/}
+                {/*    <Partners/>*/}
+                {/*</section>*/}
+                {/*------- End of Partners ------------*/}
+
             </div>
 
             {/*------- Footer ------------*/}

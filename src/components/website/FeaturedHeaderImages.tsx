@@ -32,13 +32,13 @@ function FeaturedHeaderImages({ className }: { className: string }) {
                         <Link to="/property-detail">
                             <div
                                 key={index}
-                                className="relative rounded-lg w-full h-full group"
+                                className="relative w-full h-full group"
                             >
                                 {/* Image */}
                                 <img
                                     src={feature.image}
                                     alt={feature.title}
-                                    className="absolute object-cover w-full h-full  group-hover:scale-95 cursor-pointer hover:rounded hover:z-100 transition duration-150"
+                                    className="absolute object-cover w-full h-full group-hover:scale-95 cursor-pointer hover:z-100 transition duration-150"
                                 />
                                 <div
                                     className="w-full h-full bg-black/30 group-hover:bg-black/20 absolute transition duration-150"></div>
