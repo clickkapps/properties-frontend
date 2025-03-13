@@ -1,5 +1,5 @@
 import DashboardMenuItem from "@/components/shared-dashboard/DashboardMenuItem.tsx";
-import {Award, LayoutDashboard, Logs, Star} from "lucide-react";
+import {Award, House, LayoutDashboard, Star} from "lucide-react";
 import {useLocation} from "react-router";
 
 function AgentSideBar() {
@@ -14,7 +14,7 @@ function AgentSideBar() {
                 active={location.pathname === "/agent"}
             />
             <DashboardMenuItem
-                icon={<Logs size={20}/>}
+                icon={<House size={20}/>}
                 title="My Listings"
                 to="/agent/listings"
                 active={location.pathname === "/agent/listings"}

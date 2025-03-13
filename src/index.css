@@ -70,4 +70,31 @@
   h1 {
     @apply text-4xl font-bold;
   }
+
+  /* Width of the scrollbar */
+  ::-webkit-scrollbar {
+    width: 1px;
+  }
+
+  /* Track (background of the scrollbar) */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    @apply rounded-md;
+  }
+
+  /* Handle (the draggable part) */
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-200 rounded-md;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-200 rounded-md;
+  }
+
+  /* Works in Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(226 232 240) #f1f1f1;
+  }
 }
