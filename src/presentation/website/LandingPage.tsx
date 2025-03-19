@@ -23,9 +23,8 @@ function LandingPage() {
                 {/*------- Exclusive Listings ------------*/}
                 <section id="listings">
                     <h2 className="mx-12 text-3xl font-bold text-center"> Exclusive Listings </h2>
-                    <p className="text-center my-2 mx-12">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        Culpa
-                        dicta ex itaque neque officia repellat sunt. Inventore similique totam voluptates?</p>
+                    <p className="text-center my-2 mx-12">Explore premium properties available only through our platform, featuring exclusive homes and luxury rentals. Find hidden gems tailored to your lifestyle.
+                    </p>
                     <div className="h-[50px]"></div>
                     {/*<div className="grid grid-cols-5">*/}
 

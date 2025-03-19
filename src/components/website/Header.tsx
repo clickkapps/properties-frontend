@@ -18,7 +18,7 @@ function Header() {
                             <div className="flex flex-col justify-center items-center h-full text-white gap-4 mx-8 text-center">
                                 <h1 className="animated fadeInUp">Find Your Dream Home With Ease</h1>
                                 <p className="animated fadeInUp">Explore Smart Listings with Beautiful Custom Designs</p>
-                                <Searchbar className="animated fadeInUp animate__delay-5s hidden md:flex" />
+                                <Searchbar className="animated fadeInUp animate__delay-5s" />
                             </div>
                         </div>
                         <div className="absolute bottom-0 left-0 right-0 mx-4 -mb-[100px]">
