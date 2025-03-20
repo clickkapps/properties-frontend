@@ -22,3 +22,4 @@ export const WebsiteMenuLinks: MenuLink[] = [
         external: true
     },
 ]
+

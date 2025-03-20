@@ -9,14 +9,14 @@ function HomePage() {
         <div className="container mx-auto">
             <h2 className="text-2xl font-semibold"> Dashboard</h2>
 
-            <div className=" grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
+            <div className=" grid grid-cols-1 md:grid-cols-4 md:gap-8 gap-4 mt-4">
                 <TotalPropertiesCard />
                 <TotalPropertiesCard />
                 <AdvertiseCard />
                 <AddListingsCard />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-10 h-full">   
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mt-10 h-full">
                 <PropertyViewChart />  
                 <RecentMessages />
             </div>

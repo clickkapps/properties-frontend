@@ -24,13 +24,13 @@ function AgentLayout() {
             <div className="flex flex-row w-full">
 
                 {/* Sidebar */}
-                <div  className="w-[15%] border-r fixed" id="agent-dashboard-sidebar" >
+                <div  className="hidden md:block fixed w-[15%] border-r " id="agent-dashboard-sidebar" >
                     <AgentSideBar />
                 </div>
 
                 {/* Content */}
-                <div className="w-[100%] ml-[15%] ">
-                    <div className="h-screen p-[20px]">
+                <div className="w-[100%] md:ml-[15%] ">
+                    <div className="p-[20px]">
                         <Outlet/>
                     </div>
                     {/* Footer */}

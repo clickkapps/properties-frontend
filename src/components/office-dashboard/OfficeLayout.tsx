@@ -1,4 +1,4 @@
-import Footer from "@/components/website/Footer.tsx";
+// import Footer from "@/components/website/Footer.tsx";
 import OfficeHeader from "@/components/office-dashboard/OfficeHeader.tsx";
 import {Outlet} from "react-router";
 import {useEffect, useState} from "react";
@@ -31,12 +31,12 @@ function OfficeLayout() {
 
                 {/* Content */}
                 <div className="w-[100%] ml-[15%] ">
-                    <div className="h-screen p-[20px]">
+                    <div className="p-[20px]">
                         <Outlet/>
                     </div>
                     {/* Footer */}
                     {/* bg-[#020050] */}
-                    <Footer collapse={true} bgColor='bg-[#020050]'/>
+                    {/*<Footer collapse={true} bgColor='bg-[#020050]'/>*/}
                 </div>
 
             </div>

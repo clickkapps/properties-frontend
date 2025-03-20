@@ -9,10 +9,10 @@ const messages = [
 
 const RecentMessages = () => {
   return (
-    <div className="container mx-auto bg-white border p-6 w-[90%] h-full">
+    <div className="container mx-auto bg-white border p-6 w-full h-full">
       <h3 className="text-lg font-semibold mb-4">Recent Messages</h3>
 
-      <div className="space-y-4">
+      <div className="space-y-8">
         {messages.map((msg) => (
           <div key={msg.id} className="flex items-center gap-4">
 
