@@ -1,33 +1,73 @@
-import { X, Search } from "lucide-react";
+import { Search } from "lucide-react";
+import {createPortal} from "react-dom";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
+import {forwardRef, ReactNode, Ref, useImperativeHandle, useState} from "react";
+import {ModalHandle} from "@/types/website.types";
+import {Input} from "@/components/ui/input.tsx";
 
-const SearchResults = () => {
-  return (
-    <div className="p-4 flex justify-center">
-      <div className="w-full max-w-md p-5 shadow-lg rounded-xl bg-white relative">
-        
-        {/* Close Button */}
-        <button className="absolute top-3 left-3 p-2 rounded-full bg-gray-100 hover:bg-gray-200">
-          <X className="w-5 h-5" />
-        </button>
-        
-        {/* Fields */}
-        <div className="mt-10 space-y-3">
-          <p className="p-3 border shadow-sm rounded-lg cursor-pointer w-full">Location</p>
-          <p className="p-3 border shadow-sm rounded-lg cursor-pointer w-full">Category</p>
-          <p className="p-3 border shadow-sm rounded-lg cursor-pointer w-full">Bedroom</p>
-          <p className="p-3 border shadow-sm rounded-lg cursor-pointer w-full">Price</p>
-        </div>
-        
-        {/* Bottom Buttons */}
-        <div className="flex justify-between items-center mt-5">
-          <button className="font-semibold underline">Clear all</button>
-          <button className="flex items-center gap-2 bg-[#e50005] text-white font-medium px-4 py-2 rounded-lg hover:bg-red-700">
-            <Search className="w-5 h-5" /> Search
-          </button>
-        </div>
-      </div>
-    </div>
+const SearchResults =  forwardRef(({ children }: { children?: ReactNode }, ref: Ref<ModalHandle | undefined>) => {
+
+  const [open, setOpen] = useState(false);
+
+  useImperativeHandle(ref, () => {
+    return {
+      open: () => {
+        setOpen(true);
+      },
+      close: () => {
+        setOpen(false);
+      }
+    }
+  })
+
+  return createPortal(
+      <Dialog open={open} onOpenChange={setOpen}>
+        {/*<DialogTrigger>Open</DialogTrigger>*/}
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>What are you looking for?</DialogTitle>
+            <DialogDescription>
+              Search for any property of your choice
+            </DialogDescription>
+          </DialogHeader>
+          { children || <div className="p-4 flex justify-center">
+            <form className="w-full rounded-xl bg-white relative">
+
+              {/* Fields */}
+              <div className="space-y-3">
+                <Input placeholder="Location" className="py-6" autoFocus={false}/>
+                <Input placeholder="Category" className="py-6" autoFocus={false} />
+                <Input placeholder="Bedroom" className="py-6" autoFocus={false} />
+                <Input placeholder="Price" className="py-6" autoFocus={false} />
+              </div>
+
+              {/* Bottom Buttons */}
+              <div className="flex justify-between items-center mt-5">
+                <button type='reset' className="font-semibold underline">Clear all</button>
+                <button
+                    type='button'
+                    className="flex items-center gap-2 bg-[#e50005] text-white font-medium px-4 py-2 rounded-lg hover:bg-red-700">
+                  <Search className="w-5 h-5"/> Search
+                </button>
+              </div>
+
+            </form>
+          </div>
+          }
+
+        </DialogContent>
+      </Dialog>,
+      document.getElementById('modal') as HTMLElement
   );
-}
+
+
+})
+
 
 export default SearchResults;

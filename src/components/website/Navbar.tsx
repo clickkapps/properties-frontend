@@ -8,7 +8,7 @@ import {MenuLink} from "@/types/website.types";
 
 const defaultLinks = WebsiteMenuLinks.map((link: MenuLink) => {
   return (
-      <li className="hover:text-white/70">
+      <li className="hover:text-white/70" key={link.url}>
         { !link.external && <Link to={link.url} className="block px-4 py-4 "> { link.title } </Link> }
         {link.external && <a href={link.url} className="block px-4 py-4"> { link.title } </a>}
       </li>
@@ -84,7 +84,7 @@ const Navbar = ({ animate = true, className, children, rightMenuLinks } : { clas
                   { rightMenuLinks || defaultRightMenuLinks }
                 </div>
 
-                <div className="block md:hidden">
+                <div className="block md:hidden px-2">
                   { showMobileMenu ? <X className="text-white" onClick={() => { setShowMobileMenu(false)}}/> : <Menu className="text-white" onClick={() => { setShowMobileMenu(true)} }/>
                   }
                 </div>

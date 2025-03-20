@@ -38,7 +38,7 @@ function LandingPage() {
 
 
                 {/*------- Packages ------------*/}
-                <section id="packages">
+                <section id="packages" >
                     <Packages/>
                 </section>
                 {/*------- End of Packages ------------*/}

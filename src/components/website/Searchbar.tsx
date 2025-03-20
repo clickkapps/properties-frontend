@@ -1,7 +1,12 @@
 import {Search, SearchIcon} from "lucide-react"
 import {Button} from "@/components/ui/button.tsx";
+import {ModalHandle} from "@/types/website.types";
+import {useRef} from "react";
+import SearchResults from "@/components/website/SearchResults.tsx";
 
 const Searchbar = ({ className }: { className: string}) => {
+
+    const modalRef = useRef<ModalHandle>()
 
     return (
         <>
@@ -42,7 +47,12 @@ const Searchbar = ({ className }: { className: string}) => {
 
           </div>
           {/* Mobile Screen  */}
-          <Button size={"lg"} className={`rounded-full md:hidden bg-white text-black mt-4 ${className}`}> <SearchIcon /> Search </Button>
+          <Button
+              onClick={ () => {
+                  modalRef.current?.open()
+              }}
+              size={"lg"} className={`rounded-full md:hidden bg-white text-black mt-4 ${className}`}> <SearchIcon /> Search for properties </Button>
+          <SearchResults ref={modalRef} />
         </>
     )
 }

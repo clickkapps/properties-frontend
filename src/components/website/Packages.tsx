@@ -16,7 +16,7 @@ const features = [
 
 const Packages = () => {
   return (
-      <div className="py-12 bg-white">
+      <div className="py-12 bg-white mx-5 md:mx-0">
 
         <div id="packages-heading" className="mb-10">
           <h2 className="text-3xl font-bold text-center ">Packages</h2>
@@ -30,12 +30,12 @@ const Packages = () => {
           {pricingPlans.map((plan, index) => (
               <div
                   key={index}
-                  className={`${plan.color} group p-8 rounded-xl w-80 hover:bg-slate-800 hover:text-white cursor-pointer transition duration-150`}
+                  className={`${plan.color} w-full md:w-auto group p-8 rounded-xl hover:bg-slate-800 hover:text-white cursor-pointer transition duration-150`}
               >
                 <h3 className="text-lg font-semibold mb-4">{plan.title}</h3>
                 <p className="text-4xl font-semibold mb-6 font-[Inter]">{plan.price}</p>
                 <p className="text-md font-semibold text-gray-700 mb-6 group-hover:text-gray-400">
-                  Basic plan for all users
+                    {plan.description} plan for all users
                 </p>
 
                 {/* features */}

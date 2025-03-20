@@ -5,11 +5,11 @@ import {Button} from "@/components/ui/button.tsx";
 import {Mail, Phone} from "lucide-react";
 import PropertyDetailsTable from "@/components/website/PropertyDetailsTable.tsx";
 import ReviewSection from "@/components/website/ReviewSection.tsx";
-import FeaturedProperties from "@/components/website/FeaturedProperties.tsx";
 import {advertImg, whatsappIcon} from "@/assets";
 import MarketedBy from "@/components/website/MarketedBy.tsx";
 import ReportListing from "@/components/website/ReportListing.tsx";
 import SafetyTips from "@/components/website/SafetyTips.tsx";
+import RelatedProperties from "@/components/website/RelatedProperties.tsx";
 
 function PropertyDetailPage() {
     return (
@@ -17,8 +17,8 @@ function PropertyDetailPage() {
             <Navbar className="fixed bg-black w-full z-20 " animate={false}/>
             <div className="h-16 md:h-16 "></div>
 
-            <main className="container mx-auto px-6">
-                <div className="flex">
+            <main className="container mx-auto">
+                <div className="flex mx-5 md:mx-auto">
 
                     {/* Left Column*/}
                     <div className="w-full md:w-[65%]">
@@ -81,7 +81,7 @@ function PropertyDetailPage() {
                 <h2 className="font-normal text-xl md:text-4xl my-4 text-center">Related Properties</h2>
                 <div className="h-12"></div>
 
-                <FeaturedProperties/>
+                <RelatedProperties />
 
             </main>
 
