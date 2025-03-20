@@ -1,17 +1,21 @@
 import {Button} from "@/components/ui/button.tsx";
-import {BellDot, Menu} from 'lucide-react';
+import {BellDot, Ellipsis} from 'lucide-react';
 import { Settings } from 'lucide-react';
 import { CircleUser } from 'lucide-react';
+import {useDispatch} from "react-redux";
+import {toggleAgentSidebarDrawer} from "@/store/ui-slice.ts";
 
 function AgentTopBar() {
+
+    const dispatch = useDispatch();
 
     return (
         <div className="border-b w-full fixed bg-white z-20" id="agent-top-bar">
             <div className="h-16 md:h-16 "></div>
             <div className="flex ">
                 <div className="border-r w-[15%] flex justify-center items-center" id="dashboard-header-title" >
-                    <Menu className="md:hidden"  onClick={() => {
-
+                    <Ellipsis className="md:hidden"  onClick={() => {
+                        dispatch(toggleAgentSidebarDrawer())
                     }} />
                 </div>
                 <div className="w-[85%] flex justify-end ">

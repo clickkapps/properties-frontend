@@ -9,10 +9,11 @@ const PropertyListItem = () => {
         <div className="w-full ">
           {/* Image Section */}
           <div className="relative group">
+
             <img
                 src={propertyImg}
                 alt="House for Sale"
-                className="aspect-square w-full h-full object-cover rounded-lg md:hover:scale-110 cursor-pointer md:hover:z-100 transition duration-150"
+                className="aspect-square w-full h-full object-cover rounded-lg md:hover:scale-105 cursor-pointer md:hover:z-100 transition duration-150"
             />
 
             <span
@@ -28,11 +29,12 @@ const PropertyListItem = () => {
           {/* Property Information */}
           <div className="mt-3">
             <div className="flex items-center space-x-2">
-              <h3 className="text-[15px] font-medium inline-flex">
-                <div className="">
-                  <span className="font-[Inter]">5</span> <span> - bedroom house for sale </span>
+              <h3 className="text-[15px] font-medium flex justify-between items-start  w-full">
+                <div className="text-start">
+                  {/*<span className="font-[Inter]">5</span>*/}
+                  <span> <span className="font-[Inter]">5</span> - bedroom house for sale </span>
                 </div>
-                <div className="inline-flex items-center pl-4 space-x-1">
+                <div className="inline-flex items-center pl-4 space-x-1 ">
                   <Star size={12} style={{fill: "black"}}/>
                   <span className="font-[Inter]">4.92</span>
                 </div>
