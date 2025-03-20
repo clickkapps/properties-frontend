@@ -1,9 +1,9 @@
 import { reviewImg } from "@/assets";
-import { Star, StarHalf } from "lucide-react";
+import { Star } from "lucide-react";
 
 const ReviewCard = () => {
   return (
-    <div className="max-w-4xl pb-4 flex space-x-4">
+    <div className=" w-full pb-4 flex space-x-4">
       {/* Profile Image - Completely Separated on the Left */}
       <div className="flex-shrink-0">
         <img
@@ -16,7 +16,7 @@ const ReviewCard = () => {
       {/* Right Section*/}
       <div className="flex-1">
         
-        <div className="flex items-center justify-between">
+        <div className="flex items-start justify-between">
           {/* Name & Date */}
           <div>
             <h3 className="font-medium">David Holm</h3>
@@ -25,12 +25,13 @@ const ReviewCard = () => {
 
           {/* Rating */}
           <div className="flex items-center space-x-1">
-            <span className="text-sm font-medium">(4.5 rating)</span>
+            <span className="hidden md:block text-sm font-medium">(4.5 rating)</span>
+            <Star size={14} fill={'black'}/>
+            <Star size={14} fill={'black'} />
+            <Star size={14} fill={'black'}/>
             <Star size={14} />
             <Star size={14} />
-            <Star size={14} />
-            <Star size={14} />
-            <StarHalf size={14} />
+            {/*<StarHalf size={14} />*/}
           </div>
         </div>
 

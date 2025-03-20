@@ -39,7 +39,7 @@ function LandingPage() {
 
                 {/*------- Packages ------------*/}
                 <section id="packages" >
-                    <Packages/>
+                    <Packages className="mx-5"/>
                 </section>
                 {/*------- End of Packages ------------*/}
 

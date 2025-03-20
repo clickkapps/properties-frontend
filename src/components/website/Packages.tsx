@@ -14,15 +14,15 @@ const features = [
   "Forward title for your property",
 ];
 
-const Packages = () => {
+const Packages = ({ className, showTitle = true }: { className?: string, showTitle?: boolean }) => {
   return (
-      <div className="py-12 bg-white mx-5 md:mx-0">
+      <div className={`py-12 bg-white md:mx-0 ${className}`} >
 
-        <div id="packages-heading" className="mb-10">
+          { showTitle && <div id="packages-heading" className="mb-10">
           <h2 className="text-3xl font-bold text-center ">Packages</h2>
           {/*<p className="text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa*/}
           {/*  dicta ex itaque neque officia repellat sunt. Inventore similique totam voluptates?</p>*/}
-        </div>
+        </div> }
 
 
         {/* pricing card */}

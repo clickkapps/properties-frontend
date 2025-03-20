@@ -37,7 +37,7 @@ function AgentLayout() {
 
                 {/* Content */}
                 <div className="w-[100%] md:ml-[15%] ">
-                    <div className="p-[20px]">
+                    <div className="px-5 py-4 md:px-14 md:py-10">
                         <Outlet/>
                     </div>
                     {/* Footer */}

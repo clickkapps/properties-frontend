@@ -19,7 +19,7 @@ const MembershipPackages = () => {
         <div className="bg-[#FFFFFF] group p-8 rounded-xl w-80 hover:bg-slate-800 hover:text-white cursor-pointer transition duration-150 border-2 border-[#1EFB0A]">
           
           <div className="flex justify-between">
-          <h3 className="text-lg font-semibold mb-4">BASIC</h3>
+          <h3 className="text-lg font-semibold mb-4">BASICss</h3>
           <BadgeCheck className=" text-[#1EFB0A]"/>
           </div>
           <p className="text-4xl font-semibold mb-6 font-[Inter]">$1500</p>

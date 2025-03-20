@@ -1,9 +1,9 @@
 import MembershipCard from "@/components/agent-dashboard/MembershipCard"
-import MembershipPackages from "@/components/agent-dashboard/MembershipPackages"
+import Packages from "@/components/website/Packages.tsx";
 
 function MembershipPage() {
     return (
-        <div className="container mx-auto max-w-5xl min-h-screen">
+        <div className="">
 
             <h2 className="text-2xl font-semibold mb-8">Membership</h2>
             
@@ -11,7 +11,7 @@ function MembershipPage() {
             <MembershipCard />
             </div>
             <div className="mb-20">
-            <MembershipPackages />
+            <Packages showTitle={false} />
             </div>
 
         </div>

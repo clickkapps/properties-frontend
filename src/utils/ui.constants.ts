@@ -1,5 +1,5 @@
 import {MenuLink} from "@/types/website.types";
-import {Award, House, LayoutDashboard, Star} from "lucide-react";
+import {Award, LayoutDashboard, Star} from "lucide-react";
 
 export const WebsiteMenuLinks: MenuLink[] = [
     {
@@ -31,12 +31,12 @@ export const AgentMenuLinks: MenuLink[] = [
         external: false,
         icon: LayoutDashboard
     },
-    {
-        title: "My Listings",
-        url: "/agent/listings",
-        external: false,
-        icon: House
-    },
+    // {
+    //     title: "My Listings",
+    //     url: "/agent/listings",
+    //     external: false,
+    //     icon: House
+    // },
     {
         title: "Reviews",
         url: "/agent/reviews",

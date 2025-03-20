@@ -3,7 +3,7 @@ import {ReactNode, useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router";
 import Logo from "@/components/website/Logo.tsx";
 import { Menu, X } from 'lucide-react'
-import {WebsiteMenuLinks} from "@/utils/website.constants.ts";
+import {WebsiteMenuLinks} from "@/utils/ui.constants.ts";
 import {MenuLink} from "@/types/website.types";
 
 const defaultLinks = WebsiteMenuLinks.map((link: MenuLink) => {
