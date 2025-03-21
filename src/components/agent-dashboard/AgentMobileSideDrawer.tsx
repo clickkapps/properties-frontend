@@ -36,7 +36,7 @@ function AgentMobileSideDrawer() {
                                     icon={<Icon size={20}/>}
                                     title={link.title}
                                     to={link.url}
-                                    onMenuClicked={ () => closeAgentMobileDrawer() }
+                                    onMenuClicked={ () => dispatch(closeAgentMobileDrawer()) }
                                 />
                             )
                         })

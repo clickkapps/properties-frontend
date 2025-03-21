@@ -35,8 +35,6 @@ const Navbar = ({ animate = true, className, children, rightMenuLinks, bgColor =
 
   }, []);
 
-  console.log("Nav bar rendered")
-
   // Default if no links are provided
   // const defaultLinks = <ul className='flex flex-col md:flex-row text-white md:space-x-6 space-y-2 divide-y-1 divide-amber-500'>
   //
@@ -63,7 +61,7 @@ const Navbar = ({ animate = true, className, children, rightMenuLinks, bgColor =
 
   return (
       <nav
-          className={`${!showMobileMenu ? (scrolled ? ` ${animate ? `animated fadeInDown ${animatedBgColor}` : ''}` : '') : ''} ${className || ''} md:px-0 ${bgColor}`} >
+          className={`${!showMobileMenu ? (scrolled ? ` ${animate ? `animated fadeInDown ${animatedBgColor}` : ''}` : '' ) : animatedBgColor } ${className || ''} md:px-0 ${bgColor}`} >
           <>
             {/* Desktop */}
             <div className={`container mx-auto flex justify-between items-center py-2 px-2 md:px-0`}>

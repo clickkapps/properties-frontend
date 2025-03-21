@@ -9,7 +9,7 @@ const SignInPage = () => {
   const navigate = useNavigate();
 
   return (
-      <div className="md:bg-gray-100 bg-white">
+      <div className="md:bg-gray-100 bg-white overflow-y-auto">
           <Navbar className="fixed bg-black w-full z-20 " animate={false}/>
           <div className="h-4 md:h-16"></div>
           <div className="flex items-center justify-center mt-12">

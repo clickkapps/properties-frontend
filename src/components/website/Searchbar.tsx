@@ -3,10 +3,12 @@ import {Button} from "@/components/ui/button.tsx";
 import {ModalHandle} from "@/types/ui.types";
 import {useRef} from "react";
 import SearchResults from "@/components/website/SearchResults.tsx";
+import {useNavigate} from "react-router";
 
 const Searchbar = ({ className }: { className: string}) => {
 
     const modalRef = useRef<ModalHandle>()
+    const navigate = useNavigate()
 
     return (
         <>
@@ -40,6 +42,9 @@ const Searchbar = ({ className }: { className: string}) => {
             />
 
             <button
+                onClick={() => {
+                    navigate('/properties/rent')
+                }}
                 className="flex items-center justify-center bg-[#e50005] rounded-full px-4 py-3 space-x-2 text-white font-semibold hover:bg-red-700">
               <Search className="w-5 h-5"/>
               <span>Search</span>

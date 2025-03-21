@@ -10,10 +10,12 @@ import {
 import {forwardRef, ReactNode, Ref, useImperativeHandle, useState} from "react";
 import {ModalHandle} from "@/types/ui.types";
 import {Input} from "@/components/ui/input.tsx";
+import {useNavigate} from "react-router";
 
 const SearchResults =  forwardRef(({ children }: { children?: ReactNode }, ref: Ref<ModalHandle | undefined>) => {
 
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   useImperativeHandle(ref, () => {
     return {
@@ -52,6 +54,9 @@ const SearchResults =  forwardRef(({ children }: { children?: ReactNode }, ref: 
                 <button type='reset' className="font-semibold underline">Clear all</button>
                 <button
                     type='button'
+                    onClick={() => {
+                      navigate('/properties/rent')
+                    }}
                     className="flex items-center gap-2 bg-[#e50005] text-white font-medium px-4 py-2 rounded-lg hover:bg-red-700">
                   <Search className="w-5 h-5"/> Search
                 </button>

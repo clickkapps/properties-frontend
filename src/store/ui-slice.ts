@@ -13,7 +13,7 @@ const uiSlice = createSlice({
             state.openAgentMobileSideDrawer = false;
         },
         toggleOfficeSidebarDrawer: (state) => {
-            state.openOfficeMobileSideDrawer = !state.openAgentMobileSideDrawer;
+            state.openOfficeMobileSideDrawer = !state.openOfficeMobileSideDrawer;
         },
         closeOfficeMobileDrawer: (state) => {
             state.openOfficeMobileSideDrawer = false;

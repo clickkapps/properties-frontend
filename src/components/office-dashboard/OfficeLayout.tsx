@@ -25,7 +25,7 @@ function OfficeLayout() {
             <div className="flex flex-row w-full">
 
                 {/* Sidebar */}
-                <div className="w-[15%] border-r fixed">
+                <div className="fixed w-[15%] border-r">
                     <div className="hidden md:block ">
                         <OfficeSideBar/>
                     </div>

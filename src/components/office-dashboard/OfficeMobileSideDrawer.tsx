@@ -3,7 +3,7 @@ import {
     DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle,
 } from "@/components/ui/drawer.tsx";
 import {useAppDispatch, useAppSelector} from "@/hooks";
-import {closeOfficeMobileDrawer, toggleAgentSidebarDrawer, toggleOfficeSidebarDrawer} from "@/store/ui-slice.ts";
+import {closeOfficeMobileDrawer, toggleAgentSidebarDrawer} from "@/store/ui-slice.ts";
 import {createPortal} from "react-dom";
 import { officeMenuLinks} from "@/utils/ui.constants.ts";
 import DashboardMenuItem from "@/components/shared-dashboard/DashboardMenuItem.tsx";

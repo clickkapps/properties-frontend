@@ -1,6 +1,6 @@
 import LandingPage from "@/presentation/website/LandingPage.tsx";
 import {BrowserRouter, Route, Routes} from "react-router";
-import SignInPage from "@/presentation/website/SignInPage.tsx";
+import SignInPage from "@/presentation/auth/SignInPage.tsx";
 import ScrollToTop from "@/lib/custom-hooks/ScrollToTop.ts";
 import PropertyDetailPage from "@/presentation/website/PropertyDetailPage.tsx";
 import AgentsPage from "@/presentation/website/AgentsPage.tsx";
