@@ -1,19 +1,30 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-const uiState = { openDrawer: false };
+const uiState = { openAgentMobileSideDrawer: false, openOfficeMobileSideDrawer: false };
 
 const uiSlice = createSlice({
     name: "ui",
     initialState: uiState,
     reducers: {
         toggleAgentSidebarDrawer: (state) => {
-            state.openDrawer = !state.openDrawer;
+            state.openAgentMobileSideDrawer = !state.openAgentMobileSideDrawer;
         },
-        closeDrawer: (state) => {
-            state.openDrawer = false;
+        closeAgentMobileDrawer: (state) => {
+            state.openAgentMobileSideDrawer = false;
+        },
+        toggleOfficeSidebarDrawer: (state) => {
+            state.openOfficeMobileSideDrawer = !state.openAgentMobileSideDrawer;
+        },
+        closeOfficeMobileDrawer: (state) => {
+            state.openOfficeMobileSideDrawer = false;
         }
     }
 })
 
-export const { toggleAgentSidebarDrawer, closeDrawer } = uiSlice.actions;
+export const {
+    toggleAgentSidebarDrawer,
+    closeAgentMobileDrawer,
+    toggleOfficeSidebarDrawer,
+    closeOfficeMobileDrawer
+} = uiSlice.actions;
 export default uiSlice.reducer;

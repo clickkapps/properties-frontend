@@ -3,14 +3,14 @@ import {
     DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle,
 } from "@/components/ui/drawer.tsx";
 import {useAppDispatch, useAppSelector} from "@/hooks";
-import {closeAgentMobileDrawer, toggleAgentSidebarDrawer} from "@/store/ui-slice.ts";
+import {closeOfficeMobileDrawer, toggleAgentSidebarDrawer, toggleOfficeSidebarDrawer} from "@/store/ui-slice.ts";
 import {createPortal} from "react-dom";
-import {agentMenuLinks} from "@/utils/ui.constants.ts";
+import { officeMenuLinks} from "@/utils/ui.constants.ts";
 import DashboardMenuItem from "@/components/shared-dashboard/DashboardMenuItem.tsx";
 
-function AgentMobileSideDrawer() {
+function OfficeMobileSideDrawer() {
 
-    const { openAgentMobileSideDrawer } = useAppSelector((state) => state.ui);
+    const { openOfficeMobileSideDrawer } = useAppSelector((state) => state.ui);
     const dispatch = useAppDispatch();
 
     return (
@@ -18,7 +18,7 @@ function AgentMobileSideDrawer() {
         createPortal(
             <Drawer
                 handleOnly={false}
-                open={openAgentMobileSideDrawer} onOpenChange={() => dispatch(toggleAgentSidebarDrawer()) }>
+                open={openOfficeMobileSideDrawer} onOpenChange={() => dispatch(toggleAgentSidebarDrawer()) }>
                 {/*<DrawerTrigger>Open</DrawerTrigger>*/}
                 <DrawerContent>
                     <DrawerHeader>
@@ -26,7 +26,7 @@ function AgentMobileSideDrawer() {
                         <DrawerDescription></DrawerDescription>
                     </DrawerHeader>
                     {
-                        agentMenuLinks.map((link) => {
+                        officeMenuLinks.map((link) => {
 
                             const Icon = link.icon
 
@@ -36,7 +36,7 @@ function AgentMobileSideDrawer() {
                                     icon={<Icon size={20}/>}
                                     title={link.title}
                                     to={link.url}
-                                    onMenuClicked={ () => closeAgentMobileDrawer() }
+                                    onMenuClicked={ () => dispatch(closeOfficeMobileDrawer())}
                                 />
                             )
                         })
@@ -50,4 +50,4 @@ function AgentMobileSideDrawer() {
     )
 }
 
-export default AgentMobileSideDrawer;
+export default OfficeMobileSideDrawer;

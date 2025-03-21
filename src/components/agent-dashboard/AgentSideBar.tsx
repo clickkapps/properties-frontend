@@ -1,5 +1,5 @@
 import DashboardMenuItem from "@/components/shared-dashboard/DashboardMenuItem.tsx";
-import {AgentMenuLinks} from "@/utils/ui.constants.ts";
+import {agentMenuLinks} from "@/utils/ui.constants.ts";
 
 function AgentSideBar() {
 
@@ -7,7 +7,7 @@ function AgentSideBar() {
         <div className="h-screen overflow-y-auto">
 
             {
-                AgentMenuLinks.map((link) => {
+                agentMenuLinks.map((link) => {
 
                     const Icon = link.icon
 

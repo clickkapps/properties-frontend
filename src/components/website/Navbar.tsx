@@ -3,10 +3,10 @@ import {ReactNode, useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router";
 import Logo from "@/components/website/Logo.tsx";
 import { Menu, X } from 'lucide-react'
-import {WebsiteMenuLinks} from "@/utils/ui.constants.ts";
-import {MenuLink} from "@/types/website.types";
+import {websiteMenuLinks} from "@/utils/ui.constants.ts";
+import {MenuLink} from "@/types/ui.types";
 
-const defaultLinks = WebsiteMenuLinks.map((link: MenuLink) => {
+const defaultCenteredMenuLinks = websiteMenuLinks.map((link: MenuLink) => {
   return (
       <li className="hover:text-white/70" key={link.url}>
         { !link.external && <Link to={link.url} className="block px-4 py-4 "> { link.title } </Link> }
@@ -15,7 +15,7 @@ const defaultLinks = WebsiteMenuLinks.map((link: MenuLink) => {
   )
 });
 
-const Navbar = ({ animate = true, className, children, rightMenuLinks } : { className? : string, animate?: boolean, children?: ReactNode, rightMenuLinks?: ReactNode }) => {
+const Navbar = ({ animate = true, className, children, rightMenuLinks, bgColor = '', animatedBgColor = ''} : { className? : string, animate?: boolean, children?: ReactNode, rightMenuLinks?: ReactNode, bgColor?: string, animatedBgColor?: string }) => {
 
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
@@ -45,7 +45,7 @@ const Navbar = ({ animate = true, className, children, rightMenuLinks } : { clas
 
   const defaultRightMenuLinks = (
       <ul className="flex flex-row gap-2 py-4 md:py-0 mx-4">
-        <Button className="w-full md:w-auto rounded-none md:rounded" onClick={() => {
+        <Button variant={'link'} className="w-full md:w-auto rounded-none md:rounded border text-white" onClick={() => {
           navigate("/signup")
         }}>Register</Button>
         <Button variant={'secondary'} className="w-full md:w-auto rounded-none md:rounded" onClick={() => {
@@ -63,7 +63,7 @@ const Navbar = ({ animate = true, className, children, rightMenuLinks } : { clas
 
   return (
       <nav
-          className={`${!showMobileMenu ? (scrolled ? ` ${animate ? 'bg-black animated fadeInDown' : ''}` : '') : 'bg-black'} ${className || ''} md:px-0`}>
+          className={`${!showMobileMenu ? (scrolled ? ` ${animate ? `animated fadeInDown ${animatedBgColor}` : ''}` : '') : ''} ${className || ''} md:px-0 ${bgColor}`} >
           <>
             {/* Desktop */}
             <div className={`container mx-auto flex justify-between items-center py-2 px-2 md:px-0`}>
@@ -73,7 +73,7 @@ const Navbar = ({ animate = true, className, children, rightMenuLinks } : { clas
               {/* Middle Menu Items*/}
               {
                   <ul className="hidden md:flex md:flex-row text-white space-x-4 ">
-                    { children || defaultLinks }
+                    { children || defaultCenteredMenuLinks }
                   </ul>
               }
 
@@ -94,14 +94,13 @@ const Navbar = ({ animate = true, className, children, rightMenuLinks } : { clas
             </div>
             {/* mobile menu opened */}
             {
-                showMobileMenu && <div className="absolute block md:hidden h-[50vh] w-full bg-black">
+                showMobileMenu && <div className={`absolute block md:hidden h-[50vh] w-full ${bgColor || 'bg-black'}`}>
 
                   <ul className="text-white divide-y-[1px] divide-slate-800">
-                    {children || defaultLinks}
+                    {children || defaultCenteredMenuLinks}
 
                   </ul>
                   { defaultRightMenuLinks }
-
 
                 </div>
             }

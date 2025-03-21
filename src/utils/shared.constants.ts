@@ -19,3 +19,4 @@ export const chartConfig = {
         color: "#60a5fa",
     },
 } satisfies ChartConfig
+

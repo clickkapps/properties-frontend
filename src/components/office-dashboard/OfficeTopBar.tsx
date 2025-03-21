@@ -1,12 +1,21 @@
 import {Button} from "@/components/ui/button.tsx";
-import {BellDot, CircleUser, Settings} from "lucide-react";
+import {BellDot, CircleUser, Ellipsis, Settings} from "lucide-react";
+import {useDispatch} from "react-redux";
+import {toggleOfficeSidebarDrawer} from "@/store/ui-slice.ts";
 
 function OfficeTopBar() {
+
+    const dispatch = useDispatch();
+
     return (
         <div className="border-b w-full fixed bg-white z-10 " id="office-top-bar">
             <div className="h-16 md:h-16 "></div>
             <div className="flex ">
-                <div className="border-r w-[15%]" id="dashboard-header-title" ></div>
+                <div className="border-r w-[15%]  flex justify-center items-center" id="dashboard-header-title" >
+                    <Ellipsis className="md:hidden"  onClick={() => {
+                        dispatch(toggleOfficeSidebarDrawer())
+                    }} />
+                </div>
                 <div className="w-[85%] flex justify-end ">
                     <div className="flex flex-row gap-4 py-2 mr-[7%]" id="dashboard-header-actions" >
                         <Button variant="ghost" size="icon">

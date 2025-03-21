@@ -7,7 +7,7 @@ import FeaturedHeaderImages from "@/components/website/FeaturedHeaderImages.tsx"
 function Header() {
     return (
         <>
-            <Navbar  className="fixed w-full z-20"/>
+            <Navbar  className="fixed w-full z-20" animatedBgColor="bg-black"/>
             <div className="h-screen w-full">
 
                 <div className="h-[80%] w-full">
