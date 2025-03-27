@@ -84,10 +84,9 @@ const columns: ColumnDef<ListingType>[] = [
 ];
 
 function LegalPage() {
-    return (
-        <div className="container mx-auto">
-      <h2 className="text-2xl font-semibold mb-6">
-      Legal Paperwork </h2>
+  return (
+    <div className="container mx-auto">
+      <h2 className="text-2xl font-semibold mb-6">Legal Paperwork </h2>
 
       <div className=" grid grid-cols-1 md:grid-cols-2 md:gap-16 gap-4 mb-10">
         <OfficeTotalOrders />
@@ -184,7 +183,7 @@ function LegalPage() {
         </TabsContent>
       </Tabs>
     </div>
-    )
+  );
 }
 
 export default LegalPage;
