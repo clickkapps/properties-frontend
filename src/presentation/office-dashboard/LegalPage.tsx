@@ -17,7 +17,6 @@ import { Checkbox } from "@/components/ui/checkbox.tsx";
 import { ListingType } from "@/types/ui.types";
 import { MoreHorizontal } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 
 const columns: ColumnDef<ListingType>[] = [
   {
