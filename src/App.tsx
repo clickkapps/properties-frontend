@@ -25,8 +25,6 @@ import VirtualTourPage from "@/presentation/office-dashboard/VirtualTourPage.tsx
 import FinancialsPage from "@/presentation/office-dashboard/FinancialsPage.tsx";
 import OfficeAgentsPage from "@/presentation/office-dashboard/OfficeAgentsPage.tsx";
 import AdminPage from "@/presentation/office-dashboard/AdminPage.tsx";
-import TotalPaymentsCard from "./components/office-dashboard/TotalPaymentsCard";
-import TotalPendingPaymentsCard from "./components/office-dashboard/TotalPendingPaymentsCard";
 // import TotalPropertiesCard from "./components/agent-dashboard/TotalPropertiesCard";
 // import AdvertiseCard from "./components/agent-dashboard/AdvertiseCard";
 // import AddListingsCard from "./components/agent-dashboard/AddListingsCard";
