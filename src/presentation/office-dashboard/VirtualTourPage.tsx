@@ -96,7 +96,7 @@ function VirtualTourPage() {
       </div>
 
       <div className="mb-10">
-        <h3 className="text-lg font-medium mb-6">Add Order</h3>
+        <h3 className="text-xl font-semibold mb-6">Add Order</h3>
 
         <form className="space-y-6">
           {/* Client Name & Contact */}
