@@ -1,5 +1,5 @@
 import DashboardMenuItem from "@/components/shared-dashboard/DashboardMenuItem.tsx";
-import {officeMenuLinks} from "@/utils/ui.constants.ts";
+import {officeMenuLinks} from "@/constants/ui.constants.ts";
 
 function OfficeSideBar() {
 

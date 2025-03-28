@@ -5,7 +5,7 @@ import {
 import {useAppDispatch, useAppSelector} from "@/hooks";
 import {closeAgentMobileDrawer, toggleAgentSidebarDrawer} from "@/store/ui-slice.ts";
 import {createPortal} from "react-dom";
-import {agentMenuLinks} from "@/utils/ui.constants.ts";
+import {agentMenuLinks} from "@/constants/ui.constants.ts";
 import DashboardMenuItem from "@/components/shared-dashboard/DashboardMenuItem.tsx";
 
 function AgentMobileSideDrawer() {

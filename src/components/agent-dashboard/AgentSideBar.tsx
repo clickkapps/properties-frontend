@@ -1,5 +1,5 @@
 import DashboardMenuItem from "@/components/shared-dashboard/DashboardMenuItem.tsx";
-import {agentMenuLinks} from "@/utils/ui.constants.ts";
+import {agentMenuLinks} from "@/constants/ui.constants.ts";
 
 function AgentSideBar() {
 

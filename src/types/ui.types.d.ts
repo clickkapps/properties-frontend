@@ -17,3 +17,7 @@ export type ListingType = {
     status: string
     email: string
 }
+
+type SignInFormValues = {
+    phone: string
+};

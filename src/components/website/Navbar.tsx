@@ -3,7 +3,7 @@ import {ReactNode, useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router";
 import Logo from "@/components/website/Logo.tsx";
 import { Menu, X } from 'lucide-react'
-import {websiteMenuLinks} from "@/utils/ui.constants.ts";
+import {websiteMenuLinks} from "@/constants/ui.constants.ts";
 import {MenuLink} from "@/types/ui.types";
 
 const defaultCenteredMenuLinks = websiteMenuLinks.map((link: MenuLink) => {

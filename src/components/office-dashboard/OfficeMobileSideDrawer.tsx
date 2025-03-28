@@ -5,7 +5,7 @@ import {
 import {useAppDispatch, useAppSelector} from "@/hooks";
 import {closeOfficeMobileDrawer, toggleAgentSidebarDrawer} from "@/store/ui-slice.ts";
 import {createPortal} from "react-dom";
-import { officeMenuLinks} from "@/utils/ui.constants.ts";
+import { officeMenuLinks} from "@/constants/ui.constants.ts";
 import DashboardMenuItem from "@/components/shared-dashboard/DashboardMenuItem.tsx";
 
 function OfficeMobileSideDrawer() {

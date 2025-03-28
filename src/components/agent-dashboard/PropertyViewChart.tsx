@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Bar, BarChart } from "recharts"
 import { ChartContainer } from "@/components/ui/chart"
-import {chartConfig, chartData} from "@/utils/shared.constants.ts";
+import {chartConfig, chartData} from "@/constants/shared.constants.ts";
 
 
 const PropertyViewChart = () => {

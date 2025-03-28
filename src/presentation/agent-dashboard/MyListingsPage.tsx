@@ -1,7 +1,7 @@
 import {ColumnDef} from "@tanstack/react-table";
 import {ListingType} from "@/types/ui.types";
 import {DataTable} from "@/components/ui/data-table.tsx";
-import {payments} from "@/utils/ui.constants.ts";
+import {payments} from "@/constants/ui.constants.ts";
 import {
     DropdownMenu, DropdownMenuContent,
     DropdownMenuItem, DropdownMenuLabel,
