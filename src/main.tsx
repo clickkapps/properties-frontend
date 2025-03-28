@@ -9,7 +9,7 @@ import PropertyDetailPage from "@/presentation/website/PropertyDetailPage.tsx";
 import AgentsPage from "@/presentation/website/AgentsPage.tsx";
 import AgentDetailPage from "@/presentation/website/AgentDetailPage.tsx";
 import PropertyListPage from "@/presentation/website/PropertyListPage.tsx";
-import AgentHomePage from "@/presentation/agent-dashboard/HomePage.tsx";
+import AgentHomePage from "@/presentation/agent-dashboard/AgentHomePage.tsx";
 import AgentLayout from "@/components/agent-dashboard/AgentLayout.tsx";
 import MyListingsPage from "@/presentation/agent-dashboard/MyListingsPage.tsx";
 import OfficeLayout from "@/components/office-dashboard/OfficeLayout.tsx";

@@ -4,7 +4,7 @@ import PropertyViewChart from "@/components/agent-dashboard/PropertyViewChart"
 import RecentMessages from "@/components/agent-dashboard/RecentMessages"
 import TotalPropertiesCard from "@/components/agent-dashboard/TotalPropertiesCard"
 
-function HomePage() {
+function AgentHomePage() {
     return (
         <div className="container mx-auto">
             <h2 className="text-2xl font-semibold"> Dashboard</h2>
@@ -24,4 +24,4 @@ function HomePage() {
     )
 }
 
-export default HomePage
+export default AgentHomePage
