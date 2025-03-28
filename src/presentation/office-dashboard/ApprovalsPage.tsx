@@ -92,25 +92,30 @@ function ApprovalsPage() {
                 <TotalPropertiesApproved/>
             </div>
 
-            <Tabs defaultValue="orders" className="w-full">
+            <Tabs defaultValue="pending" className="w-full">
 
-                <TabsList className="flex justify-start border-b rounded-none bg-white p-0 m-0">
-                    <TabsTrigger value="orders"
-                                 className="h-full md:pr-36 data-[state=active]:bg-white data-[state=active]:border-b-2 data-[state=active]:border-red-700 data-[state=active]:shadow-none data-[state=active]:rounded-none data-[state=active]:text-red-700 data-[state=active]:font-semibold flex justify-start">
+                <TabsList className="flex justify-start rounded-none bg-white p-0 m-0">
+
+                    <TabsTrigger value="pending" className="pl-0 h-full md:pr-36  data-[state=active]:bg-white data-[state=active]:border-b-2 data-[state=active]:border-red-700 data-[state=active]:shadow-none data-[state=active]:rounded-none data-[state=active]:text-red-700 data-[state=active]:font-semibold  flex justify-start">Pending
+                        Approvals
+                    </TabsTrigger>
+
+                    <TabsTrigger value="approvals"
+                                 className="h-full pl-0 md:pr-36 data-[state=active]:bg-white data-[state=active]:border-b-2 data-[state=active]:border-red-700 data-[state=active]:shadow-none data-[state=active]:rounded-none data-[state=active]:text-red-700 data-[state=active]:font-semibold flex justify-start">
                         Completed Approvals
                     </TabsTrigger>
-                    <TabsTrigger value="pending"
-                                 className="h-full md:pr-36  data-[state=active]:bg-white data-[state=active]:border-b-2 data-[state=active]:border-red-700 data-[state=active]:shadow-none data-[state=active]:rounded-none data-[state=active]:text-red-700 data-[state=active]:font-semibold  flex justify-start">Pending
-                        Approvals</TabsTrigger>
-                </TabsList>
 
-                <TabsContent value="orders">
-                    <DataTable columns={columns} data={payments}/>
-                </TabsContent>
+                </TabsList>
 
                 <TabsContent value="pending">
                     <PropertiesPendingApprovals />
                 </TabsContent>
+
+                <TabsContent value="approvals">
+                    <DataTable columns={columns} data={payments}/>
+                </TabsContent>
+
+
             </Tabs>
         </div>
     )
