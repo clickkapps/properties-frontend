@@ -98,10 +98,10 @@ function OfficeAgentsPage() {
                         className="w-full border border-gray-300 rounded-full py-3 pl-12 pr-24 text-[#6A6A6A] focus:outline-none"
                     />
 
-                    <button className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#e50005] hover:bg-red-700 rounded-full px-4 py-2 text-white flex items-center gap-2">
+                    <Button className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#e50005] hover:bg-red-700 rounded-full px-4 py-2 text-white flex items-center gap-2">
                         <Search className="w-5 h-5" />
                         Search
-                    </button>
+                    </Button>
                 </div>
     
       <h3 className="text-xl font-semibold mb-2">All Agent List</h3>

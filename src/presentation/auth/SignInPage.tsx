@@ -59,7 +59,7 @@ const SignInPage = () => {
 
           <>
               <div className="flex items-center justify-center mt-12">
-                  <div className="bg-white p-8 w-[500px]">
+                  <div className="bg-white p-8 w-full md:w-[500px]">
                       <h2 className="text-center text-lg font-semibold">Hello! Welcome</h2>
                       <hr className="my-4 border-gray-300"/>
 
@@ -145,7 +145,7 @@ const SignInPage = () => {
 
                           {/* Sign-In OPtions */}
                           <Button
-                              className="flex items-center w-full border border-gray-300 rounded-lg px-4 mb-4 hover:bg-gray-100 relative py-6">
+                              className="flex items-center w-full border border-gray-300 rounded-lg px-4 mb-4  relative py-6">
                               <img
                                   src={googleLogo}
                                   alt="Google Logo"

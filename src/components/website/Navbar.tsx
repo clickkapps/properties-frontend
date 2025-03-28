@@ -44,11 +44,11 @@ const Navbar = ({ animate = true, className, children, rightMenuLinks, bgColor =
   const defaultRightMenuLinks = (
       <ul className="flex flex-row gap-2 py-4 md:py-0 mx-4">
         <Button variant={'link'} className="w-full md:w-auto rounded-none md:rounded border text-white" onClick={() => {
-          navigate("/signup")
-        }}>Register</Button>
-        <Button variant={'secondary'} className="w-full md:w-auto rounded-none md:rounded" onClick={() => {
           navigate("/login")
-        }}>Login</Button>
+        }}>My Account</Button>
+        {/*<Button variant={'secondary'} className="w-full md:w-auto rounded-none md:rounded" onClick={() => {*/}
+        {/*  navigate("/login")*/}
+        {/*}}>Login</Button>*/}
         {/*<Button variant="link" className="text-white" onClick={() => {*/}
         {/*  navigate("/office")*/}
         {/*}}>Admin</Button>*/}

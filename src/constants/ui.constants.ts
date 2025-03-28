@@ -37,25 +37,25 @@ export const websiteMenuLinks: MenuLink[] = [
 export const agentMenuLinks: MenuLink[] = [
     {
         title: "Dashboard",
-        url: "/agent",
+        url: "/account/agent",
         external: false,
         icon: LayoutDashboard
     },
     {
         title: "My Listings",
-        url: "/agent/listings",
+        url: "/account/agent/listings",
         external: false,
         icon: House
     },
     {
         title: "Reviews",
-        url: "/agent/reviews",
+        url: "/account/agent/reviews",
         external: false,
         icon: Star
     },
     {
         title: "Membership",
-        url: "/agent/membership",
+        url: "/account/agent/membership",
         external: false,
         icon: Award
     },
@@ -64,67 +64,67 @@ export const agentMenuLinks: MenuLink[] = [
 export const officeMenuLinks: MenuLink[] = [
     {
         title: "Dashboard",
-        url: "/office",
+        url: "/account/office",
         external: false,
         icon: LayoutDashboard
     },
     {
         title: "Properties",
-        url: "/office/properties",
+        url: "/account/office/properties",
         external: false,
         icon: House
     },
     {
         title: "Officers",
-        url: "/office/admins",
+        url: "/account/office/admins",
         external: false,
         icon: UserCog
     },
     {
         title: "Agents",
-        url: "/office/agents",
+        url: "/account/office/agents",
         external: false,
         icon: UsersRound
     },
     {
         title: "Approvals",
-        url: "/office/approvals",
+        url: "/account/office/approvals",
         external: false,
         icon: SquareCheckBigIcon
     },
     {
         title: "Viewings",
-        url: "/office/viewings",
+        url: "/account/office/viewings",
         external: false,
         icon: EyeIcon
     },
     {
         title: "Photography",
-        url: "/office/photography",
+        url: "/account/office/photography",
         external: false,
         icon: Camera
     },
     {
         title: "Legal",
-        url: "/office/legal",
+        url: "/account/office/legal",
         external: false,
         icon: ScrollText
     },
     {
         title: "Conveyance",
-        url: "/office/conveyance",
+        url: "/account/office/conveyance",
         external: false,
         icon: BriefcaseConveyorBeltIcon
     },
     {
         title: "Virtual Tour",
-        url: "/office/virtual-tour",
+        url: "/account/office/virtual-tour",
         external: false,
         icon: VideoIcon
     },
     {
         title: "Financials",
-        url: "/office/financials",
+        url: "/account/office/financials",
         external: false,
         icon: WalletCards
     },
