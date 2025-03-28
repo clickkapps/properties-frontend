@@ -1,7 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { ListingType } from "@/types/ui.types";
 import { DataTable } from "@/components/ui/data-table.tsx";
-import { payments } from "@/utils/ui.constants.ts";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,6 +13,7 @@ import { Button } from "@/components/ui/button.tsx";
 import { MoreHorizontal } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox.tsx";
 import { Search } from "lucide-react";
+import {payments} from "@/constants/ui.constants.ts";
 
 const columns: ColumnDef<ListingType>[] = [
   {
