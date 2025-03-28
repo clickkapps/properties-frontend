@@ -122,9 +122,10 @@ const SignInPage = () => {
 
                           <Button
                               className="w-full bg-red-600 text-white rounded-lg mt-4  py-6"
-                              type="submit"
+                              // type="submit"
+                              type="button"
 
-                              // onClick={() => navigate('/agent')}
+                              onClick={() => navigate('/account/agent')}
                           >
                               {isPending && <LoaderCircle className="animate-spin"/>}
                               {!isPending && <span>Continue With Phone</span>}
