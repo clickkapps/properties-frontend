@@ -8,7 +8,7 @@ import {LoaderCircle} from "lucide-react";
 import {useMutation} from "@tanstack/react-query";
 import {apiLoginWithPhone} from "@/api/auth.api.ts";
 
-import {useRef, useState} from "react";
+import { useRef, useState} from "react";
 import PhoneVerificationPage from "@/presentation/auth/PhoneVerificationPage.tsx";
 
 const SignInPage = () => {
@@ -49,6 +49,11 @@ const SignInPage = () => {
       console.log('Form submitted!', data.phone);
       verificationPayloadRef.current!.phone = data.phone
       mutate(data)
+  }
+
+  function onGoogleClickHandler() {
+      console.log("onGoogleClickHandler called");
+      navigate('/account/agent')
   }
 
 
@@ -145,15 +150,11 @@ const SignInPage = () => {
 
                           {/* Sign-In OPtions */}
                           <Button
+                              type="button"
+                              onClick={onGoogleClickHandler}
                               className="flex items-center w-full border border-gray-300 rounded-lg px-4 mb-4  relative py-6">
-                              <img
-                                  src={googleLogo}
-                                  alt="Google Logo"
-                                  className="w-6 h-6 absolute left-4"
-                              />
-                              <span className="text-sm font-medium mx-auto" onClick={() => navigate('/agent')}>
-                        Continue with Google
-                      </span>
+                              <img src={googleLogo} alt="Google Logo" className="w-6 h-6 absolute left-4"/>
+                              <span className="text-sm font-medium mx-auto" > Continue with Google</span>
                           </Button>
                       </>)}
 
