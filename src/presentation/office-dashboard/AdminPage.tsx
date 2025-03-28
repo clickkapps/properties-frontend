@@ -4,7 +4,7 @@ import OfficeTotalAdminCard from "@/components/office-dashboard/OfficeTotalAdmin
 import {ColumnDef} from "@tanstack/react-table";
 import {ListingType} from "@/types/ui.types";
 import {DataTable} from "@/components/ui/data-table.tsx";
-import {payments} from "@/utils/ui.constants.ts";
+
 import {
     DropdownMenu, DropdownMenuContent,
     DropdownMenuItem, DropdownMenuLabel,
@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu.tsx";
 import {MoreHorizontal} from "lucide-react";
 import {Checkbox} from "@/components/ui/checkbox.tsx";
+import {payments} from "@/constants/ui.constants.ts";
 
 
 const columns: ColumnDef<ListingType>[] = [

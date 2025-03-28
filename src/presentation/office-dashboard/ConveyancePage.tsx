@@ -11,13 +11,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu.tsx";
-import { payments } from "@/utils/ui.constants.ts";
 import { Button } from "@/components/ui/button.tsx";
 import { Checkbox } from "@/components/ui/checkbox.tsx";
 import { ListingType } from "@/types/ui.types";
 import { MoreHorizontal } from "lucide-react";
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import {payments} from "@/constants/ui.constants.ts";
 
 const columns: ColumnDef<ListingType>[] = [
   {
@@ -140,45 +140,22 @@ function ConveyancePage() {
 </div>
 
       <Tabs defaultValue="orders" className="w-full">
-  <div className="border-b border-gray-200 mb-4">
-    <TabsList className="p-0 bg-transparent flex gap-[300px] justify-start">
-  <TabsTrigger
-    value="orders"
-    className="min-w-[120px] text-center
-               data-[state=active]:text-red-600 
-               data-[state=active]:border-b-[3px] 
-               data-[state=active]:border-red-600 
-               border-b-[3px] border-transparent 
-               text-sm font-medium text-gray-500 
-               px-4 py-2 rounded-none transition-all"
-  >
-    Pending Orders
-  </TabsTrigger>
 
-  <TabsTrigger
-    value="pending"
-    className="min-w-[160px] text-center
-               data-[state=active]:text-red-600 
-               data-[state=active]:border-b-[3px] 
-               data-[state=active]:border-red-600 
-               border-b-[3px] border-transparent 
-               text-sm font-medium text-gray-500 
-               px-4 py-2 rounded-none transition-all"
-  >
-    Completed Orders
-  </TabsTrigger>
-</TabsList>
+        <TabsList className="flex justify-start border-b rounded-none bg-white p-0 m-0">
+          <TabsTrigger value="orders" className="h-full md:pr-36 data-[state=active]:bg-white data-[state=active]:border-b-2 data-[state=active]:border-red-700 data-[state=active]:shadow-none data-[state=active]:rounded-none data-[state=active]:text-red-700 data-[state=active]:font-semibold flex justify-start">
+            Payments
+          </TabsTrigger>
+          <TabsTrigger value="pending" className="h-full md:pr-36  data-[state=active]:bg-white data-[state=active]:border-b-2 data-[state=active]:border-red-700 data-[state=active]:shadow-none data-[state=active]:rounded-none data-[state=active]:text-red-700 data-[state=active]:font-semibold  flex justify-start">Pending Payments</TabsTrigger>
+        </TabsList>
 
-  </div>
+        <TabsContent value="orders">
+          <DataTable columns={columns} data={payments} />
+        </TabsContent>
 
-  <TabsContent value="orders">
-    <DataTable columns={columns} data={payments} />
-  </TabsContent>
-
-  <TabsContent value="pending">
-    <DataTable columns={columns} data={payments} />
-  </TabsContent>
-</Tabs>
+        <TabsContent value="pending">
+          <DataTable columns={columns} data={payments} />
+        </TabsContent>
+      </Tabs>
 
     </div>
     )
