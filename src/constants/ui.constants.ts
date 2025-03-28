@@ -32,6 +32,11 @@ export const websiteMenuLinks: MenuLink[] = [
         url: "http://18.119.142.189",
         external: true
     },
+    {
+        title: "Back Office (Temporal)",
+        url: "/account/office",
+        external: false
+    },
 ]
 
 export const agentMenuLinks: MenuLink[] = [
