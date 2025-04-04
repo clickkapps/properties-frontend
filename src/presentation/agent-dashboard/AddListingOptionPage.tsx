@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button.tsx";
-import { AlertCircle, CircleCheck } from "lucide-react";
+import {AlertCircle, CircleCheck} from "lucide-react";
 import { useNavigate } from "react-router";
 
 function AddListingOptionPage() {
@@ -16,22 +16,28 @@ function AddListingOptionPage() {
         </p>
 
         {/* Option 1 - Yes */}
-        <div className="border bg-[#F5F5F5] p-14 max-w-3xl rounded-sm mt-6">
+        <div className="border bg-[#F5F5F5] p-8 max-w-3xl rounded-sm mt-6">
           <div className="flex items-center justify-between">
-            <p className="text-sm font-medium">Yes I would like to</p>
-            <CircleCheck className="w-6 h-6 fill-[#000050] stroke-white" />
+            <div>
+              <p className="text-sm font-medium">Yes the office should upload high quality listing for me</p>
+              <p className="text-[13px] text-green-500 flex items-start gap-1 mt-1">
+                <CircleCheck className="w-4 h-4  hidden md:block"/>
+                <span>Recommended</span>
+              </p>
+            </div>
+            <CircleCheck className="w-6 h-6 fill-[#000050] stroke-white"/>
           </div>
         </div>
 
         {/* Option 2 - No */}
-        <div className="border p-14 max-w-3xl rounded-sm mt-6">
+        <div className="border p-8 max-w-3xl rounded-sm mt-6">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium">
-                No, I will upload it my self
+              No, I will upload it my self
               </p>
-              <p className="text-[13px] text-red-600 flex items-center gap-1 mt-1">
-                <AlertCircle className="w-4 h-4 text-red-500" />
+              <p className="text-[13px] text-red-600 flex items-start gap-1 mt-1">
+                <AlertCircle className="w-4 h-4 text-red-500 hidden md:block" />
                 <span>Note : Would require approval from our office</span>
               </p>
             </div>
