@@ -10,16 +10,14 @@ function AddListingOptionPage() {
       <h2 className="text-2xl font-semibold mb-4"> Add Listings</h2>
       <div className="bg-white border px-10 py-6">
         <p className="py-4 text-sm font-medium">
-          {" "}
-          Do you want to use our Professional Photography Services to upload
-          your <br /> property?{" "}
+          Do you want our Professional Team to assist with your property upload?
         </p>
 
         {/* Option 1 - Yes */}
         <div className="border bg-[#F5F5F5] p-8 max-w-3xl rounded-sm mt-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium">Yes the office should upload high quality listing for me</p>
+              <p className="text-sm font-medium">Yes your office should upload high quality listing for me</p>
               <p className="text-[13px] text-green-500 flex items-start gap-1 mt-1">
                 <CircleCheck className="w-4 h-4  hidden md:block"/>
                 <span>Recommended</span>
