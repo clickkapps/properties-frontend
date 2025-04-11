@@ -1,20 +1,28 @@
 import axios from "axios";
 
 const baseURL = import.meta.env.VITE_API_BASE_URL
-console.log("baseUrl", baseURL)
 
 const apiClient = axios.create({
     baseURL: baseURL,
-    timeout: 1000,
+    // timeout: 1000,
     headers: {
         'Content-Type': 'application/json'
     }
 });
 
-const token = localStorage.getItem("accessToken");
+//  Intercept every request and attach token dynamically
+apiClient.interceptors.request.use(
+    (config) => {
+        const token = localStorage.getItem("accessToken");
+        if (token) {
+            config.headers['Authorization'] =  `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
 
-if(token){
-    apiClient.defaults.headers.common["Authorization"] = `Bearer ${token}`
-}
 
 export default apiClient

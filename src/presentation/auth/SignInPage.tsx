@@ -8,14 +8,15 @@ import {LoaderCircle} from "lucide-react";
 import {useMutation} from "@tanstack/react-query";
 import {apiLoginWithPhone} from "@/api/auth.api.ts";
 
-import { useRef, useState} from "react";
+import {useRef, useState} from "react";
 import PhoneVerificationPage from "@/presentation/auth/PhoneVerificationPage.tsx";
+import {customLog} from "@/lib/utils.ts";
 
 const SignInPage = () => {
 
   const navigate = useNavigate();
   const [ showOTP, setShowOTP ] = useState(false);
-  const verificationPayloadRef = useRef<{ phone: string | undefined, serverId: string | undefined }>({ phone: undefined, serverId: undefined});
+  const verificationPayloadRef  = useRef<{ phone: string, serverId: string, isNew: boolean } | undefined >(undefined);
 
     const {
         register,
@@ -28,13 +29,20 @@ const SignInPage = () => {
   const { mutate, isPending } = useMutation({
       mutationKey: ['auth'],
       mutationFn: apiLoginWithPhone,
-      onSuccess: async (data) => {
-          console.log("on success", data);
+      onSuccess: async (rep) => {
+
+          customLog("verification request success", rep);
+          const data = rep.data;
           reset()
+          verificationPayloadRef.current = {
+              serverId: data.serverId,
+              phone: data.phone,
+              isNew: data.isNew
+          }
           setShowOTP(true)
       },
       onError: async (error) => {
-          console.log("on error", error.message);
+          customLog("on error", error.message);
           setError("phone", {
               type: "manual",
               message: error.message,
@@ -47,7 +55,6 @@ const SignInPage = () => {
 
   function submitHandler(data: { phone: string }) {
       console.log('Form submitted!', data.phone);
-      verificationPayloadRef.current!.phone = data.phone
       mutate(data)
   }
 
@@ -122,10 +129,10 @@ const SignInPage = () => {
 
                           <Button
                               className="w-full bg-red-600 text-white rounded-lg mt-4  py-6"
-                              // type="submit"
-                              type="button"
+                              type="submit"
+                              // type="button"
 
-                              onClick={() => navigate('/account/agent')}
+                              // onClick={() => navigate('/account/agent')}
                           >
                               {isPending && <LoaderCircle className="animate-spin"/>}
                               {!isPending && <span>Continue With Phone</span>}
@@ -135,8 +142,8 @@ const SignInPage = () => {
 
                       {/* show the OTP component */}
                       { showOTP && (<PhoneVerificationPage
-                          phone={verificationPayloadRef.current!.phone!}
-                          serverId={verificationPayloadRef.current!.serverId!}
+                          phone={verificationPayloadRef.current?.phone ?? ''}
+                          verificationRequirements={ verificationPayloadRef.current! }
                           onCancelVerification={() => setShowOTP(false)}
                       />) }
 

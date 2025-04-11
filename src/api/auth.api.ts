@@ -6,7 +6,7 @@ export const apiLoginWithPhone = async(payload: { phone: string }) => {
     return apiClient.post("/auth/phone", payload).then((response) =>  response.data)
 };
 
-export const apiVerifyPhoneOTP = async(payload: { otp: string, serverId: string }) => {
+export const apiVerifyPhoneOTP = async(payload: { code: string, serverId: string, phone:string }) => {
     console.log("payload", payload)
     return apiClient.post("/auth/phone/verify", payload).then((response) =>  response.data)
 };

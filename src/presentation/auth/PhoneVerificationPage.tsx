@@ -10,10 +10,15 @@ import {useMutation} from "@tanstack/react-query";
 import {apiVerifyPhoneOTP} from "@/api/auth.api.ts";
 import {useForm} from "react-hook-form";
 import {useRef} from "react";
-import {isAllDigits} from "@/lib/utils.ts";
+import {customLog, isAllDigits} from "@/lib/utils.ts";
+import { AxiosError } from "axios"
+import {useDispatch} from "react-redux";
+import {login} from "@/store/auth-slice.ts";
+import {apiGetCurrentUserInfo} from "@/api/user.api.ts";
+import {useNavigate} from "react-router";
 
 
-function PhoneVerificationPage({ onCancelVerification, phone, serverId } : { onCancelVerification?: () => void, phone: string, serverId: string }) {
+function PhoneVerificationPage({ onCancelVerification, phone, verificationRequirements } : { onCancelVerification?: () => void, phone: string, verificationRequirements: { serverId: string, isNew: boolean } }) {
 
     const {
         handleSubmit,
@@ -23,22 +28,55 @@ function PhoneVerificationPage({ onCancelVerification, phone, serverId } : { onC
     } = useForm<{ otp: string }>()
 
     const inputRef = useRef<string>()
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
-    const { mutate, isPending } = useMutation({
-        mutationKey: ['otp'],
+    const { mutate: mutateVerifyPhone, isPending: isPendingVerifyPhone } = useMutation({
+        mutationKey: ['verifyPhone'],
         mutationFn: apiVerifyPhoneOTP,
-        onSuccess: async (data) => {
-            console.log("on success", data);
+        onSuccess: async (res) => {
+            customLog("on success", res.data);
+            // save
+            const authToken = res.data;
+            localStorage.setItem("accessToken", authToken)
+            dispatch(login({ authToken: authToken }))
             reset()
+
+            mutateGetCurrentUser()
+
         },
-        onError: async (error) => {
-            console.log("on error", error.message);
+        onError: async (error ) => {
+            const axiosError = error as AxiosError<{ message: string }>;
+            customLog("on error", axiosError.response?.data?.toString());
             setError("otp", {
                 type: "manual",
-                message: error.message,
+                message: axiosError.response?.data?.message ?? error.message,
             })
         },
     })
+
+    // storage.save("userInfo", userInfo)
+    const { mutate: mutateGetCurrentUser, isPending: inPendingGetCurrentUser } = useMutation({
+        mutationKey: ['getUserInfo'],
+        mutationFn: apiGetCurrentUserInfo,
+        onSuccess: async (res) => {
+            const userInfo = res.data;
+
+            localStorage.setItem('userInfo', userInfo)
+            dispatch(login({ userInfo: userInfo }))
+
+            // redirect user to dashboard
+            navigate('/account/agent')
+        },
+        onError: async (error ) => {
+            const axiosError = error as AxiosError<{ message: string }>;
+            setError("otp", {
+                type: "manual",
+                message: axiosError.response?.data?.message ?? error.message,
+            })
+        }
+    })
+
 
     function submitHandler(value?: string) {
         const input = value || inputRef.current
@@ -50,7 +88,7 @@ function PhoneVerificationPage({ onCancelVerification, phone, serverId } : { onC
             })
             return
         }
-        mutate({otp: input, serverId: serverId})
+        mutateVerifyPhone({code: input, serverId: verificationRequirements.serverId, phone: phone})
     }
 
     function otpCompleteHandler(value: string) {
@@ -95,8 +133,8 @@ function PhoneVerificationPage({ onCancelVerification, phone, serverId } : { onC
 
                     // onClick={() => navigate('/agent')}
                 >
-                    {isPending && <LoaderCircle className="animate-spin"/>}
-                    {!isPending && <span>Confirm</span>}
+                    {inPendingGetCurrentUser || isPendingVerifyPhone && <LoaderCircle className="animate-spin"/>}
+                    {!inPendingGetCurrentUser && !isPendingVerifyPhone && <span>Confirm</span>}
                 </Button>
 
                 <Button variant={'link'} onClick={onCancelVerification} >Or use a different phone number</Button>

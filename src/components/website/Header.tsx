@@ -1,8 +1,8 @@
 import Navbar from "@/components/website/Navbar.tsx";
-import HeaderImageItem1 from "@/assets/images/header-image-item-1.svg";
 import Searchbar from "@/components/website/Searchbar.tsx";
 // import FeaturedImages from "@/components/website/FeaturedImages.tsx";
 import FeaturedHeaderImages from "@/components/website/FeaturedHeaderImages.tsx";
+import {getCdnFile} from "@/lib/utils.ts";
 
 function Header() {
     return (
@@ -12,7 +12,7 @@ function Header() {
 
                 <div className="h-[80%] w-full">
                     <div className={`h-full w-full bg-cover bg-center relative`}
-                         style={{backgroundImage: `url(${HeaderImageItem1})`}}>
+                         style={{backgroundImage: `url(${getCdnFile("header-image-item-1.svg")})`}}>
                         <div className="h-full w-full bg-black/50 absolute"></div>
                         <div className="absolute h-full w-full -mt-[50px]">
                             <div className="flex flex-col justify-center items-center h-full text-white gap-4 mx-8 text-center">
