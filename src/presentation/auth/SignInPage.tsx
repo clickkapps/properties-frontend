@@ -1,7 +1,7 @@
-import { googleLogo } from "@/assets";
+// import { googleLogo } from "@/assets";
 import Navbar from "@/components/website/Navbar.tsx";
 import Footer from "@/components/website/Footer.tsx";
-import {useNavigate} from "react-router";
+// import {useNavigate} from "react-router";
 import {Button} from "@/components/ui/button.tsx";
 import {useForm} from "react-hook-form";
 import {LoaderCircle} from "lucide-react";
@@ -11,18 +11,20 @@ import {apiLoginWithPhone} from "@/api/auth.api.ts";
 import {useRef, useState} from "react";
 import PhoneVerificationPage from "@/presentation/auth/PhoneVerificationPage.tsx";
 import {customLog} from "@/lib/utils.ts";
+import {useToast} from "@/hooks/use-toast.ts";
+import {AxiosError} from "axios";
 
 const SignInPage = () => {
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [ showOTP, setShowOTP ] = useState(false);
+  const { toast }  = useToast();
   const verificationPayloadRef  = useRef<{ phone: string, serverId: string, isNew: boolean } | undefined >(undefined);
 
     const {
         register,
         handleSubmit,
         reset,
-        setError,
         formState: { errors },
     } = useForm<{phone: string}>()
 
@@ -42,10 +44,12 @@ const SignInPage = () => {
           setShowOTP(true)
       },
       onError: async (error) => {
-          customLog("on error", error.message);
-          setError("phone", {
-              type: "manual",
-              message: error.message,
+          const axiosError = error as AxiosError<{ message: string }>;
+          customLog("on error", error);
+          toast({
+              variant: "destructive",
+              title: "Uh oh! Something went wrong",
+              description: axiosError.response?.data?.message || "Sorry! connection failed",
           })
       },
   })
@@ -58,10 +62,10 @@ const SignInPage = () => {
       mutate(data)
   }
 
-  function onGoogleClickHandler() {
-      console.log("onGoogleClickHandler called");
-      navigate('/account/agent')
-  }
+  // function onGoogleClickHandler() {
+  //     console.log("onGoogleClickHandler called");
+  //     navigate('/account/agent')
+  // }
 
 
   return (
@@ -70,7 +74,7 @@ const SignInPage = () => {
           <div className="h-4 md:h-16"></div>
 
           <>
-              <div className="flex items-center justify-center mt-12">
+              <div className="flex items-center justify-center mt-24 mb-24">
                   <div className="bg-white p-8 w-full md:w-[500px]">
                       <h2 className="text-center text-lg font-semibold">Hello! Welcome</h2>
                       <hr className="my-4 border-gray-300"/>
@@ -148,23 +152,25 @@ const SignInPage = () => {
                       />) }
 
 
-                      {/* Dividing bar */}
-                      {!showOTP && (<>
-                          <div className="flex items-center my-4">
-                              <hr className="flex-grow border-gray-300"/>
-                              <span className="mx-2 text-sm text-gray-500">or</span>
-                              <hr className="flex-grow border-gray-300"/>
-                          </div>
+                      {/* Login with Google will be enabled later -------------------*/}
 
-                          {/* Sign-In OPtions */}
-                          <Button
-                              type="button"
-                              onClick={onGoogleClickHandler}
-                              className="flex items-center w-full border border-gray-300 rounded-lg px-4 mb-4  relative py-6">
-                              <img src={googleLogo} alt="Google Logo" className="w-6 h-6 absolute left-4"/>
-                              <span className="text-sm font-medium mx-auto" > Continue with Google</span>
-                          </Button>
-                      </>)}
+                      {/*/!* Dividing bar *!/*/}
+                      {/*{!showOTP && (<>*/}
+                      {/*    <div className="flex items-center my-4">*/}
+                      {/*        <hr className="flex-grow border-gray-300"/>*/}
+                      {/*        <span className="mx-2 text-sm text-gray-500">or</span>*/}
+                      {/*        <hr className="flex-grow border-gray-300"/>*/}
+                      {/*    </div>*/}
+
+                      {/*    /!* Sign-In OPtions *!/*/}
+                      {/*    <Button*/}
+                      {/*        type="button"*/}
+                      {/*        onClick={onGoogleClickHandler}*/}
+                      {/*        className="flex items-center w-full border border-gray-300 rounded-lg px-4 mb-4  relative py-6">*/}
+                      {/*        <img src={googleLogo} alt="Google Logo" className="w-6 h-6 absolute left-4"/>*/}
+                      {/*        <span className="text-sm font-medium mx-auto" > Continue with Google</span>*/}
+                      {/*    </Button>*/}
+                      {/*</>)}*/}
 
                       {/*        <button*/}
                       {/*            className="flex items-center w-full border border-gray-300 rounded-lg py-3 px-4 mb-4 hover:bg-gray-100 relative">*/}

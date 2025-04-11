@@ -60,7 +60,7 @@ function RegistrationPage() {
             customLog("on error", error);
             toast({
                 variant: "destructive",
-                title: "Oops!",
+                title: "Uh oh! Something went wrong",
                 description: axiosError.response?.data?.message || "Sorry! connection failed",
             })
         },
