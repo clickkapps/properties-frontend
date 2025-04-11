@@ -21,3 +21,10 @@ export type ListingType = {
 type SignInFormValues = {
     phone: string
 };
+
+export interface RegistrationFormInputs {
+    firstName: string;
+    lastName: string;
+    contactEmail: string;
+    contactPhone: string;
+}

@@ -1,4 +1,3 @@
-import {ListingType, MenuLink} from "@/types/ui.types";
 import {
     Award,
     BriefcaseConveyorBeltIcon, Camera, EyeIcon,
@@ -10,6 +9,7 @@ import {
     UsersRound, VideoIcon,
     WalletCards
 } from "lucide-react";
+import {ListingType, MenuLink} from "@/lib/types";
 
 export const websiteMenuLinks: MenuLink[] = [
     {

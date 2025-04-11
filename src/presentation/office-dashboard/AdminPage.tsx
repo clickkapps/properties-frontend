@@ -2,7 +2,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button.tsx";
 import OfficeTotalAdminCard from "@/components/office-dashboard/OfficeTotalAdminCard";
 import {ColumnDef} from "@tanstack/react-table";
-import {ListingType} from "@/types/ui.types";
+import {ListingType} from "@/lib/ui.types";
 import {DataTable} from "@/components/ui/data-table.tsx";
 
 import {

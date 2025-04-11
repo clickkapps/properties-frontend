@@ -8,9 +8,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import {forwardRef, ReactNode, Ref, useImperativeHandle, useState} from "react";
-import {ModalHandle} from "@/types/ui.types";
 import {Input} from "@/components/ui/input.tsx";
 import {useNavigate} from "react-router";
+import {ModalHandle} from "@/lib/types";
 
 const SearchResults =  forwardRef(({ children }: { children?: ReactNode }, ref: Ref<ModalHandle | undefined>) => {
 

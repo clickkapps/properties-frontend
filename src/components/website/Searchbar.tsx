@@ -1,9 +1,9 @@
 import {Search, SearchIcon} from "lucide-react"
 import {Button} from "@/components/ui/button.tsx";
-import {ModalHandle} from "@/types/ui.types";
 import {useRef} from "react";
 import SearchResults from "@/components/website/SearchResults.tsx";
 import {useNavigate} from "react-router";
+import {ModalHandle} from "@/lib/types";
 
 const Searchbar = ({ className }: { className: string}) => {
 

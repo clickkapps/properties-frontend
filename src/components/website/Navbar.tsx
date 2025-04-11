@@ -1,10 +1,12 @@
 import {Button} from "@/components/ui/button.tsx";
 import {ReactNode, useEffect, useState} from "react";
-import {Link, useNavigate} from "react-router";
+import {Link, useLocation, useNavigate} from "react-router";
 import Logo from "@/components/website/Logo.tsx";
 import { Menu, X } from 'lucide-react'
 import {websiteMenuLinks} from "@/constants/ui.constants.ts";
-import {MenuLink} from "@/types/ui.types";
+import {MenuLink} from "@/lib/types";
+import {useAppDispatch, useAppSelector} from "@/hooks";
+import {logout} from "@/store/auth-slice.ts";
 
 const defaultCenteredMenuLinks = websiteMenuLinks.map((link: MenuLink) => {
   return (
@@ -20,6 +22,9 @@ const Navbar = ({ animate = true, className, children, rightMenuLinks, bgColor =
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const authState = useAppSelector(state => state.auth)
+  const  dispatch = useAppDispatch();
+  const location = useLocation();
 
   useEffect(() => {
 
@@ -40,21 +45,31 @@ const Navbar = ({ animate = true, className, children, rightMenuLinks, bgColor =
   //
   // </ul>
 
+  const logoutHandler = async () => {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("userInfo");
+      dispatch(logout())
+      navigate("/login")
+  }
+
 
   const defaultRightMenuLinks = (
       <ul className="flex flex-row gap-2 py-4 md:py-0 mx-4">
-        <Button variant={'link'} className="w-full md:w-auto rounded-none md:rounded border text-white" onClick={() => {
-          navigate("/login")
-        }}>My Account</Button>
+
+        { !authState.authenticated && (location.pathname !== "/login") && (
+            <Button variant={'link'} className="w-full md:w-auto rounded-none md:rounded border text-white" onClick={() => {
+                navigate("/login")
+            }}>My Account</Button>
+        )}
         {/*<Button variant={'secondary'} className="w-full md:w-auto rounded-none md:rounded" onClick={() => {*/}
         {/*  navigate("/login")*/}
         {/*}}>Login</Button>*/}
         {/*<Button variant="link" className="text-white" onClick={() => {*/}
         {/*  navigate("/office")*/}
         {/*}}>Admin</Button>*/}
-        {/*<Button variant="link" className="text-white" onClick={() => {*/}
-        {/*  navigate("/")*/}
-        {/*}}>Logout</Button>*/}
+          { authState.authenticated && (
+              <Button variant="link" className="text-white" onClick={logoutHandler}>Logout</Button>
+          )}
       </ul>
   )
 

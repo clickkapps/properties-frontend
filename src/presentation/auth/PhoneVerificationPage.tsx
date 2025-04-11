@@ -21,7 +21,7 @@ import {useNavigate} from "react-router";
 function PhoneVerificationPage({ onCancelVerification, phone, verificationRequirements } : { onCancelVerification?: () => void, phone: string, verificationRequirements: { serverId: string, isNew: boolean } }) {
 
     const {
-        handleSubmit,
+        // handleSubmit,
         reset,
         setError,
         formState: { errors },
@@ -62,7 +62,7 @@ function PhoneVerificationPage({ onCancelVerification, phone, verificationRequir
         onSuccess: async (res) => {
             const userInfo = res.data;
 
-            localStorage.setItem('userInfo', userInfo)
+            localStorage.setItem('userInfo', JSON.stringify(userInfo))
             dispatch(login({ userInfo: userInfo }))
 
             // redirect user to dashboard
@@ -79,6 +79,7 @@ function PhoneVerificationPage({ onCancelVerification, phone, verificationRequir
 
 
     function submitHandler(value?: string) {
+        console.log("submitHandler called", value)
         const input = value || inputRef.current
 
         if(input == undefined || input?.length < 6 || !isAllDigits(input)) {
@@ -98,7 +99,7 @@ function PhoneVerificationPage({ onCancelVerification, phone, verificationRequir
     }
 
     return (
-        <form onSubmit={handleSubmit(() => submitHandler())}>
+        <form>
             <div className="my-4 flex flex-col gap-4">
                 <div className="animated fadeIn">
                     <p className="text-[11px] my-4">
@@ -129,15 +130,14 @@ function PhoneVerificationPage({ onCancelVerification, phone, verificationRequir
 
                 <Button
                     className="w-full bg-red-600 text-white rounded-lg mt-4  py-6"
-                    type="submit"
-
-                    // onClick={() => navigate('/agent')}
+                    type="button"
+                    onClick={() => submitHandler()}
                 >
                     {inPendingGetCurrentUser || isPendingVerifyPhone && <LoaderCircle className="animate-spin"/>}
                     {!inPendingGetCurrentUser && !isPendingVerifyPhone && <span>Confirm</span>}
                 </Button>
 
-                <Button variant={'link'} onClick={onCancelVerification} >Or use a different phone number</Button>
+                <Button  type={"button"} variant={'link'} onClick={onCancelVerification} >Or use a different phone number</Button>
 
             </div>
         </form>

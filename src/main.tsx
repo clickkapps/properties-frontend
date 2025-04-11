@@ -31,7 +31,7 @@ import AdminPage from "@/presentation/office-dashboard/AdminPage.tsx";
 import RegistrationPage from "@/presentation/auth/RegistrationPage.tsx";
 import ErrorPage from "@/presentation/website/ErrorPage.tsx";
 import App from "@/App.tsx";
-import {accountLoader} from "@/lib/loaders.ts";
+import {accountLoader, loginLoader, registrationLoader} from "@/lib/loaders.ts";
 
 const router = createBrowserRouter([
 
@@ -40,12 +40,12 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
             {   index: true, element: <LandingPage /> },
-            {   path: "login", element: <SignInPage />,},
+            {   path: "login", loader: loginLoader, element: <SignInPage />,},
             {   path: "properties/:type", element: <PropertyListPage />},
             {   path: "property-detail",  element: <PropertyDetailPage />},
             {   path: "agents", element: <AgentsPage />},
             {   path: "agent-detail", element: <AgentDetailPage /> },
-            {   path: "register", element: <RegistrationPage />},
+            {   path: 'register', loader: registrationLoader, element: <RegistrationPage />},
             {   path: "account",
                 id: 'account',
                 loader: accountLoader,
