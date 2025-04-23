@@ -1,15 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import {LoaderCircle, TrashIcon, PlusCircle} from "lucide-react";
+import {LoaderCircle} from "lucide-react";
 import {useMutation, useQuery,} from "@tanstack/react-query";
 import {apiAddNewProperty, apiGetPropertyCategories} from "@/api/properties.api.ts";
-import {customLog, getUuid} from "@/lib/utils.ts";
+import {customLog} from "@/lib/utils.ts";
 import {AxiosError} from "axios";
 import {toast} from "@/hooks/use-toast.ts";
 import {useForm} from "react-hook-form";
-import {KeyValue, PropertyFormInputs} from "@/lib/types";
-import {useCallback, useEffect, useState} from "react";
+import {InnerFormComponent, KeyValue, PropertyFormInputs} from "@/lib/types";
+import {useCallback, useEffect, useRef} from "react";
 import {
   Select,
   SelectContent,
@@ -17,13 +17,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import FileSelector from "@/presentation/agent-dashboard/FileSelector.tsx";
+import FileSelector from "@/components/shared-dashboard/FileSelector.tsx";
 import {ghRegions} from "@/constants/ui.constants.ts";
+import SpecificationsCard from "@/components/agent-dashboard/SpecificationsCard.tsx";
 
 function AddListingPage() {
 
-  // const openDropZoneRef = useRef()
-  const [specifications, setSpecifications] = useState<KeyValue[]>([{id: getUuid(), key: "", value: ""}]);
+
+  const specificationsRef = useRef<InnerFormComponent>(null);
+  const imagesRef = useRef<InnerFormComponent>(null);
   const { isPending: isPendingCategories, isError: isErrorCategories, data: propertyCategories } = useQuery<{id: number, title: string}[]>({ queryKey: ['property-categories'], queryFn: apiGetPropertyCategories })
 
   const {
@@ -61,6 +63,8 @@ function AddListingPage() {
         description: "Property added successfully!",
       })
       reset()
+      specificationsRef.current?.clear()
+      imagesRef.current?.clear()
 
     },
     onError: async (error) => {
@@ -74,28 +78,25 @@ function AddListingPage() {
     },
   })
 
-  const addNewSpecificationField = () => {
-    setSpecifications(prev => {
-      return [
-        ...prev,
-        {id: getUuid(), key: "", value: ""}
-      ]
-    });
-  }
 
-  const removeSpecificationField = (id?: string) => {
-    setSpecifications(prev => {
-      return prev.filter((spec) => spec.id !== id);
-    })
-  }
 
-  const onFilesChange = useCallback((files: File[]) => {
+  const filesChangeHandler = useCallback((files: File[]) => {
     if(files && files.length > 0) {
       setValue("mainImage", files[0])
       setValue("otherImages", files.filter(f => f.name != files[0].name))
     }
 
   }, [setValue])
+
+  const specificationsChangeHandler = (specs: KeyValue[]) => {
+    const preparedSpecifications = specs.map((spec: KeyValue) => {
+      return {
+        title: spec.key,
+        value: String(spec.value),
+      }
+    })
+    setValue("specifications", preparedSpecifications)
+  }
 
 
   return (
@@ -116,7 +117,7 @@ function AddListingPage() {
 
               <div className="flex flex-row gap-2">
                 <div className="w-[180px]">
-                  <label className="block text-sm mb-1">Property For</label>
+                  <label className="block text-sm mb-1">Property For*</label>
                   <Select onValueChange={(value) => {
                     setValue('offerType', value)
                   }} name={"offerType"} required>
@@ -130,7 +131,7 @@ function AddListingPage() {
                   </Select>
                 </div>
                 <div className="w-full">
-                  <label className="block text-sm mb-1">Select Category</label>
+                  <label className="block text-sm mb-1">Select Category*</label>
                   <Select onValueChange={(value) => {
                     setValue('propertyCategoryId', +value)
                   }} name={"offerType"} required>
@@ -151,9 +152,9 @@ function AddListingPage() {
               </div>
 
               <div>
-                <label className="block text-sm mb-1">Property Title</label>
+                <label className="block text-sm mb-1">Property Title*</label>
                 <Input
-                    placeholder="eg. 2 Bedroom detached house"
+                    placeholder="eg. Newly renovated apartment"
                     {...register('title')}
                     required
                 />
@@ -175,11 +176,11 @@ function AddListingPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
               <div>
-                <label className="block text-sm mb-1">Property Price</label>
+                <label className="block text-sm mb-1">Property Price*</label>
                 <div className="flex gap-2">
-                  <Select defaultValue={'USD'} onValueChange={(value) => {
+                  <Select onValueChange={(value) => {
                     setValue('currency', value)
-                  }}>
+                  }} required >
                     <SelectTrigger className="w-[180px]">
                       <SelectValue placeholder="Currency"/>
                     </SelectTrigger>
@@ -188,27 +189,28 @@ function AddListingPage() {
                       <SelectItem value="GHS">GH₵</SelectItem>
                     </SelectContent>
                   </Select>
-                  <Input placeholder="eg. 5000" className="w-full" {...register('price')}/>
+                  <Input placeholder="eg. 5000" className="w-full" {...register('price')} required />
                 </div>
 
               </div>
 
               <div className={"col-span-2"}>
-                <label className="block text-sm mb-1">Property Address</label>
+                <label className="block text-sm mb-1">Property Address*</label>
                 <div className="flex flex-col md:flex-row gap-2">
-                  <Select defaultValue={'Ghana'} onValueChange={(value) => {
+                  <Select onValueChange={(value) => {
                     setValue('country', value)
-                  }}>
+                  }}  required >
                     <SelectTrigger className="w-full md:w-[180px]">
                       <SelectValue placeholder="Country"/>
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="Ghana">Ghana</SelectItem>
+                      {/*<SelectItem value="Canada">Canada</SelectItem>*/}
                     </SelectContent>
                   </Select>
                   <Select onValueChange={(value) => {
                     setValue('region', value)
-                  }}>
+                  }} required >
                     <SelectTrigger className="w-full md:w-[180px]">
                       <SelectValue placeholder="Region"/>
                     </SelectTrigger>
@@ -227,31 +229,13 @@ function AddListingPage() {
             {/* Description */}
             <div>
               <label className="block text-sm mb-1">Property Description</label>
-              <Textarea placeholder="eg. pets allowed" className="min-h-[120px]"/>
+              <Textarea placeholder="eg. pets allowed" className="min-h-[120px]" {...register('description')}/>
             </div>
 
             {/*<div className="h-8"></div>*/}
 
             {/* Property For, Category, Garages */}
-            <div>
-              <h2 className="text-xl font-semibold mb-6"> More Property Specifications </h2>
-              <div className="space-y-4">
-                {
-                  specifications.map((spec: KeyValue) => (
-                      <div className="flex flex-col md:flex-row gap-4" key={spec.id}>
-                        <Input placeholder="eg. utilities" defaultValue={spec.key} className="w-full"/>
-                        <Input placeholder="eg. not included" defaultValue={spec.value as string} className={"w-full"}/>
-                        <Button type={"button"} onClick={() => removeSpecificationField(spec.id)}
-                                variant={"outline"}><TrashIcon
-                            className={"text-red-700"}/></Button>
-                      </div>
-                  ))
-                }
-                <Button type={"button"} variant={"outline"} onClick={addNewSpecificationField}> <PlusCircle/> Add
-                  another
-                  specification</Button>
-              </div>
-            </div>
+            <SpecificationsCard onChange={specificationsChangeHandler} ref={specificationsRef}/>
 
 
             {/* File Attachment */}
@@ -259,7 +243,7 @@ function AddListingPage() {
               <h2 className="text-xl font-semibold mb-6"> Property Photos / Images </h2>
               <h3 className="text-md font-medium mb-2">Attach images <small className="text-blue-500">(first image will be used as the featured image)</small></h3>
 
-              <FileSelector onChange={onFilesChange} />
+              <FileSelector onChange={filesChangeHandler} ref={imagesRef} />
 
             </div>
 

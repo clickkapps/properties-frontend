@@ -1,7 +1,13 @@
-import {ChangeEvent, useEffect, useState} from "react";
+import {ChangeEvent, Ref, useEffect, useImperativeHandle, useState} from "react";
 import { X } from "lucide-react";
+import {InnerFormComponent} from "@/lib/types";
 
-export default function FileSelector({ onChange, accept ="image/*" }: { onChange?: (value: File[]) => void, accept?: string }) {
+type Props = {
+    onChange?: (value: File[]) => void,
+    accept?: string
+    ref?: Ref<InnerFormComponent>
+}
+export default function FileSelector({ onChange, accept ="image/*", ref }: Props) {
 
     const [files, setFiles] = useState<File[]>([]);
 
@@ -10,6 +16,14 @@ export default function FileSelector({ onChange, accept ="image/*" }: { onChange
             onChange(files)
         }
     }, [files, onChange]);
+
+    useImperativeHandle(ref, () => {
+        return {
+            clear() {
+                setFiles([]);
+            }
+        }
+    })
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         const selectedFiles = e.target.files ? Array.from(e.target.files) : [];

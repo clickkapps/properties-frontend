@@ -11,6 +11,8 @@ export type ModalHandle = {
     close: () => void;
 };
 
+export type InnerFormComponent = { clear: () => void }
+
 export type ListingType = {
     id: string
     amount: number
@@ -33,6 +35,7 @@ export interface PropertyFormInputs {
     propertyCategoryId: number
     offerType: string;
     title: string;
+    description?: string;
     ownerId?: number,
     currency: string;
     price: number,
@@ -43,6 +46,7 @@ export interface PropertyFormInputs {
     country: string
     region: string
     address: string;
+    specifications: { title: string; value: string; }[]
 }
 
 export type KeyValue = {
