@@ -14,8 +14,9 @@ import {customLog, isAllDigits} from "@/lib/utils.ts";
 import { AxiosError } from "axios"
 import {useDispatch} from "react-redux";
 import {login} from "@/store/auth-slice.ts";
-import {apiGetCurrentUserInfo} from "@/api/user.api.ts";
+import {apiGetCurrentUserInfo} from "@/api/users.api.ts";
 import {useNavigate} from "react-router";
+import {appStorage} from "@/lib/storage.ts";
 
 
 function PhoneVerificationPage({ onCancelVerification, phone, verificationRequirements } : { onCancelVerification?: () => void, phone: string, verificationRequirements: { serverId: string, isNew: boolean } }) {
@@ -38,7 +39,7 @@ function PhoneVerificationPage({ onCancelVerification, phone, verificationRequir
             customLog("on success", res.data);
             // save
             const authToken = res.data;
-            localStorage.setItem("accessToken", authToken)
+            appStorage.setAccessToken(authToken)
             dispatch(login({ authToken: authToken }))
             reset()
 
@@ -62,7 +63,7 @@ function PhoneVerificationPage({ onCancelVerification, phone, verificationRequir
         onSuccess: async (res) => {
             const userInfo = res.data;
 
-            localStorage.setItem('userInfo', JSON.stringify(userInfo))
+            appStorage.setUserInfo(userInfo)
             dispatch(login({ userInfo: userInfo }))
 
             // redirect user to dashboard

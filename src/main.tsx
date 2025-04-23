@@ -32,6 +32,9 @@ import RegistrationPage from "@/presentation/auth/RegistrationPage.tsx";
 import ErrorPage from "@/presentation/website/ErrorPage.tsx";
 import App from "@/App.tsx";
 import {accountLoader, loginLoader, registrationLoader} from "@/lib/loaders.ts";
+import store from "@/store";
+import {Provider} from "react-redux";
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
 const router = createBrowserRouter([
 
@@ -85,10 +88,16 @@ const router = createBrowserRouter([
     },
 
 ])
-
+// Create a client
+const queryClient = new QueryClient()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-      <RouterProvider router={router} />
+      {/* store at the top level so that Error Page can also benefit from it*/}
+      <Provider store={store}>
+          <QueryClientProvider client={queryClient} >
+                <RouterProvider router={router} />
+          </QueryClientProvider>
+      </Provider>
   </StrictMode>,
 )

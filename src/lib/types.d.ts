@@ -28,3 +28,42 @@ export interface RegistrationFormInputs {
     contactEmail: string;
     contactPhone: string;
 }
+
+export interface PropertyFormInputs {
+    propertyCategoryId: number
+    offerType: string;
+    title: string;
+    ownerId?: number,
+    currency: string;
+    price: number,
+    rooms: number,
+    bathrooms: number,
+    mainImage: File
+    otherImages: File[],
+    country: string
+    region: string
+    address: string;
+}
+
+export type KeyValue = {
+    id?: string,
+    key: string
+    value: unknown
+}
+
+export type User = {
+    id: string,
+    loginId: string,
+    firstName?: string,
+    lastName?: string,
+    photo?: string,
+    publicKey?: string,
+    contactEmail?: string,
+    contactPhone?: string,
+    lastLoginAt?: string,
+    currentLoginAt?: string,
+    basicInfoUpdatedAt?: string,
+    createdAt?: Date,
+    updatedAt?: Date
+    isAdmin?: boolean
+}

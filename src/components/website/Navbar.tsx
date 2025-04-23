@@ -7,6 +7,7 @@ import {websiteMenuLinks} from "@/constants/ui.constants.ts";
 import {MenuLink} from "@/lib/types";
 import {useAppDispatch, useAppSelector} from "@/hooks";
 import {logout} from "@/store/auth-slice.ts";
+import {appStorage} from "@/lib/storage.ts";
 
 const defaultCenteredMenuLinks = websiteMenuLinks.map((link: MenuLink) => {
   return (
@@ -46,8 +47,7 @@ const Navbar = ({ animate = true, className, children, rightMenuLinks, bgColor =
   // </ul>
 
   const logoutHandler = async () => {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("userInfo");
+      appStorage.clearUserData()
       dispatch(logout())
       navigate("/login")
   }

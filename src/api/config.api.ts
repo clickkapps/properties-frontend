@@ -1,4 +1,5 @@
 import axios from "axios";
+import {appStorage} from "@/lib/storage.ts";
 
 const baseURL = import.meta.env.VITE_API_BASE_URL
 
@@ -13,7 +14,7 @@ const apiClient = axios.create({
 //  Intercept every request and attach token dynamically
 apiClient.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem("accessToken");
+        const token = appStorage.getAccessToken();
         if (token) {
             config.headers['Authorization'] =  `Bearer ${token}`;
         }

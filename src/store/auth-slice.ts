@@ -1,6 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
+import {User} from "@/lib/types";
 
-const authState: { authenticated: boolean, userInfo: unknown|undefined} = {
+const authState: { authenticated: boolean, userInfo: User|undefined} = {
     authenticated: false,
     userInfo: undefined
 };

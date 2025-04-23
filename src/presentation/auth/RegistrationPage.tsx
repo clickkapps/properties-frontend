@@ -9,10 +9,11 @@ import {customLog} from "@/lib/utils.ts";
 import {AxiosError} from "axios";
 import {useToast} from "@/hooks/use-toast.ts";
 import {RegistrationFormInputs} from "@/lib/types";
-import {apiUpdateCurrentUserInfo} from "@/api/user.api.ts";
+import {apiUpdateCurrentUserInfo} from "@/api/users.api.ts";
 import {useDispatch} from "react-redux";
 import {login} from "@/store/auth-slice.ts";
 import {useLoaderData, useNavigate} from "react-router";
+import {appStorage} from "@/lib/storage.ts";
 
 
 function RegistrationPage() {
@@ -44,7 +45,7 @@ function RegistrationPage() {
             customLog("Registration completed", res.data);
             // const data = rep.data;
             const userInfo = res.data;
-            localStorage.setItem('userInfo', JSON.stringify(userInfo))
+            appStorage.setUserInfo(userInfo)
             dispatch(login({ userInfo: userInfo }))
             reset()
             toast({
