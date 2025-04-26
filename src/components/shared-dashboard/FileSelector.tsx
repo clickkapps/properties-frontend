@@ -4,11 +4,12 @@ import {InnerFormComponent} from "@/lib/types";
 
 type Props = {
     onChange?: (value: File[]) => void,
+    title?: string
     accept?: string
     ref?: Ref<InnerFormComponent>
     multiple?: boolean
 }
-const FileSelector = forwardRef(({ onChange, accept = "image/*", multiple = true }: Props, ref: Ref<InnerFormComponent>) =>  {
+const FileSelector = forwardRef(({ title, onChange, accept = "image/*", multiple = true }: Props, ref: Ref<InnerFormComponent>) =>  {
 
     const [files, setFiles] = useState<File[]>([]);
 
@@ -40,11 +41,10 @@ const FileSelector = forwardRef(({ onChange, accept = "image/*", multiple = true
     };
 
     return (
-        <div>
+        <div className="w-full">
 
             <div className="w-full mb-5">
                 <label
-                    htmlFor="dropzone-file"
                     className="flex flex-col items-center justify-center py-9 w-full border border-gray-300 border-dashed rounded cursor-pointer "
                 >
                     <div className="mb-3 flex items-center justify-center">
@@ -61,10 +61,9 @@ const FileSelector = forwardRef(({ onChange, accept = "image/*", multiple = true
                         PNG, JPG, smaller than 15MB
                     </h2>
                     <h4 className="text-center text-gray-900 text-sm font-medium">
-                        Click to browse your files
+                        {title || 'Click to browse your files' }
                     </h4>
                     <input
-                        id="dropzone-file"
                         type="file"
                         className="hidden"
                         multiple={multiple}

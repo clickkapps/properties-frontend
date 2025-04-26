@@ -44,7 +44,7 @@ export interface PropertyModel {
     offerType: string;
     title: string;
     currency: string;
-    price: number,
+    amount: number,
     country: string
     region: string
     rooms?: number,

@@ -38,7 +38,8 @@ type Props = {
 function ManagePropertiesList({ userId } : Props) {
 
     const specificationsRef = useRef<InnerFormComponent>(null);
-    const imagesRef = useRef<InnerFormComponent>(null);
+    const mainImageRef = useRef<InnerFormComponent>(null);
+    const otherImagesRef = useRef<InnerFormComponent>(null);
 
     const {
         register,
@@ -106,7 +107,8 @@ function ManagePropertiesList({ userId } : Props) {
             })
             reset()
             specificationsRef.current?.clear()
-            imagesRef.current?.clear()
+            mainImageRef.current?.clear()
+            otherImagesRef.current?.clear()
 
         },
         onError: async (error) => {
@@ -150,9 +152,15 @@ function ManagePropertiesList({ userId } : Props) {
     }, [isPendingDeleteImage]);
 
 
-    const filesChangeHandler = useCallback((files: File[]) => {
+    const mainImagefileChangeHandler = useCallback((files: File[]) => {
         if(files && files.length > 0) {
             setValue("mainImage", files[0])
+        }
+
+    }, [setValue])
+
+    const otherImagesFileChangeHandler = useCallback((files: File[]) => {
+        if(files && files.length > 0) {
             setValue("otherImages", files.filter(f => f.name != files[0].name))
         }
 
@@ -176,7 +184,7 @@ function ManagePropertiesList({ userId } : Props) {
         formData.append("country", data.country);
         formData.append("region", data.region);
         formData.append("currency", data.currency);
-        formData.append("price", String(data.price));
+        formData.append("amount", String(data.amount));
         formData.append("offerType", data.offerType);
         formData.append("propertyCategoryId", data.propertyCategoryId.toString());
         formData.append("rooms", String(data.rooms));
@@ -285,8 +293,9 @@ function ManagePropertiesList({ userId } : Props) {
                                     {
                                         selectedProperty.gallery.filter(e => e.path && e.path !== "").map((item) => (
                                             <div
+                                                key={item.id}
                                                 className=" w-48 h-48 overflow-clip group relative rounded-lg cursor-pointer">
-                                                <img key={item.path}
+                                                <img
                                                      src={getCdnFile(item.path)}
                                                      alt={"property image"}
                                                      className="aspect-square w-full h-full object-cover absolute"/>
@@ -401,8 +410,8 @@ function ManagePropertiesList({ userId } : Props) {
                                                         <SelectItem value="GHS">GH₵</SelectItem>
                                                     </SelectContent>
                                                 </Select>
-                                                <Input placeholder="eg. 5000" className="w-full" {...register('price')}
-                                                       required defaultValue={selectedProperty.price}/>
+                                                <Input placeholder="eg. 5000" className="w-full" {...register('amount')}
+                                                       required defaultValue={selectedProperty.amount}/>
                                             </div>
 
                                         </div>
@@ -458,11 +467,21 @@ function ManagePropertiesList({ userId } : Props) {
                                     {/* File Attachment */}
                                     <div className="mt-4">
                                         <h2 className="text-xl font-semibold mb-6"> Property Photos / Images </h2>
-                                        <h3 className="text-md font-medium mb-2">Attach images <small
-                                            className="text-blue-500">(first image will be used as the featured
-                                            image)</small></h3>
+                                        <h3 className="text-md font-medium mb-2">Featured image on the left, supporting
+                                            images on the right</h3>
 
-                                        <FileSelector onChange={filesChangeHandler} ref={imagesRef}/>
+                                        <div className="flex flex-col md:flex-row gap-4">
+                                            <div className="w-full md:w-[30%]">
+                                                <FileSelector
+                                                    title={'Select Featured Image'}
+                                                    onChange={mainImagefileChangeHandler} ref={mainImageRef}
+                                                    multiple={false}/>
+                                            </div>
+                                            <div className="w-full md:w-[70%]">
+                                                <FileSelector
+                                                    onChange={otherImagesFileChangeHandler} ref={otherImagesRef}/>
+                                            </div>
+                                        </div>
 
                                     </div>
 
