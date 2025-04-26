@@ -13,7 +13,7 @@ import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs.tsx
 import {DataTable} from "@/components/ui/data-table.tsx";
 import {payments} from "@/constants/ui.constants.ts";
 import TotalPropertiesCard from "@/components/agent-dashboard/TotalPropertiesCard.tsx";
-import AddListingsCard from "@/components/agent-dashboard/AddListingsCard.tsx";
+import AddPropertyActionCard from "@/components/agent-dashboard/AddPropertyActionCard.tsx";
 
 const columns: ColumnDef<ListingType>[] = [
     {
@@ -87,7 +87,7 @@ function PropertiesPage() {
 
             <div className=" grid grid-cols-1 md:grid-cols-2 md:gap-16 gap-4 mb-10">
                 <TotalPropertiesCard />
-                <AddListingsCard />
+                <AddPropertyActionCard />
             </div>
 
             <Tabs defaultValue="orders" className="w-full">

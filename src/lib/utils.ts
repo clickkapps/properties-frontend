@@ -13,7 +13,10 @@ export function isAllDigits(str: string): boolean {
   return /^\d+$/.test(str);
 }
 
-export function getCdnFile(name: string): string {
+export function getCdnFile(name?: string): string {
+    if (!name) {
+        return '';
+    }
   const path = `${cdnFileAsset}/${name}`
   customLog("getCdnFile", path)
   return path

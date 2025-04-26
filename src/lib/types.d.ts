@@ -31,22 +31,40 @@ export interface RegistrationFormInputs {
     contactPhone: string;
 }
 
-export interface PropertyFormInputs {
+export interface PropertyFormInput extends PropertyModel{
+    ownerId?: number,
+    mainImage?: File
+    otherImages?: File[],
+}
+
+export interface PropertyModel {
+
+    id?: number
     propertyCategoryId: number
     offerType: string;
     title: string;
-    description?: string;
-    ownerId?: number,
     currency: string;
     price: number,
-    rooms: number,
-    bathrooms: number,
-    mainImage: File
-    otherImages: File[],
     country: string
     region: string
-    address: string;
-    specifications: { title: string; value: string; }[]
+    rooms?: number,
+    bathrooms?: number,
+    description?: string;
+    address?: string;
+    mainImagePath: string
+    user: User
+    gallery: { id?: number, propertyId?: number, path?: string, caption?: string, createdAt?: string, updatedAt?: string }[],
+    specifications?: { id?: number, title: string, value: string, }[]
+
+}
+
+export interface AdvertisementFormInputs {
+    title: string;
+    image: File
+    startDate?: Date
+    endDate?: Date
+    contactPhone: string
+    contactEmail: string
 }
 
 export type KeyValue = {
@@ -56,7 +74,7 @@ export type KeyValue = {
 }
 
 export type User = {
-    id: string,
+    id: number,
     loginId: string,
     firstName?: string,
     lastName?: string,
@@ -64,10 +82,14 @@ export type User = {
     publicKey?: string,
     contactEmail?: string,
     contactPhone?: string,
-    lastLoginAt?: string,
-    currentLoginAt?: string,
-    basicInfoUpdatedAt?: string,
+    lastLoginAt?: Date,
+    currentLoginAt?: Date,
+    basicInfoUpdatedAt?: Date,
     createdAt?: Date,
     updatedAt?: Date
     isAdmin?: boolean
+}
+
+export type PropertyFilters = {
+    country?: string
 }

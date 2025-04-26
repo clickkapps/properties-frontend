@@ -8,7 +8,7 @@ import {customLog} from "@/lib/utils.ts";
 import {AxiosError} from "axios";
 import {toast} from "@/hooks/use-toast.ts";
 import {useForm} from "react-hook-form";
-import {InnerFormComponent, KeyValue, PropertyFormInputs} from "@/lib/types";
+import {InnerFormComponent, KeyValue, PropertyFormInput} from "@/lib/types";
 import {useCallback, useEffect, useRef} from "react";
 import {
   Select,
@@ -20,12 +20,14 @@ import {
 import FileSelector from "@/components/shared-dashboard/FileSelector.tsx";
 import {ghRegions} from "@/constants/ui.constants.ts";
 import SpecificationsCard from "@/components/agent-dashboard/SpecificationsCard.tsx";
+import {useAppSelector} from "@/hooks";
 
 function AddListingPage() {
 
 
   const specificationsRef = useRef<InnerFormComponent>(null);
   const imagesRef = useRef<InnerFormComponent>(null);
+  const auth = useAppSelector( state => state.auth)
   const { isPending: isPendingCategories, isError: isErrorCategories, data: propertyCategories } = useQuery<{id: number, title: string}[]>({ queryKey: ['property-categories'], queryFn: apiGetPropertyCategories })
 
   const {
@@ -34,13 +36,13 @@ function AddListingPage() {
     reset,
     setValue,
     formState: { errors },
-  } = useForm<PropertyFormInputs>()
+  } = useForm<PropertyFormInput>()
 
 
   useEffect(() => {
 
     if(Object.keys(errors).length > 0) {
-      const firstErrorKey = Object.keys(errors)[0] as keyof PropertyFormInputs;
+      const firstErrorKey = Object.keys(errors)[0] as keyof PropertyFormInput;
       const firstErrorMessage = errors[firstErrorKey]?.message;
       toast({
         title: "Uh oh! Something went wrong",
@@ -53,11 +55,10 @@ function AddListingPage() {
 
   const { mutate, isPending } = useMutation({
     mutationKey: ['add-property'],
-    mutationFn: apiAddNewProperty,
+    mutationFn: (formData: FormData) => apiAddNewProperty(formData, auth.userInfo?.id),
     onSuccess: async (resp) => {
-
-      customLog("verification request success", resp);
       // const data = resp.data;
+      customLog("added property:", resp.data)
       toast({
         title: "Great!",
         description: "Property added successfully!",
@@ -78,8 +79,6 @@ function AddListingPage() {
     },
   })
 
-
-
   const filesChangeHandler = useCallback((files: File[]) => {
     if(files && files.length > 0) {
       setValue("mainImage", files[0])
@@ -98,6 +97,47 @@ function AddListingPage() {
     setValue("specifications", preparedSpecifications)
   }
 
+  const submitHandler = (data: PropertyFormInput) => {
+
+    const formData = new FormData();
+
+    formData.append("title", data.title);
+    formData.append("country", data.country);
+    formData.append("region", data.region);
+    formData.append("currency", data.currency);
+    formData.append("price", String(data.price));
+    formData.append("offerType", data.offerType);
+    formData.append("propertyCategoryId", data.propertyCategoryId.toString());
+    formData.append("rooms", String(data.rooms));
+    if(data.address) {
+      formData.append("address", data.address);
+    }
+    if(data.bathrooms) {
+      formData.append("bathrooms", String(data.bathrooms));
+    }
+    if(data.description) {
+      formData.append("description", data.description || "" );
+    }
+
+    // Append the main image
+    if (data.mainImage) {
+      formData.append("mainImage", data.mainImage);
+    }
+
+    // Append other images
+    if (data.otherImages && data.otherImages.length > 0) {
+      data.otherImages.forEach((file) => {
+        formData.append("otherImages", file); // multer will collect them into an array
+      });
+    }
+
+    // Append specifications as JSON
+    formData.append("specifications", JSON.stringify(data.specifications));
+
+    // Now call your mutate or axios
+    mutate(formData);
+
+  }
 
   return (
       <div className="container mx-auto">
@@ -105,7 +145,7 @@ function AddListingPage() {
         <h2 className="text-2xl font-semibold mb-6">Add Property</h2>
 
 
-        <form onSubmit={handleSubmit((data: PropertyFormInputs) => mutate(data))}>
+        <form onSubmit={handleSubmit(submitHandler)}>
           <div className="border bg-white px-10 py-6 mb-10 space-y-6">
 
 

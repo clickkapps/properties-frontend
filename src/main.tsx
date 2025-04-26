@@ -14,7 +14,7 @@ import AgentLayout from "@/components/agent-dashboard/AgentLayout.tsx";
 import MyListingsPage from "@/presentation/agent-dashboard/MyListingsPage.tsx";
 import OfficeLayout from "@/components/office-dashboard/OfficeLayout.tsx";
 import MembershipPage from "@/presentation/agent-dashboard/MembershipPage.tsx";
-import ReviewsPage from "@/presentation/agent-dashboard/ReviewsPage.tsx";
+// import ReviewsPage from "@/presentation/agent-dashboard/ReviewsPage.tsx";
 import OfficeHomePage from "@/presentation/office-dashboard/OfficeHomePage.tsx";
 import AddListingOptionPage from "@/presentation/agent-dashboard/AddListingOptionPage.tsx";
 import AddListingPage from "@/presentation/agent-dashboard/AddListingPage.tsx";
@@ -35,6 +35,8 @@ import {accountLoader, loginLoader, registrationLoader} from "@/lib/loaders.ts";
 import store from "@/store";
 import {Provider} from "react-redux";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import AddNewAdvertisementPage from "@/presentation/agent-dashboard/AddNewAdvertisementPage.tsx";
+import AdvertisementsPage from "@/presentation/agent-dashboard/AdvertisementsPage.tsx";
 
 const router = createBrowserRouter([
 
@@ -61,7 +63,8 @@ const router = createBrowserRouter([
                             { path: "listings", element: <MyListingsPage />},
                             { path: "add-listing-option", element: <AddListingOptionPage />},
                             { path: "add-listing", element: <AddListingPage /> },
-                            { path: "reviews", element: <ReviewsPage /> },
+                            { path: "create-ads", element: <AddNewAdvertisementPage /> },
+                            { path: "adverts", element: <AdvertisementsPage /> },
                             { path: "membership", element: <MembershipPage /> },
                         ]
                     },

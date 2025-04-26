@@ -1,4 +1,4 @@
-import {ChangeEvent, Ref, useEffect, useImperativeHandle, useState} from "react";
+import {ChangeEvent, forwardRef, Ref, useEffect, useImperativeHandle, useState} from "react";
 import { X } from "lucide-react";
 import {InnerFormComponent} from "@/lib/types";
 
@@ -6,8 +6,9 @@ type Props = {
     onChange?: (value: File[]) => void,
     accept?: string
     ref?: Ref<InnerFormComponent>
+    multiple?: boolean
 }
-export default function FileSelector({ onChange, accept ="image/*", ref }: Props) {
+const FileSelector = forwardRef(({ onChange, accept = "image/*", multiple = true }: Props, ref: Ref<InnerFormComponent>) =>  {
 
     const [files, setFiles] = useState<File[]>([]);
 
@@ -27,6 +28,10 @@ export default function FileSelector({ onChange, accept ="image/*", ref }: Props
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         const selectedFiles = e.target.files ? Array.from(e.target.files) : [];
+        if(!multiple) {
+            setFiles([...selectedFiles]);
+            return
+        }
         setFiles((prev) => [...prev, ...selectedFiles]);
     };
 
@@ -62,7 +67,7 @@ export default function FileSelector({ onChange, accept ="image/*", ref }: Props
                         id="dropzone-file"
                         type="file"
                         className="hidden"
-                        multiple
+                        multiple={multiple}
                         accept={accept}
                         onChange={handleFileChange}
                     />
@@ -86,4 +91,6 @@ export default function FileSelector({ onChange, accept ="image/*", ref }: Props
             </div>
         </div>
     );
-}
+})
+
+export default FileSelector;

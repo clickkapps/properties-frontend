@@ -1,5 +1,5 @@
 import {User} from "@/lib/types";
-import moment from "moment";
+// import moment from "moment";
 
 type StorageKey = 'accessToken' | 'refreshToken' | string;
 
@@ -88,11 +88,11 @@ class StorageService {
 
         return {
             ...userInfo,
-            lastLoginAt: userInfo.lastLoginAt ? moment(userInfo.lastLoginAt) : undefined,
-            currentLoginAt: userInfo.currentLoginAt ? moment(userInfo.currentLoginAt) : undefined,
-            basicInfoUpdatedAt: userInfo.basicInfoUpdatedAt ? moment(userInfo.basicInfoUpdatedAt) : undefined,
-            createdAt: userInfo.createdAt ? moment(userInfo.createdAt) : undefined,
-            updatedAt: userInfo.updatedAt ? moment(userInfo.updatedAt) : undefined,
+            // lastLoginAt: userInfo.lastLoginAt ? new Date(userInfo.lastLoginAt) : undefined,
+            // currentLoginAt: userInfo.currentLoginAt ? moment(userInfo.currentLoginAt) : undefined,
+            // basicInfoUpdatedAt: userInfo.basicInfoUpdatedAt ? moment(userInfo.basicInfoUpdatedAt) : undefined,
+            // createdAt: userInfo.createdAt ? moment(userInfo.createdAt) : undefined,
+            // updatedAt: userInfo.updatedAt ? moment(userInfo.updatedAt) : undefined,
         };
     }
 

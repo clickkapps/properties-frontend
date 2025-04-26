@@ -1,7 +1,7 @@
 import { Plus } from "lucide-react";
 import {Link} from "react-router";
 
-const AddListingsCard = () => {
+const AddPropertyActionCard = () => {
   return (
     //
       <Link to="/account/agent/add-listing">
@@ -15,4 +15,4 @@ const AddListingsCard = () => {
   )
 }
 
-export default AddListingsCard
+export default AddPropertyActionCard

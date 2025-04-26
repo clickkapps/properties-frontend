@@ -1,4 +1,4 @@
-import {Ref, useEffect, useImperativeHandle, useState} from "react";
+import {forwardRef, Ref, useEffect, useImperativeHandle, useState} from "react";
 import {InnerFormComponent, KeyValue} from "@/lib/types";
 import {getUuid} from "@/lib/utils.ts";
 import {Input} from "@/components/ui/input.tsx";
@@ -7,19 +7,18 @@ import {PlusCircle, TrashIcon} from "lucide-react";
 import {useDebouncedCallback} from "@/hooks/use-debounce-callback.ts"; // You can replace with a custom debounce if desired
 
 type Props = {
-    onChange?: (specs: KeyValue[]) => void;
-    ref: Ref<InnerFormComponent>;
+    onChange?: (specs: KeyValue[]) => void
 };
+const initial = [{ id: getUuid(), key: "", value: "" }]
 
+const SpecificationsCard = forwardRef(({onChange}: Props, ref: Ref<InnerFormComponent>) =>  {
 
-function SpecificationsCard({ onChange, ref }: Props) {
-
-    const [specifications, setSpecifications] = useState<KeyValue[]>([{ id: getUuid(), key: "", value: "" }]);
+    const [specifications, setSpecifications] = useState<KeyValue[]>(initial);
 
     useImperativeHandle(ref, () => {
         return {
             clear() {
-                setSpecifications([]);
+                setSpecifications(initial);
             }
         }
     })
@@ -87,6 +86,6 @@ function SpecificationsCard({ onChange, ref }: Props) {
             </div>
         </div>
     );
-}
+})
 
 export default SpecificationsCard;

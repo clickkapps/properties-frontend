@@ -53,8 +53,8 @@ export const agentMenuLinks: MenuLink[] = [
         icon: House
     },
     {
-        title: "Reviews",
-        url: "/account/agent/reviews",
+        title: "Advertisements",
+        url: "/account/agent/adverts",
         external: false,
         icon: Star
     },

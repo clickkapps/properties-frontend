@@ -1,5 +1,4 @@
 import {ColumnDef} from "@tanstack/react-table";
-import {ListingType} from "@/lib/ui.types";
 import {Checkbox} from "@/components/ui/checkbox.tsx";
 import {
     DropdownMenu,
@@ -14,7 +13,8 @@ import {DataTable} from "@/components/ui/data-table.tsx";
 import {payments} from "@/constants/ui.constants.ts";
 import TotalPropertiesPendingApprovals from "@/components/office-dashboard/TotalPropertiesPendingApprovals.tsx";
 import TotalPropertiesApproved from "@/components/office-dashboard/TotalPropertiesApproved.tsx";
-import PropertiesPendingApprovals from "@/components/office-dashboard/PropertiesPendingApprovals.tsx";
+import ManagePropertiesList from "@/components/shared-dashboard/ManagePropertiesList.tsx";
+import {ListingType} from "@/lib/types";
 
 
 const columns: ColumnDef<ListingType>[] = [
@@ -108,7 +108,7 @@ function ApprovalsPage() {
                 </TabsList>
 
                 <TabsContent value="pending">
-                    <PropertiesPendingApprovals />
+                    <ManagePropertiesList />
                 </TabsContent>
 
                 <TabsContent value="approvals">
