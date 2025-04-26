@@ -8,17 +8,19 @@ import {useDebouncedCallback} from "@/hooks/use-debounce-callback.ts"; // You ca
 
 type Props = {
     onChange?: (specs: KeyValue[]) => void
+    spec?: KeyValue[]
+    readOnly?: boolean
 };
-const initial = [{ id: getUuid(), key: "", value: "" }]
+const starter: KeyValue[] = [{ id: getUuid(), title: "", value: "" }]
 
-const SpecificationsCard = forwardRef(({onChange}: Props, ref: Ref<InnerFormComponent>) =>  {
+const SpecificationsCard = forwardRef(({onChange, spec, readOnly = false}: Props, ref: Ref<InnerFormComponent>) =>  {
 
-    const [specifications, setSpecifications] = useState<KeyValue[]>(initial);
+    const [specifications, setSpecifications] = useState<KeyValue[]>(spec || starter);
 
     useImperativeHandle(ref, () => {
         return {
             clear() {
-                setSpecifications(initial);
+                setSpecifications(spec || starter);
             }
         }
     })
@@ -26,7 +28,7 @@ const SpecificationsCard = forwardRef(({onChange}: Props, ref: Ref<InnerFormComp
     const addNewSpecificationField = () => {
         setSpecifications(prev => [
             ...prev,
-            { id: getUuid(), key: "", value: "" }
+            { id: getUuid(), title: "", value: "" }
         ]);
     };
 
@@ -44,7 +46,7 @@ const SpecificationsCard = forwardRef(({onChange}: Props, ref: Ref<InnerFormComp
 
     const notifyParent = useDebouncedCallback((specs: KeyValue[]) => {
         if (onChange) {
-            const nonEmpty = specs.filter(spec => spec.key.trim() !== "" || String(spec.value).trim() !== "");
+            const nonEmpty = specs.filter(spec => spec.title.trim() !== "" || String(spec.value).trim() !== "");
             onChange(nonEmpty);
         }
     }, 500);
@@ -61,28 +63,30 @@ const SpecificationsCard = forwardRef(({onChange}: Props, ref: Ref<InnerFormComp
                     <div className="flex flex-col md:flex-row gap-4" key={spec.id}>
                         <Input
                             placeholder="eg. utilities"
-                            value={spec.key}
+                            value={spec.title}
                             onChange={(e) => updateSpecification(spec.id, "key", e.target.value)}
                             className="w-full"
+                            readOnly={readOnly}
                         />
                         <Input
                             placeholder="eg. not included"
                             value={spec.value as string}
                             onChange={(e) => updateSpecification(spec.id, "value", e.target.value)}
                             className="w-full"
+                            readOnly={readOnly}
                         />
-                        <Button
+                        { !readOnly && <Button
                             type="button"
                             onClick={() => removeSpecificationField(spec.id)}
                             variant="outline"
                         >
                             <TrashIcon className="text-red-700" />
-                        </Button>
+                        </Button> }
                     </div>
                 ))}
-                <Button type="button" variant="outline" onClick={addNewSpecificationField}>
-                    <PlusCircle /> Add another specification
-                </Button>
+                { !readOnly && <Button type="button" variant="outline" onClick={addNewSpecificationField}>
+                    <PlusCircle/> Add another specification
+                </Button>}
             </div>
         </div>
     );

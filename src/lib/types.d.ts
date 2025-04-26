@@ -48,13 +48,14 @@ export interface PropertyModel {
     country: string
     region: string
     rooms?: number,
-    bathrooms?: number,
+    washrooms?: number,
     description?: string;
     address?: string;
     mainImagePath: string
+    published?: boolean
     user: User
     gallery: { id?: number, propertyId?: number, path?: string, caption?: string, createdAt?: string, updatedAt?: string }[],
-    specifications?: { id?: number, title: string, value: string, }[]
+    specifications?: KeyValue[]
 
 }
 
@@ -69,7 +70,7 @@ export interface AdvertisementFormInputs {
 
 export type KeyValue = {
     id?: string,
-    key: string
+    title: string
     value: unknown
 }
 

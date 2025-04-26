@@ -98,7 +98,7 @@ function AddListingPage() {
   const specificationsChangeHandler = (specs: KeyValue[]) => {
     const preparedSpecifications = specs.map((spec: KeyValue) => {
       return {
-        title: spec.key,
+        title: spec.title,
         value: String(spec.value),
       }
     })
@@ -113,15 +113,15 @@ function AddListingPage() {
     formData.append("country", data.country);
     formData.append("region", data.region);
     formData.append("currency", data.currency);
-    formData.append("price", String(data.amount));
+    formData.append("amount", String(data.amount));
     formData.append("offerType", data.offerType);
     formData.append("propertyCategoryId", data.propertyCategoryId.toString());
     formData.append("rooms", String(data.rooms));
     if(data.address) {
       formData.append("address", data.address);
     }
-    if(data.bathrooms) {
-      formData.append("bathrooms", String(data.bathrooms));
+    if(data.washrooms) {
+      formData.append("washrooms", String(data.washrooms));
     }
     if(data.description) {
       formData.append("description", data.description || "" );
@@ -215,7 +215,7 @@ function AddListingPage() {
                 </div>
                 <div className="w-full">
                   <label className="block text-sm mb-1">Washrooms</label>
-                  <Input placeholder="eg. 5" {...register('bathrooms')}/>
+                  <Input placeholder="eg. 5" {...register('washrooms')}/>
                 </div>
               </div>
 
