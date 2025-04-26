@@ -29,3 +29,7 @@ export const apiGetProperties = async({ userId, filters }: { userId?: number, fi
 export const apiGetPropertyDetail = async( payload : PropertyModel ) => {
     return await apiClient.get(`/properties/${payload.id}`).then((response) =>  response.data)
 }
+
+export const apiDeleteProperty = async( propertyId?: number  ) => {
+    return await apiClient.delete(`/properties/${propertyId}`).then((response) =>  response.data)
+}

@@ -1,9 +1,10 @@
-import {ChevronLeftIcon, ChevronRight, LoaderCircle} from 'lucide-react';
+import {ChevronLeftIcon, ChevronRight, LoaderCircle, StarIcon} from 'lucide-react';
 import {useCallback, useEffect, useRef, useState} from "react";
 import {Input} from "@/components/ui/input.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {useMutation, useQuery} from "@tanstack/react-query";
 import {
+    apiDeleteProperty,
     apiEditProperty,
     apiGetProperties,
     apiGetPropertyCategories,
@@ -119,6 +120,34 @@ function ManagePropertiesList({ userId } : Props) {
         },
     })
 
+    const { mutate: mutateDeleteImage, isPending: isPendingDeleteImage } = useMutation({
+        mutationKey: ['delete-property-image'],
+        mutationFn: apiDeleteProperty,
+        onSuccess: () => {
+            toast({
+                title: 'Successful',
+                description: 'Photo deleted!'
+            })
+        },
+        onError: error => {
+            const axiosError = error as AxiosError<{ message: string }>;
+            customLog("on error", error);
+            toast({
+                variant: "destructive",
+                title: "Uh oh! Something went wrong",
+                description: axiosError.response?.data?.message || "Sorry! connection failed",
+            })
+        }
+    })
+
+    useEffect(() => {
+        if(isPendingDeleteImage) {
+            toast({
+                title: 'Deleting ...',
+                description: "We're deleting selected image"
+            })
+        }
+    }, [isPendingDeleteImage]);
 
 
     const filesChangeHandler = useCallback((files: File[]) => {
@@ -234,17 +263,48 @@ function ManagePropertiesList({ userId } : Props) {
                         {
                             data && selectedProperty && <div className="">
                                 {/*<h2> Property Gallery </h2>*/}
-                                {/* Uploaded images   */}
+                                {/* Featured image  */}
                                 <div className="flex flex-row overflow-y-auto gap-4 py-4 ">
                                     { selectedProperty.mainImagePath && selectedProperty.mainImagePath !== "" && (
-                                        <img key={selectedProperty.mainImagePath}
-                                             src={getCdnFile(selectedProperty.mainImagePath)} alt={"property image"}
-                                             className="aspect-square w-48 h-48 rounded-lg object-cover"/>
+                                        <div className=" w-48 h-48 overflow-clip group relative rounded-lg cursor-pointer">
+                                            <img key={selectedProperty.mainImagePath}
+                                                 src={getCdnFile(selectedProperty.mainImagePath)} alt={"property image"}
+                                                 className="aspect-square w-full h-full object-cover absolute"/>
+                                            <div
+                                                className="bg-black/30 group-hover:bg-black/30 transition duration-700 w-full h-full absolute flex justify-center items-center ">
+                                                <p className="inline-flex gap-2 items-center font-bold text-amber-500 absolute left-2 top-2"><span>Featured</span>
+                                                    <StarIcon fill={'#fff'} size={14}/></p>
+                                                <Button
+                                                    className="hidden group-hover:block transition duration-900 inset-x-4 space-y-2 bg-black/30 text-white rounded-none hover:bg-black/50 hover:text-white"
+                                                    variant="outline">Expand</Button>
+
+
+                                            </div>
+                                        </div>
                                     )}
                                     {
                                         selectedProperty.gallery.filter(e => e.path && e.path !== "").map((item) => (
-                                            <img key={item.id} src={getCdnFile(item.path)} alt={"property image"}
-                                                 className="aspect-square w-48 h-48 rounded-lg object-cover"/>
+                                            <div
+                                                className=" w-48 h-48 overflow-clip group relative rounded-lg cursor-pointer">
+                                                <img key={item.path}
+                                                     src={getCdnFile(item.path)}
+                                                     alt={"property image"}
+                                                     className="aspect-square w-full h-full object-cover absolute"/>
+                                                <div
+                                                    className="group-hover:bg-black/30 transition duration-700 w-full h-full absolute flex justify-center items-center ">
+                                                    <div
+                                                        className={"hidden group-hover:block transition duration-900 inset-x-4 space-y-2"}>
+                                                        <Button
+                                                            className="w-full bg-black/30 text-white rounded-none  hover:bg-black/50 hover:text-white"
+                                                            variant="outline" onClick={() => mutateDeleteImage(item.id)}>Delete</Button>
+                                                        <Button
+                                                            className="w-full bg-black/30 text-white rounded-none hover:bg-black/50 hover:text-white"
+                                                            variant="outline">Expand</Button>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
                                         ))
                                     }
                                 </div>
