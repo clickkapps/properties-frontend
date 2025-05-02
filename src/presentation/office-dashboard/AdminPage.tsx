@@ -2,7 +2,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button.tsx";
 import OfficeTotalAdminCard from "@/components/office-dashboard/OfficeTotalAdminCard";
 import {ColumnDef} from "@tanstack/react-table";
-import {ListingType} from "@/lib/ui.types";
 import {DataTable} from "@/components/ui/data-table.tsx";
 
 import {
@@ -14,9 +13,11 @@ import {
 import {MoreHorizontal} from "lucide-react";
 import {Checkbox} from "@/components/ui/checkbox.tsx";
 import {payments} from "@/constants/ui.constants.ts";
+import {ListingType} from "@/lib/types";
 
 
-const columns: ColumnDef<ListingType>[] = [
+const columns: ColumnDef<ListingType
+>[] = [
     {
         id: "select",
         header: ({ table }) => (

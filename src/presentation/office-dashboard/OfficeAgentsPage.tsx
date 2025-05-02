@@ -1,5 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { ListingType } from "@/lib/ui.types";
+import { ListingType } from "@/lib/types";
 import { DataTable } from "@/components/ui/data-table.tsx";
 import {
   DropdownMenu,

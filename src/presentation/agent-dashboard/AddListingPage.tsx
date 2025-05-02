@@ -90,7 +90,7 @@ function AddListingPage() {
 
   const otherImagesFileChangeHandler = useCallback((files: File[]) => {
     if(files && files.length > 0) {
-      setValue("otherImages", files.filter(f => f.name != files[0].name))
+      setValue("otherImages", files)
     }
 
   }, [setValue])
@@ -115,7 +115,7 @@ function AddListingPage() {
     formData.append("currency", data.currency);
     formData.append("amount", String(data.amount));
     formData.append("offerType", data.offerType);
-    formData.append("propertyCategoryId", data.propertyCategoryId.toString());
+    formData.append("categoryId", data.categoryId.toString());
     formData.append("rooms", String(data.rooms));
     if(data.address) {
       formData.append("address", data.address);
@@ -181,8 +181,8 @@ function AddListingPage() {
                 <div className="w-full">
                   <label className="block text-sm mb-1">Select Category*</label>
                   <Select onValueChange={(value) => {
-                    setValue('propertyCategoryId', +value)
-                  }} name={"offerType"} required>
+                    setValue('categoryId', +value)
+                  }} required>
                     <SelectTrigger className="w-full">
                       <SelectValue placeholder="Category"/>
                     </SelectTrigger>

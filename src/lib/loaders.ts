@@ -1,69 +1,88 @@
 import {redirect} from "react-router";
 import store from "@/store";
-import {login} from "@/store/auth-slice.ts";
+import {login, logout} from "@/store/auth-slice.ts";
 import {appStorage} from "@/lib/storage.ts";
+import {apiGetCurrentUserInfo} from "@/api/users.api.ts";
+import {User} from "@/lib/types";
 
 
-// args: { request, params } : LoaderFunctionArgs
-export const accountLoader = ( ) => {
-
-    // try as much as possible not to make api call from here --------------
-    // fetch from local storage to make things faster, then find other ways of keeping local storage up to date
+const initialiseUserInfo = async () => {
 
     const token = appStorage.getAccessToken();
-    const userInfo = appStorage.getUserInfo()
     // check if this user has a stored token, direct to login page if not
     if (!token) {
-        return redirect('/login')
-    }
-
-    // check if this user has a stored basic info. direct to register if not
-    if(!userInfo) {
-        return redirect('/login');
+        throw new Error("Unauthorized");
     }
 
     // you can make the user data available to the page if everything passes
     const authState = store.getState().auth
-    if(!authState.authenticated || !authState.userInfo) {
-        store.dispatch(login({ authenticated: true, userInfo  }));
-    }
 
-    // check if the basic_info_last_updated at is set. if not direct user to the register page
-    if(userInfo.basicInfoUpdatedAt == null) {
-        return redirect('/register');
-    }
+    let userInfo = authState.userInfo
 
-    return userInfo
-}
-
-export const registrationLoader = () => {
-
-    const token = appStorage.getAccessToken();
-    const userInfo = appStorage.getUserInfo();
-    if(!token || !userInfo) {
-        return redirect('/login');
+    if(!userInfo) {
+        // if there is no userInfo in the state, get it from the server
+        const data = await apiGetCurrentUserInfo()
+        userInfo = data.data as User
+        store.dispatch(login({ userInfo  })); // set userInfo in state
     }
 
     return userInfo;
 
 }
 
-export const loginLoader = () => {
+const revokeAccessToken = () => {
+    appStorage.removeAccessToken()
+    store.dispatch(logout())
+    return redirect('/login');
+}
 
-    const token = appStorage.getAccessToken();
-    const userInfo = appStorage.getUserInfo();
+// args: { request, params } : LoaderFunctionArgs
+export const accountLoader = async ( ) => {
 
-    if(userInfo) {
+    try {
 
-        if(token && userInfo) {
-            if(userInfo.isAdmin) {
+        const userInfo = await initialiseUserInfo();
+
+        // check if the basic_info_last_updated at is set. if not direct user to the register page
+        if(userInfo.basicInfoUpdatedAt == null || userInfo.role === undefined) {
+            return redirect('/register');
+        }
+
+        return userInfo
+
+    } catch(error) {
+        console.error(error);
+        return revokeAccessToken();
+    }
+}
+
+export const registrationLoader = async () => {
+
+    try {
+
+        return  await initialiseUserInfo();
+
+    }catch(err) {
+        console.log("error logging in", err);
+        return revokeAccessToken();
+    }
+
+}
+
+export const loginLoader = async () => {
+    try {
+        const userInfo = await initialiseUserInfo();
+        if(userInfo) {
+            if(userInfo.role === "admin") {
                 return redirect('/account/office');
             }
             return redirect('/account/agent');
-
         }
+
+        return true
+
+    }catch(err) {
+        console.log("error logging in", err);
+        return true
     }
-
-    return true;
-
 }

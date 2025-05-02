@@ -13,7 +13,6 @@ import {apiUpdateCurrentUserInfo} from "@/api/users.api.ts";
 import {useDispatch} from "react-redux";
 import {login} from "@/store/auth-slice.ts";
 import {useLoaderData, useNavigate} from "react-router";
-import {appStorage} from "@/lib/storage.ts";
 
 
 function RegistrationPage() {
@@ -34,6 +33,8 @@ function RegistrationPage() {
             lastName: currentUserInfo.lastName,
             contactPhone: currentUserInfo.contactPhone,
             contactEmail: currentUserInfo.contactEmail,
+            companyName: currentUserInfo.companyName,
+            companyLocation: currentUserInfo.companyLocation,
         }
     })
 
@@ -45,7 +46,6 @@ function RegistrationPage() {
             customLog("Registration completed", res.data);
             // const data = rep.data;
             const userInfo = res.data;
-            appStorage.setUserInfo(userInfo)
             dispatch(login({ userInfo: userInfo }))
             reset()
             toast({
@@ -68,7 +68,6 @@ function RegistrationPage() {
     })
 
     function submitHandler(data: RegistrationFormInputs) {
-        console.log('Form submitted!', data.contactPhone);
         mutate(data)
     }
 
@@ -81,84 +80,118 @@ function RegistrationPage() {
                 <div className="bg-white p-8 w-full md:w-[500px]">
                     <h2 className="text-center text-lg font-semibold">Complete your details</h2>
 
-                    <form onSubmit={handleSubmit(submitHandler)} className="my-12 flex flex-col gap-8">
-                        <div>
-                            <label className="block text-sm  mb-1">First name</label>
-                            <Input
-                                {...register('firstName', {
-                                    required: {
-                                        value: true,
-                                        message: "Enter your first name here"
-                                    },
-                                })}
-                                placeholder="Enter first name here"
-                                className="focus:outline-none focus:ring-0 focus:ring-offset-0"
-                            />
-                            {
-                                errors.firstName && (<p className="text-[11px] mt-2 text-red-700">
-                                    {/*We'll send you a verification code to confirm your phone number.*/}
-                                    {errors.firstName?.message}
-                                </p>)
-                            }
-                        </div>
-                        <div>
-                            <label className="block text-sm  mb-1">Last name</label>
-                            <Input
-                                {...register('lastName', {
-                                    required: {
-                                        value: true,
-                                        message: "Enter your last name here"
-                                    },
-                                }) }
-                                placeholder="Enter last name here"
-                                className="focus:outline-none focus:ring-0 focus:ring-offset-0"
-                            />
-                            {
-                                errors.lastName && (<p className="text-[11px] mt-2 text-red-700">
-                                    {/*We'll send you a verification code to confirm your phone number.*/}
-                                    {errors.lastName?.message}
-                                </p>)
-                            }
-                        </div>
-
-                        <div>
-                            <label className="block text-sm  mb-1">Email address</label>
-                            <Input
-                                { ...register('contactEmail', {
-                                    required: {
-                                        value: true,
-                                        message: "Enter your email here"
-                                    },
-                                }) }
-                                placeholder="Enter email here"
-                                className="focus:outline-none focus:ring-0 focus:ring-offset-0"
-                            />
-                            {
-                                errors.contactEmail && (<p className="text-[11px] mt-2 text-red-700">
-                                    {/*We'll send you a verification code to confirm your phone number.*/}
-                                    {errors.contactEmail?.message}
-                                </p>)
-                            }
+                    <form onSubmit={handleSubmit(submitHandler)} className="my-12 flex flex-col gap-4">
+                        <div className="flex flex-col md:flex-row gap-4 md:gap-2">
+                            <div className="flex-1">
+                                <label className="block text-sm  mb-1">First name</label>
+                                <Input
+                                    {...register('firstName', {
+                                        required: {
+                                            value: true,
+                                            message: "Enter your first name here"
+                                        },
+                                    })}
+                                    placeholder="Enter first name here"
+                                    className="focus:outline-none focus:ring-0 focus:ring-offset-0"
+                                />
+                                {
+                                    errors.firstName && (<p className="text-[11px] mt-2 text-red-700">
+                                        {/*We'll send you a verification code to confirm your phone number.*/}
+                                        {errors.firstName?.message}
+                                    </p>)
+                                }
+                            </div>
+                            <div className="flex-1">
+                                <label className="block text-sm  mb-1">Last name</label>
+                                <Input
+                                    {...register('lastName', {
+                                        required: {
+                                            value: true,
+                                            message: "Enter your last name here"
+                                        },
+                                    })}
+                                    placeholder="Enter last name here"
+                                    className="focus:outline-none focus:ring-0 focus:ring-offset-0"
+                                />
+                                {
+                                    errors.lastName && (<p className="text-[11px] mt-2 text-red-700">
+                                        {/*We'll send you a verification code to confirm your phone number.*/}
+                                        {errors.lastName?.message}
+                                    </p>)
+                                }
+                            </div>
                         </div>
 
-                        <div>
-                            <label className="block text-sm  mb-1">Phone number</label>
-                            <Input
-                                { ...register('contactPhone', {
-                                    required: {
-                                        value: true,
-                                        message: "Enter your phone number here"
-                                    },
-                                }) }
-                                placeholder="Enter phone here"
-                                className="focus:outline-none focus:ring-0 focus:ring-offset-0"
-                            />
-                            {
-                                errors.contactPhone && (<p className="text-[11px] mt-2 text-red-700">
-                                    {/*We'll send you a verification code to confirm your phone number.*/}
-                                    {errors.contactPhone?.message}
-                                </p>)
-                            }
+                        <div className="flex flex-col md:flex-row gap-4 md:gap-2">
+                            <div className="w-full">
+                                <label className="block text-sm  mb-1">Email address</label>
+                                <Input
+                                    {...register('contactEmail', {
+                                        required: {
+                                            value: true,
+                                            message: "Enter your email here"
+                                        },
+                                    })}
+                                    placeholder="Enter email here"
+                                    className="focus:outline-none focus:ring-0 focus:ring-offset-0"
+                                />
+                                {
+                                    errors.contactEmail && (<p className="text-[11px] mt-2 text-red-700">
+                                        {/*We'll send you a verification code to confirm your phone number.*/}
+                                        {errors.contactEmail?.message}
+                                    </p>)
+                                }
+                            </div>
+                            <div className="w-full">
+                                <label className="block text-sm  mb-1">Phone number</label>
+                                <Input
+                                    {...register('contactPhone', {
+                                        required: {
+                                            value: true,
+                                            message: "Enter your phone number here"
+                                        },
+                                    })}
+                                    placeholder="Enter phone here"
+                                    className="focus:outline-none focus:ring-0 focus:ring-offset-0"
+                                />
+                                {
+                                    errors.contactPhone && (<p className="text-[11px] mt-2 text-red-700">
+                                        {/*We'll send you a verification code to confirm your phone number.*/}
+                                        {errors.contactPhone?.message}
+                                    </p>)
+                                }
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col md:flex-row gap-4 md:gap-2">
+                            <div className="w-full">
+                                <label className="block text-sm  mb-1">Your company name</label>
+                                <Input
+                                    {...register('companyName')}
+                                    placeholder="Enter your company name here"
+                                    className="focus:outline-none focus:ring-0 focus:ring-offset-0"
+                                />
+                                {
+                                    errors.companyName && (<p className="text-[11px] mt-2 text-red-700">
+                                        {/*We'll send you a verification code to confirm your phone number.*/}
+                                        {errors.companyName?.message}
+                                    </p>)
+                                }
+                            </div>
+                            <div className="w-full">
+                                <label className="block text-sm  mb-1">Your company name</label>
+                                <Input
+                                    {...register('companyLocation')}
+                                    placeholder="Enter your company location here"
+                                    className="focus:outline-none focus:ring-0 focus:ring-offset-0"
+                                />
+                                {
+                                    errors.companyLocation && (<p className="text-[11px] mt-2 text-red-700">
+                                        {/*We'll send you a verification code to confirm your phone number.*/}
+                                        {errors.companyLocation?.message}
+                                    </p>)
+                                }
+                            </div>
                         </div>
 
                         <Button

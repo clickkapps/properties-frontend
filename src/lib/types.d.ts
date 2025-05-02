@@ -29,6 +29,9 @@ export interface RegistrationFormInputs {
     lastName: string;
     contactEmail: string;
     contactPhone: string;
+    companyName?: string;
+    companyLocation?: string;
+    role?: string
 }
 
 export interface PropertyFormInput extends PropertyModel{
@@ -40,7 +43,7 @@ export interface PropertyFormInput extends PropertyModel{
 export interface PropertyModel {
 
     id?: number
-    propertyCategoryId: number
+    categoryId: number
     offerType: string;
     title: string;
     currency: string;
@@ -56,6 +59,7 @@ export interface PropertyModel {
     user: User
     gallery: { id?: number, propertyId?: number, path?: string, caption?: string, createdAt?: string, updatedAt?: string }[],
     specifications?: KeyValue[]
+    promoted?: boolean
 
 }
 
@@ -69,7 +73,8 @@ export interface AdvertisementFormInputs {
 }
 
 export type KeyValue = {
-    id?: string,
+    id?: number,
+    localId?: string,
     title: string
     value: unknown
 }
@@ -77,6 +82,7 @@ export type KeyValue = {
 export type User = {
     id: number,
     loginId: string,
+    role?: string
     firstName?: string,
     lastName?: string,
     photo?: string,
@@ -88,9 +94,19 @@ export type User = {
     basicInfoUpdatedAt?: Date,
     createdAt?: Date,
     updatedAt?: Date
-    isAdmin?: boolean
 }
 
 export type PropertyFilters = {
     country?: string
 }
+
+export type ConfirmDialogOptions = {
+    title?: string;
+    description?: string;
+    onConfirm?: () => void;
+    showOnCancel?: boolean;
+};
+
+export type ConfirmDialogContextType = {
+    showConfirmDialog: (options: ConfirmDialogOptions) => void;
+};

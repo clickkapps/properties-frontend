@@ -1,8 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {User} from "@/lib/types";
 
-const authState: { authenticated: boolean, userInfo: User|undefined} = {
-    authenticated: false,
+const authState: { userInfo: User|undefined} = {
     userInfo: undefined
 };
 
@@ -11,11 +10,9 @@ const authSlice = createSlice({
     initialState: authState,
     reducers: {
         login: (state, action) => {
-            state.authenticated = action.payload.authenticated || state.authenticated;
             state.userInfo = action.payload.userInfo || state.userInfo;
         },
         logout: (state) => {
-            state.authenticated = false
             state.userInfo = undefined
         },
     }

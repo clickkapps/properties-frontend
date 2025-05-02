@@ -13,11 +13,11 @@ import {
 } from "@/components/ui/dropdown-menu.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { Checkbox } from "@/components/ui/checkbox.tsx";
-import { ListingType } from "@/lib/ui.types";
 import { MoreHorizontal } from "lucide-react";
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import {payments} from "@/constants/ui.constants.ts";
+import {ListingType} from "@/lib/types";
 
 const columns: ColumnDef<ListingType>[] = [
   {

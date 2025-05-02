@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+// import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 
@@ -37,6 +37,7 @@ import {Provider} from "react-redux";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import AddNewAdvertisementPage from "@/presentation/agent-dashboard/AddNewAdvertisementPage.tsx";
 import AdvertisementsPage from "@/presentation/agent-dashboard/AdvertisementsPage.tsx";
+import AdminSignInPage from "@/presentation/auth/AdminSignInPage.tsx";
 
 const router = createBrowserRouter([
 
@@ -46,6 +47,7 @@ const router = createBrowserRouter([
         children: [
             {   index: true, element: <LandingPage /> },
             {   path: "login", loader: loginLoader, element: <SignInPage />,},
+            {   path: "admin/login", loader: loginLoader, element: <AdminSignInPage />,},
             {   path: "properties/:type", element: <PropertyListPage />},
             {   path: "property-detail",  element: <PropertyDetailPage />},
             {   path: "agents", element: <AgentsPage />},
@@ -92,15 +94,15 @@ const router = createBrowserRouter([
 
 ])
 // Create a client
-const queryClient = new QueryClient()
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-      {/* store at the top level so that Error Page can also benefit from it*/}
-      <Provider store={store}>
-          <QueryClientProvider client={queryClient} >
-                <RouterProvider router={router} />
-          </QueryClientProvider>
-      </Provider>
-  </StrictMode>,
+  // <StrictMode>
+  //     {/* store at the top level so that Error Page can also benefit from it*/}
+  //
+  // </StrictMode>,
+    <Provider store={store}>
+        <QueryClientProvider client={new QueryClient()} >
+            <RouterProvider router={router} />
+        </QueryClientProvider>
+    </Provider>
 )

@@ -1,4 +1,3 @@
-import {User} from "@/lib/types";
 // import moment from "moment";
 
 type StorageKey = 'accessToken' | 'refreshToken' | string;
@@ -70,40 +69,40 @@ class StorageService {
         this.remove('accessToken');
     }
 
-    setUserInfo(info: string|User) {
-        const value = typeof info === 'string' ? info : JSON.stringify(info);
-        this.set('userInfo', value);
-    }
+    // setUserInfo(info: string|User) {
+    //     const value = typeof info === 'string' ? info : JSON.stringify(info);
+    //     this.set('userInfo', value);
+    // }
+    //
+    // getUserInfo(): User | null {
+    //
+    //     const userInfoString = this.get('userInfo');
+    //     if (!userInfoString) {
+    //         return null;
+    //     }
+    //     const userInfo = JSON.parse(userInfoString);
+    //     if (!userInfo) {
+    //         return null;
+    //     }
+    //
+    //     return {
+    //         ...userInfo,
+    //         // lastLoginAt: userInfo.lastLoginAt ? new Date(userInfo.lastLoginAt) : undefined,
+    //         // currentLoginAt: userInfo.currentLoginAt ? moment(userInfo.currentLoginAt) : undefined,
+    //         // basicInfoUpdatedAt: userInfo.basicInfoUpdatedAt ? moment(userInfo.basicInfoUpdatedAt) : undefined,
+    //         // createdAt: userInfo.createdAt ? moment(userInfo.createdAt) : undefined,
+    //         // updatedAt: userInfo.updatedAt ? moment(userInfo.updatedAt) : undefined,
+    //     };
+    // }
 
-    getUserInfo(): User | null {
+    // removeUserInfo() {
+    //     this.remove('userInfo');
+    // }
 
-        const userInfoString = this.get('userInfo');
-        if (!userInfoString) {
-            return null;
-        }
-        const userInfo = JSON.parse(userInfoString);
-        if (!userInfo) {
-            return null;
-        }
-
-        return {
-            ...userInfo,
-            // lastLoginAt: userInfo.lastLoginAt ? new Date(userInfo.lastLoginAt) : undefined,
-            // currentLoginAt: userInfo.currentLoginAt ? moment(userInfo.currentLoginAt) : undefined,
-            // basicInfoUpdatedAt: userInfo.basicInfoUpdatedAt ? moment(userInfo.basicInfoUpdatedAt) : undefined,
-            // createdAt: userInfo.createdAt ? moment(userInfo.createdAt) : undefined,
-            // updatedAt: userInfo.updatedAt ? moment(userInfo.updatedAt) : undefined,
-        };
-    }
-
-    removeUserInfo() {
-        this.remove('userInfo');
-    }
-
-    clearUserData() {
-        this.removeAccessToken()
-        this.removeUserInfo()
-    }
+    // clearUserData() {
+    //     this.removeAccessToken()
+    //     this.removeUserInfo()
+    // }
 
     // Add more specific helpers as needed
 }

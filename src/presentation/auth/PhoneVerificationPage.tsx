@@ -63,7 +63,6 @@ function PhoneVerificationPage({ onCancelVerification, phone, verificationRequir
         onSuccess: async (res) => {
             const userInfo = res.data;
 
-            appStorage.setUserInfo(userInfo)
             dispatch(login({ userInfo: userInfo }))
 
             // redirect user to dashboard

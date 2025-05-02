@@ -1,6 +1,6 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
-import { v4 as uuidv4 } from 'uuid';
+import {type ClassValue, clsx} from "clsx"
+import {twMerge} from "tailwind-merge"
+import {v4 as uuidv4} from 'uuid';
 
 const cdnFileAsset = import.meta.env.VITE_CDN_BASE_URL
 const environment = import.meta.env.VITE_API_ENV
@@ -17,9 +17,7 @@ export function getCdnFile(name?: string): string {
     if (!name) {
         return '';
     }
-  const path = `${cdnFileAsset}/${name}`
-  customLog("getCdnFile", path)
-  return path
+    return `${cdnFileAsset}/${name}`
 }
 
 export function customLog(...values: (string|undefined|object)[]) {

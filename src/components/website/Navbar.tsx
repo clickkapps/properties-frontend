@@ -5,7 +5,7 @@ import Logo from "@/components/website/Logo.tsx";
 import { Menu, X } from 'lucide-react'
 import {websiteMenuLinks} from "@/constants/ui.constants.ts";
 import {MenuLink} from "@/lib/types";
-import {useAppDispatch, useAppSelector} from "@/hooks";
+import {useAppDispatch} from "@/hooks";
 import {logout} from "@/store/auth-slice.ts";
 import {appStorage} from "@/lib/storage.ts";
 
@@ -23,7 +23,7 @@ const Navbar = ({ animate = true, className, children, rightMenuLinks, bgColor =
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const authState = useAppSelector(state => state.auth)
+  // const authState = useAppSelector(state => state.auth)
   const  dispatch = useAppDispatch();
   const location = useLocation();
 
@@ -47,29 +47,35 @@ const Navbar = ({ animate = true, className, children, rightMenuLinks, bgColor =
   // </ul>
 
   const logoutHandler = async () => {
-      appStorage.clearUserData()
+      appStorage.removeAccessToken()
       dispatch(logout())
       navigate("/login")
   }
 
 
+
   const defaultRightMenuLinks = (
       <ul className="flex flex-row gap-2 py-4 md:py-0 mx-4">
 
-        { !authState.authenticated && (location.pathname !== "/login") && (
-            <Button variant={'link'} className="w-full md:w-auto rounded-none md:rounded border text-white" onClick={() => {
-                navigate("/login")
-            }}>My Account</Button>
-        )}
+        {/*{ (!authState.userInfo && (location.pathname !== "/login")) && (*/}
+        {/*    */}
+        {/*)}*/}
+
         {/*<Button variant={'secondary'} className="w-full md:w-auto rounded-none md:rounded" onClick={() => {*/}
         {/*  navigate("/login")*/}
         {/*}}>Login</Button>*/}
         {/*<Button variant="link" className="text-white" onClick={() => {*/}
         {/*  navigate("/office")*/}
         {/*}}>Admin</Button>*/}
-          { authState.authenticated && (
+
+        { (location.pathname.includes('account') ) ? (
               <Button variant="link" className="text-white" onClick={logoutHandler}>Logout</Button>
-          )}
+          ) : (
+            <Button variant={'link'} className="w-full md:w-auto rounded-none md:rounded border text-white" onClick={() => {
+              navigate("/login")
+            }}>My Account</Button>
+        )}
+
       </ul>
   )
 

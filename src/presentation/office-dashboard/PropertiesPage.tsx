@@ -1,5 +1,5 @@
 import {ColumnDef} from "@tanstack/react-table";
-import {ListingType} from "@/lib/ui.types";
+import { ListingType } from "@/lib/types";
 import {Checkbox} from "@/components/ui/checkbox.tsx";
 import {
     DropdownMenu,

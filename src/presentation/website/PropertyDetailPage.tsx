@@ -4,8 +4,10 @@ import PropertyImages from "@/components/website/PropertyImages.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {Mail, Phone} from "lucide-react";
 import PropertyDetailsTable from "@/components/website/PropertyDetailsTable.tsx";
-import ReviewSection from "@/components/website/ReviewSection.tsx";
-import {advertImg, whatsappIcon} from "@/assets";
+// import ReviewSection from "@/components/website/ReviewSection.tsx";
+import {
+    // advertImg,
+    whatsappIcon} from "@/assets";
 import MarketedBy from "@/components/website/MarketedBy.tsx";
 import ReportListing from "@/components/website/ReportListing.tsx";
 import SafetyTips from "@/components/website/SafetyTips.tsx";
@@ -38,8 +40,8 @@ function PropertyDetailPage() {
                         <h2 className="font-normal text-xl md:text-2xl my-4">Property Details</h2>
                         <PropertyDetailsTable/>
                         <div className="h-12"></div>
-                        <ReviewSection/>
-                        <div className="h-12"></div>
+                        {/*<ReviewSection/>*/}
+                        {/*<div className="h-12"></div>*/}
 
 
                     </div>
@@ -52,16 +54,16 @@ function PropertyDetailPage() {
 
                         <div className="h-24"></div>
 
-                        <div className="rounded-lg overflow-hidden">
-                            <img
-                                src={advertImg}
-                                alt="advert"
-                                className="w-full h-auto"
-                            />
-                        </div>
+                        {/*<div className="rounded-lg overflow-hidden">*/}
+                        {/*    <img*/}
+                        {/*        src={advertImg}*/}
+                        {/*        alt="advert"*/}
+                        {/*        className="w-full h-auto"*/}
+                        {/*    />*/}
+                        {/*</div>*/}
 
                         {/* MarketedBy Section */}
-                        <div className="mt-10">
+                        <div className="">
                             <MarketedBy/>
                         </div>
 

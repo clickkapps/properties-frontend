@@ -1,10 +1,13 @@
 import ManagePropertiesList from "@/components/shared-dashboard/ManagePropertiesList.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {useNavigate} from "react-router";
+import {useAppSelector} from "@/hooks";
 
 function MyListingsPage() {
 
     const navigate = useNavigate();
+    const currentUser = useAppSelector(state => state.auth);
+
 
     return (
         <div className="container mx-auto">
@@ -13,7 +16,7 @@ function MyListingsPage() {
                 <Button className="hidden md:block" variant="outline" onClick={() => navigate("/account/agent/add-listing")}> Add New Property
                      </Button>
             </div>
-            <ManagePropertiesList/>
+            <ManagePropertiesList userId={currentUser.userInfo?.id } />
         </div>
     )
 }

@@ -9,13 +9,21 @@ import {useDebouncedCallback} from "@/hooks/use-debounce-callback.ts"; // You ca
 type Props = {
     onChange?: (specs: KeyValue[]) => void
     spec?: KeyValue[]
-    readOnly?: boolean
+    readOnly?: boolean,
+    onDeleteSavedSpecification?: (id: number) => void
 };
-const starter: KeyValue[] = [{ id: getUuid(), title: "", value: "" }]
+const starter: KeyValue[] = [{ localId: getUuid(), title: "", value: "" }]
 
-const SpecificationsCard = forwardRef(({onChange, spec, readOnly = false}: Props, ref: Ref<InnerFormComponent>) =>  {
+const SpecificationsCard = forwardRef(({onChange, spec, onDeleteSavedSpecification, readOnly = false}: Props, ref: Ref<InnerFormComponent>) =>  {
 
-    const [specifications, setSpecifications] = useState<KeyValue[]>(spec || starter);
+    const [specifications, setSpecifications] = useState<KeyValue[]>(spec ? spec.map(sp => {
+        if(!sp.localId) {
+            sp.localId = getUuid()
+        }
+         return sp
+    }) : starter);
+
+    console.log("specs count => ", specifications.length)
 
     useImperativeHandle(ref, () => {
         return {
@@ -28,18 +36,22 @@ const SpecificationsCard = forwardRef(({onChange, spec, readOnly = false}: Props
     const addNewSpecificationField = () => {
         setSpecifications(prev => [
             ...prev,
-            { id: getUuid(), title: "", value: "" }
+            { localId: getUuid(), title: "", value: "" }
         ]);
     };
 
-    const removeSpecificationField = (id?: string) => {
-        setSpecifications(prev => prev.filter(spec => spec.id !== id));
+    const removeSpecificationField = (localId?: string) => {
+        setSpecifications(prev => prev.filter(spec => spec.localId !== localId));
+        const spec = specifications.find(spec => spec.localId == localId)
+        if(spec?.id && onDeleteSavedSpecification) {
+            onDeleteSavedSpecification(spec.id)
+        }
     };
 
-    const updateSpecification = (id: string | undefined, field: "key" | "value", value: string) => {
+    const updateSpecification = (localId: string | undefined, field: "title" | "value", value: string) => {
         setSpecifications(prev =>
             prev.map(spec =>
-                spec.id === id ? { ...spec, [field]: value } : spec
+                spec.localId === localId ? { ...spec, [field]: value } : spec
             )
         );
     };
@@ -55,29 +67,31 @@ const SpecificationsCard = forwardRef(({onChange, spec, readOnly = false}: Props
         notifyParent(specifications);
     }, [specifications, notifyParent]);
 
+    console.log("specifications: ", specifications)
+
     return (
         <div>
             <h2 className="text-xl font-semibold mb-6">More Property Specifications</h2>
             <div className="space-y-4">
                 {specifications.map((spec) => (
-                    <div className="flex flex-col md:flex-row gap-4" key={spec.id}>
+                    <div className="flex flex-col md:flex-row gap-4" key={`${spec.id}${spec.localId}`}>
                         <Input
                             placeholder="eg. utilities"
                             value={spec.title}
-                            onChange={(e) => updateSpecification(spec.id, "key", e.target.value)}
+                            onChange={(e) => updateSpecification(spec.localId, "title", e.target.value)}
                             className="w-full"
                             readOnly={readOnly}
                         />
                         <Input
                             placeholder="eg. not included"
                             value={spec.value as string}
-                            onChange={(e) => updateSpecification(spec.id, "value", e.target.value)}
+                            onChange={(e) => updateSpecification(spec.localId, "value", e.target.value)}
                             className="w-full"
                             readOnly={readOnly}
                         />
                         { !readOnly && <Button
                             type="button"
-                            onClick={() => removeSpecificationField(spec.id)}
+                            onClick={() => removeSpecificationField(spec.localId)}
                             variant="outline"
                         >
                             <TrashIcon className="text-red-700" />

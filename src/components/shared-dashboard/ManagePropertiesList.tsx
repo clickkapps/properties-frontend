@@ -1,16 +1,35 @@
-import {ChevronLeftIcon, ChevronRight} from 'lucide-react';
-import { useEffect, useState} from "react";
-import {useMutation, useQuery} from "@tanstack/react-query";
 import {
-    apiGetProperties,
-    apiGetPropertyDetail
+    ChartNoAxesCombined,
+    ChevronLeftIcon,
+    ChevronRight,
+    EarthIcon,
+    LoaderCircle,
+    X
+} from 'lucide-react';
+import {useEffect, useRef, useState} from "react";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
+import {
+    apiGetProperties, apiPublishProperty, apiUnPublishProperty,
 } from "@/api/properties.api.ts";
 import SkeletonListItem from "@/components/ui/SkeletonListItem.tsx";
-import {PropertyModel} from "@/lib/types";
-import {customLog} from "@/lib/utils.ts";
-import {AxiosError} from "axios";
+import {ModalHandle, PropertyModel} from "@/lib/types";
 import ManagePropertyDetail from "@/components/shared-dashboard/ManagePropertyDetail.tsx";
 import {Badge} from "@/components/ui/badge.tsx";
+import {SkeletonCard} from "@/components/ui/SkeletonCard.tsx";
+import {AxiosError} from "axios";
+import {customLog} from "@/lib/utils.ts";
+import {toast} from "@/hooks/use-toast.ts";
+import {
+    DropdownMenu,
+    DropdownMenuContent, DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import {Button} from "@/components/ui/button.tsx";
+import {useConfirmDialog} from "@/hooks/use-confirm-dialog.ts";
+import PromotePropertyForm from "@/components/agent-dashboard/PromotePropertyForm.tsx";
+import EmptyDisplayPage from "@/components/ui/EmptyDisplayPage.tsx";
 
 // const propertyList = Array.from({ length: 5 }).map((_, i) => {
 //     return {
@@ -27,59 +46,170 @@ type Props = {
 function ManagePropertiesList({ userId } : Props) {
 
 
-    const { isPending, data } = useQuery<PropertyModel[]>({ queryKey: ['fetch-properties'], queryFn: () => apiGetProperties({ userId: userId}) });
+    const promotePropertyModalRef = useRef<ModalHandle|undefined>(undefined)
+    const queryClient = useQueryClient();
+    const { isPending: isPendingFetchProperties, data: dataFetchProperties } = useQuery<PropertyModel[]>({ queryKey: ['fetch-properties'], queryFn: () => apiGetProperties({ userId: userId }) });
     const [activatedMobileSection, setActivatedMobileSection] = useState<'list' | 'detail'>('list')
     const [selectedProperty, setSelectedProperty] = useState<PropertyModel|undefined>()
-
-    const { mutate: mutatePropertyDetail, isPending: isPendingPropertyDetail } = useMutation({
-        mutationKey: ['property-detail'],
-        mutationFn: apiGetPropertyDetail,
-        onSuccess: async (resp) => {
-            console.log("selectedProperty",resp.data)
-            setSelectedProperty(resp.data);
-        },
-        onError: async (error) => {
-            const axiosError = error as AxiosError<{ message: string }>;
-            customLog("on error", axiosError.message);
-        }
-    })
+    const { showConfirmDialog } = useConfirmDialog()
 
 
-    useEffect(() => {
-        if(data && data.length > 0 && selectedProperty == undefined){
-            const selected: PropertyModel = data[0];
-            mutatePropertyDetail(selected)
-        }
-    }, [data, mutatePropertyDetail, selectedProperty])
+     useEffect(() => {
+            if(dataFetchProperties && dataFetchProperties.length > 0 && selectedProperty == undefined){
+                const selected = dataFetchProperties[0];
+                setSelectedProperty(selected)
+            }
+     }, [dataFetchProperties, selectedProperty])
 
+    console.log("ManagePropertiesList evaluated..", "data", dataFetchProperties, "isPendingFetchProperties", isPendingFetchProperties);
+    // console.log("ManagePropertiesList evaluated..", isPendingPropertyDetail, "isSuccess", isSuccessPropertyDetail, "isError", isErrorPropertyDetail);
 
 
     const listItemClickHandler = (item: PropertyModel) => {
         // setSelectedProperty(item)
-        mutatePropertyDetail(item)
         setActivatedMobileSection('detail')
+        setSelectedProperty(item)
 
+    }
+
+    const { mutate: mutatePublishProperty, isPending: isPendingPublishProperty } = useMutation({
+        mutationKey: ['publish-property'],
+        mutationFn: apiPublishProperty,
+        onSuccess: async (resp) => {
+            const updatedProperty: PropertyModel =  resp.data as PropertyModel
+            setSelectedProperty(updatedProperty)
+        },
+        onError: async (error, _newData, context: { previousData?: PropertyModel[] } | undefined) => {
+
+            const axiosError = error as AxiosError<{ message: string }>;
+
+            // ✅ Rollback to previous state if available
+            if (context?.previousData) {
+                queryClient.setQueryData(['fetch-properties'], context.previousData);
+            }
+
+            // Log and notify the user
+            customLog("on error", axiosError.message);
+            toast({
+                variant: "destructive",
+                title: "Uh oh! Something went wrong",
+                description: axiosError.response?.data?.message || "Sorry! connection failed",
+            });
+
+        },
+        // ✅ Optimistically update the UI
+        onMutate: async ( id ) => {
+
+            await queryClient.cancelQueries({ queryKey: ['fetch-properties'] })
+            const previousData = queryClient.getQueryData<PropertyModel[]>(['fetch-properties']);
+
+            queryClient.setQueryData<PropertyModel[]>(['fetch-properties'], (old) =>
+                old?.map((item) => {
+                    if(item.id === id) {
+                        item.published = true;
+                    }
+                    return item
+
+                }) || []
+            );
+
+            // Return context for rollback
+            return { previousData };
+        },
+
+    })
+
+    const { mutate: mutateUnpublishProperty, isPending: isPendingUnpublishProperty } = useMutation({
+        mutationKey: ['unpublish-property'],
+        mutationFn: apiUnPublishProperty,
+        onSuccess: async (resp) => {
+            // mutatePropertyDetail(selectedProperty.id)
+            const updatedProperty: PropertyModel =  resp.data as PropertyModel
+            setSelectedProperty(updatedProperty)
+        },
+        onError: async (error: Error, _newData, context: { previousData?: PropertyModel[] } | undefined) => {
+            const axiosError = error as AxiosError<{ message: string }>;
+            // ✅ Rollback to previous state if available
+            if (context?.previousData) {
+                queryClient.setQueryData(['fetch-properties'], context.previousData);
+            }
+
+            // Log and notify the user
+            customLog("on error", axiosError.message);
+            toast({
+                variant: "destructive",
+                title: "Uh oh! Something went wrong",
+                description: axiosError.response?.data?.message || "Sorry! connection failed",
+            });
+
+        },
+        onMutate: async ( id ) => {
+
+            await queryClient.cancelQueries({ queryKey: ['fetch-properties'] })
+            const previousData = queryClient.getQueryData<PropertyModel[]>(['fetch-properties']);
+
+            queryClient.setQueryData<PropertyModel[]>(['fetch-properties'], (old) =>
+                old?.map((item) => {
+                    if(item.id === id) {
+                        item.published = false;
+                    }
+                    return item
+
+                }) || []
+            );
+
+            // Return context for rollback
+            return { previousData };
+        },
+
+    })
+
+    const publishPropertyHandler = (id?: number) => {
+        showConfirmDialog({
+            title: "Publish Property",
+            description: "Are you sure you want to publish?",
+            onConfirm: () => {
+                mutatePublishProperty(id)
+            },
+        })
+    }
+
+    const unpublishPropertyHandler = (id?: number) => {
+        showConfirmDialog({
+            title: "Unpublish Property",
+            description: "Are you sure you want to unpublish?",
+            onConfirm: () => {
+                mutateUnpublishProperty(id)
+            },
+        })
+    }
+
+    if(dataFetchProperties && dataFetchProperties.length === 0) {
+        return <EmptyDisplayPage />
     }
 
 
     return (
         <div className="py-4">
             <div className="flex flex-row border md:divide-x">
-                <div className={` ${activatedMobileSection == 'list' ? 'block' : 'hidden' } md:block w-full md:w-[20%] divide-y`}>
-                    { isPending && (
+                <div
+                    className={` ${activatedMobileSection == 'list' ? 'block' : 'hidden'} md:block w-full md:w-[20%] divide-y`}>
+                    {isPendingFetchProperties && (
                         <div className={"px-4 py-4 space-y-4"}>
-                            { Array.from({ length: 5 }).map((_, index) => (<SkeletonListItem showAvatar={false} showSubTitle={false} key={"sk-" + index} />)) }
+                            {Array.from({length: 5}).map((_, index) => (
+                                <SkeletonListItem showAvatar={false} showSubTitle={false}
+                                                  key={"sk-" + index}/>))}
                         </div>
                     )}
-                    { data && data.map((item) => {
+                    {dataFetchProperties && dataFetchProperties.map((item) => {
                         const selected = selectedProperty && (item.id === selectedProperty?.id);
                         return (
                             <div
                                 key={item.id}
                                 onClick={() => listItemClickHandler(item)}
-                                className={`flex flex-row justify-between cursor-pointer py-4 px-4 text-sm ${selected? 'bg-[#f5f5f5]' : ''}`}>
+                                className={`flex flex-row justify-between cursor-pointer py-4 px-4 text-sm ${selected ? 'bg-[#f5f5f5]' : ''}`}>
                                 <p className="inline-flex items-center gap-2 font-[Inter]">
-                                    {item.title} { !item.published && "⚠️"}
+                                    {item.title} {!item.published && "🔒"} {item.published && "✓"}
                                     {/*{!item.published && <i className="fa-solid fa-circle text-amber-500 "></i>}*/}
                                 </p>
 
@@ -91,26 +221,95 @@ function ManagePropertiesList({ userId } : Props) {
                 <div
                     className={` ${activatedMobileSection == 'detail' ? 'block' : 'hidden'} md:block w-full md:w-[80%] flex flex-col `}>
 
-                    <div className="py-4 px-2 border-b inline-flex w-full space-x-4" onClick={() => setActivatedMobileSection('list')}>
-                        {data && selectedProperty &&
-                            <div className="inline-flex space-x-1 text-blue-500 items-center md:hidden">
-                                <ChevronLeftIcon/>
-                                <span className="text-sm">Back</span>
-                            </div>
-                        }
-                        {data && selectedProperty && <p className="font-semibold"> { selectedProperty.title } { !selectedProperty.published && (<Badge className={"bg-amber-500 rounded-full"} >Not published</Badge>) }  </p>}
+                    <div className="py-2 px-2 border-b  w-full flex justify-between items-center">
+
+                        <div className="inline-flexspace-x-4" onClick={() => setActivatedMobileSection('list')}>
+                            {dataFetchProperties && selectedProperty &&
+                                <div className="inline-flex space-x-1 text-blue-500 items-center md:hidden">
+                                    <ChevronLeftIcon/>
+                                    <span className="text-sm">Back</span>
+                                </div>
+                            }
+                            {dataFetchProperties && selectedProperty && <div
+                                className="font-semibold"> {selectedProperty.title} {!selectedProperty.published ? (
+                                <Badge className={"bg-amber-500 rounded-full"}>Not published</Badge>) : (
+                                <Badge className={"bg-teal-500 rounded-full"}> published</Badge>
+                            )}  </div>}
+                        </div>
+
+                        {/* More menu   */}
+
+                        <div>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    {(isPendingUnpublishProperty || isPendingPublishProperty) ? (
+                                        <LoaderCircle/>
+                                    ) : (
+                                        <Button variant="outline">Actions</Button>
+                                    )}
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent className="w-56">
+                                    <DropdownMenuLabel>Options</DropdownMenuLabel>
+                                    <DropdownMenuSeparator/>
+                                    {selectedProperty && selectedProperty.published && (
+                                        <DropdownMenuItem
+                                            onClick={() => unpublishPropertyHandler(selectedProperty.id)}>
+                                            <X/>
+                                            UnPublish
+                                        </DropdownMenuItem>
+                                    )}
+                                    {selectedProperty && !selectedProperty.published && (
+                                        <DropdownMenuItem
+                                            onClick={() => publishPropertyHandler(selectedProperty.id)}>
+                                            <EarthIcon/>
+                                            <span>Publish</span>
+                                        </DropdownMenuItem>
+
+                                    )}
+
+                                    {selectedProperty && selectedProperty.published && !selectedProperty.promoted && (
+                                        <DropdownMenuItem onClick={() => {
+                                            if (promotePropertyModalRef) {
+                                                promotePropertyModalRef.current?.open()
+                                            }
+                                        }}>
+                                            <ChartNoAxesCombined/>
+                                            <span>Promote Property</span>
+                                        </DropdownMenuItem>
+                                    )}
+
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                            {selectedProperty && <PromotePropertyForm property={selectedProperty}
+                                                                      ref={promotePropertyModalRef}/>}
+                        </div>
+
                     </div>
+
 
                     {/* Content here for item detail */}
 
-                    { ( isPendingPropertyDetail || selectedProperty) && <ManagePropertyDetail
-                        key={selectedProperty?.id}
+                    {
+                        (isPendingFetchProperties) &&
+                        <div className=" py-4 px-6 flex flex-row overflow-y-auto gap-4">
+                            {
+                                Array.from({length: 4}).map((_, index) => (
+                                    <SkeletonCard key={"sk-" + index}/>
+                                ))
+                            }
+                        </div>
+                    }
+
+                    {(dataFetchProperties && selectedProperty) && <ManagePropertyDetail
+                        key={"property-detail-" + selectedProperty.id}
                         selectedProperty={selectedProperty}
-                        isPendingPropertyDetail={isPendingPropertyDetail}
-                    /> }
+                    />}
+
+
                 </div>
             </div>
-        </div>)
-                        }
+        </div>
+    )
+}
 
 export default ManagePropertiesList;

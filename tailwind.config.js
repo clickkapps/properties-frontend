@@ -12,9 +12,15 @@ export default {
 				"0%,70%,100%": { opacity: "1" },
 				"20%,50%": { opacity: "0" },
 			},
+			progress: {
+				'0%': { left: '-30%' },
+				'50%': { left: '50%' },
+				'100%': { left: '100%' },
+			},
 		},
 		animation: {
 			"caret-blink": "caret-blink 1.25s ease-out infinite",
+			'progress': 'progress 1.5s linear infinite',
 		},
   		fontFamily: {
   			sans: [

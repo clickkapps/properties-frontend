@@ -4,7 +4,7 @@ import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs.tsx
 import {DataTable} from "@/components/ui/data-table.tsx";
 import {payments} from "@/constants/ui.constants.ts";
 import {ColumnDef} from "@tanstack/react-table";
-import {ListingType} from "@/lib/ui.types";
+import { ListingType } from "@/lib/types";
 import {Checkbox} from "@/components/ui/checkbox.tsx";
 import {
     DropdownMenu,

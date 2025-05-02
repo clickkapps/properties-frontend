@@ -18,6 +18,7 @@ import {CalendarIcon, LoaderCircle} from "lucide-react";
 import {format} from "date-fns";
 import FileSelector from "@/components/shared-dashboard/FileSelector.tsx";
 import {Input} from "@/components/ui/input.tsx";
+import {apiPostNewAdvertisement} from "@/api/advertisement.api.ts";
 
 
 function AddNewAdvertisementPage() {
@@ -36,6 +37,21 @@ function AddNewAdvertisementPage() {
     const watchedStartDate = watch("startDate");
     const watchedEndDate = watch("endDate");
 
+    const { mutate: mutateCreateAdvertisement, isPending: isPendingCreateAdvertisement } = useMutation({
+        mutationKey: ['create-advertisement'],
+        mutationFn: apiPostNewAdvertisement,
+        onSuccess: async (resp) => {
+
+        },
+        onError: async (error) => {
+            const axiosError = error as AxiosError<{ message: string }>;
+            toast({
+                variant: "destructive",
+                title: "Uh oh! Something went wrong",
+                description: axiosError.response?.data?.message || "Sorry! connection failed",
+            });
+        }
+    })
 
     useEffect(() => {
 
