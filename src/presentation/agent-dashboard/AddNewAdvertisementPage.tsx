@@ -40,7 +40,7 @@ function AddNewAdvertisementPage() {
     const { mutate: mutateCreateAdvertisement, isPending: isPendingCreateAdvertisement } = useMutation({
         mutationKey: ['create-advertisement'],
         mutationFn: apiPostNewAdvertisement,
-        onSuccess: async (resp) => {
+        onSuccess: async () => {
 
         },
         onError: async (error) => {

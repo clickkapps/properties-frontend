@@ -188,6 +188,32 @@ function ManagePropertiesList({ userId } : Props) {
         return <EmptyDisplayPage />
     }
 
+    const propertyPromotedHandler = async (propertyId?: number) => {
+        if(propertyId && selectedProperty?.id == propertyId) {
+            // refresh list locally
+            await queryClient.cancelQueries({ queryKey: ['fetch-properties'] })
+            queryClient.setQueryData<PropertyModel[]>(['fetch-properties'], (old) =>
+                old?.map((item) => {
+                    if(item.id === selectedProperty?.id) {
+                        item.promoted = true;
+                    }
+                    return item
+                }) || []
+            );
+
+            // refresh selected property
+            setSelectedProperty(prev => {
+                if(!prev) {
+                    return prev
+                }
+                return {
+                    ...prev,
+                    promoted: true,
+                }
+            });
+        }
+    }
+
 
     return (
         <div className="py-4">
@@ -208,7 +234,7 @@ function ManagePropertiesList({ userId } : Props) {
                                 key={item.id}
                                 onClick={() => listItemClickHandler(item)}
                                 className={`flex flex-row justify-between cursor-pointer py-4 px-4 text-sm ${selected ? 'bg-[#f5f5f5]' : ''}`}>
-                                <p className="inline-flex items-center gap-2 font-[Inter]">
+                                <p className={`inline-flex items-center gap-2 font-[Inter] ${item.promoted && "text-teal-500 font-semibold" }`}>
                                     {item.title} {!item.published && "🔒"} {item.published && "✓"}
                                     {/*{!item.published && <i className="fa-solid fa-circle text-amber-500 "></i>}*/}
                                 </p>
@@ -230,11 +256,18 @@ function ManagePropertiesList({ userId } : Props) {
                                     <span className="text-sm">Back</span>
                                 </div>
                             }
-                            {dataFetchProperties && selectedProperty && <div
-                                className="font-semibold"> {selectedProperty.title} {!selectedProperty.published ? (
-                                <Badge className={"bg-amber-500 rounded-full"}>Not published</Badge>) : (
-                                <Badge className={"bg-teal-500 rounded-full"}> published</Badge>
-                            )}  </div>}
+                            {dataFetchProperties && selectedProperty &&
+                                <div className="font-semibold inline-flex gap-1 items-center">
+                                    {selectedProperty.title}
+                                    {!selectedProperty.published ? (
+                                        <Badge className={"bg-amber-500 rounded-full"}>Not published</Badge>) : (
+                                        <Badge className={"bg-teal-500 rounded-full"}> Published</Badge>
+                                    )}
+                                    { selectedProperty.promoted && (
+                                        <Badge className={"bg-black rounded-full"}> Promoted 🚀</Badge>
+                                    )}
+                                </div>
+                            }
                         </div>
 
                         {/* More menu   */}
@@ -280,8 +313,13 @@ function ManagePropertiesList({ userId } : Props) {
 
                                 </DropdownMenuContent>
                             </DropdownMenu>
-                            {selectedProperty && <PromotePropertyForm property={selectedProperty}
-                                                                      ref={promotePropertyModalRef}/>}
+                            {selectedProperty &&
+                                <PromotePropertyForm
+                                    property={selectedProperty}
+                                    ref={promotePropertyModalRef}
+                                    onPromoted={propertyPromotedHandler}
+                            />
+                            }
                         </div>
 
                     </div>

@@ -50,6 +50,6 @@ export const apiUnPublishProperty = async( id?: number  ) => {
     return await apiClient.put(`/properties/unpublish/${id}`).then((response) =>  response.data)
 }
 
-export const apiPromoteProperty = async( payload: { propertyId: number, subscriptionId: number} ) => {
+export const apiPromoteProperty = async( payload: { propertyId?: number, subscriptionId?: number} ) => {
     return await apiClient.post(`/properties/promote`, payload).then((response) =>  response.data)
 }

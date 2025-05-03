@@ -20,3 +20,29 @@ export const chartConfig = {
     },
 } satisfies ChartConfig
 
+export const entitlementsUIBuilder: { uiTitle:string, slug: string, uiFeatureList: string[], uiColor: string }[] = [
+
+    {
+        uiTitle: "BASIC",
+        slug: 'basic',
+        uiFeatureList:  [
+            "List your property on the platform",
+            "Promotion of property on other social platforms"
+        ],
+        uiColor: "bg-[#F2B2D7]"
+    },
+    {
+        uiTitle: "STANDARD",
+        slug: 'standard',
+        uiFeatureList: [
+            "List your property on the platform",
+            "Promotion of property on other social platforms",
+            "Manage your property showings",
+            "Legal Coordination",
+            "Handle Paperwork / Negotiations",
+            "Virtual Tour"
+        ],
+        uiColor: "bg-[#7DE2D5]",
+    }
+]
+

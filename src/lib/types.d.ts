@@ -110,3 +110,27 @@ export type ConfirmDialogOptions = {
 export type ConfirmDialogContextType = {
     showConfirmDialog: (options: ConfirmDialogOptions) => void;
 };
+
+export type PackageModel = {
+    slug?: string,
+    name?: string,
+    group?:"entitlements" | "properties_promotion" | "advertisement",
+    frequency?: "daily" | "one_time",
+    description?: string,
+    price?: number,
+    currency?: string,
+}
+
+export type PackageUIConstants = {
+    uiTitle?:string,
+    slug?: string,
+    uiFeatureList?: string[],
+    uiColor?: string
+}
+
+export type PurchasePackageParams = {
+    propertyId?: number,
+    startDate?: string,
+    endDate?: string,
+    packageSlug: "basic_package" | "standard_package" | "properties_promotion" | "advertisement"
+}

@@ -12,6 +12,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import {ghRegions} from "@/constants/ui.constants.ts";
+import {Input} from "@/components/ui/input.tsx";
 
 
 
@@ -20,6 +21,7 @@ const Searchbar = ({ className }: { className: string}) => {
     const modalRef = useRef<ModalHandle>()
     const navigate = useNavigate()
     const [searchValues, setSearchValues] = useState<Record<string, string> | undefined >(undefined)
+
 
     const editSearchValueHandler = (arg: {key: string, value: string}) => {
         setSearchValues( (prev) => {
@@ -59,7 +61,7 @@ const Searchbar = ({ className }: { className: string}) => {
                   </SelectTrigger>
                   <SelectContent>
                       { ghRegions.map((region) => (
-                          <SelectItem value={region}>{ region }</SelectItem>
+                          <SelectItem key={region} value={region}>{ region }</SelectItem>
                       ))}
                   </SelectContent>
               </Select>
@@ -85,6 +87,12 @@ const Searchbar = ({ className }: { className: string}) => {
               </Select>
 
             <div className="w-px h-8 bg-gray-300"></div>
+
+            <Input
+                type="text"
+                   placeholder="Location"
+                   className="w-full bg-transparent px-4 py-3 text-[#6A6A6A] shadow-none active:border-none focus:border-none h-full focus-visible:outline-none focus-visible:ring-0 border-none"
+            />
 
             <button
                 onClick={() => {

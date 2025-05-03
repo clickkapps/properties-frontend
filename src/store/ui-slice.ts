@@ -1,6 +1,10 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-const uiState = { openAgentMobileSideDrawer: false, openOfficeMobileSideDrawer: false };
+const uiState = {
+    openAgentMobileSideDrawer: false,
+    openOfficeMobileSideDrawer: false,
+    openSubscriptionDialog: false,
+};
 
 const uiSlice = createSlice({
     name: "ui",
@@ -17,7 +21,13 @@ const uiSlice = createSlice({
         },
         closeOfficeMobileDrawer: (state) => {
             state.openOfficeMobileSideDrawer = false;
-        }
+        },
+        toggleSubscriptionDialog: (state) => {
+            state.openSubscriptionDialog = !state.openSubscriptionDialog;
+        },
+        closeSubscriptionDialog: (state) => {
+            state.openSubscriptionDialog = false;
+        },
     }
 })
 
@@ -25,6 +35,8 @@ export const {
     toggleAgentSidebarDrawer,
     closeAgentMobileDrawer,
     toggleOfficeSidebarDrawer,
-    closeOfficeMobileDrawer
+    closeOfficeMobileDrawer,
+    toggleSubscriptionDialog,
+    closeSubscriptionDialog
 } = uiSlice.actions;
 export default uiSlice.reducer;

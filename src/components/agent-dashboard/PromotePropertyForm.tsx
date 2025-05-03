@@ -1,9 +1,8 @@
-import {forwardRef, ReactNode, Ref, useImperativeHandle, useState} from "react";
+import {forwardRef, ReactNode, Ref, useCallback, useEffect, useImperativeHandle, useState} from "react";
 import {ModalHandle, PropertyModel} from "@/lib/types";
-import {useNavigate} from "react-router";
 import {createPortal} from "react-dom";
 import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} from "@/components/ui/dialog.tsx";
-import {ChartNoAxesCombined} from "lucide-react";
+import {ChartNoAxesCombined, LoaderCircle} from "lucide-react";
 import * as React from "react"
 import { addDays, format, addMonths} from "date-fns"
 import { CalendarIcon } from "lucide-react"
@@ -21,22 +20,50 @@ import {useMutation} from "@tanstack/react-query";
 import { apiPromoteProperty} from "@/api/properties.api.ts";
 import {AxiosError} from "axios";
 import {toast} from "@/hooks/use-toast.ts";
+import useGetPackageBill from "@/hooks/use-get-package-bill.ts";
+import usePurchasePackage from "@/hooks/use-purchase-package.ts";
 
 
 type Props = {
     children?: ReactNode,
     property: PropertyModel,
-    className?: string
+    className?: string,
+    onPromoted?: (propertyId?: number) => void,
 }
-const PromotePropertyForm =  forwardRef(({ property, className }: Props , ref: Ref<ModalHandle | undefined>) => {
+const PromotePropertyForm =  forwardRef(({ property, className, onPromoted }: Props , ref: Ref<ModalHandle | undefined>) => {
+
+    // called when payment is completed
+    const onPurchaseSuccessFn = useCallback(({subId, extra}: {subId:number, extra?: {userId?:number, propertyId?: number}}) => {
+        //  if modal is closed reopen it
+        if(!open) {
+            setOpen(true)
+        }
+
+        // create promotion
+        mutatePromoteProperty({propertyId: extra?.propertyId, subscriptionId: subId})
+
+    }, [])
 
     const [open, setOpen] = useState(false);
-    const navigate = useNavigate();
+    const { isGetPackageBillPending, getPackageBillFn, bill } = useGetPackageBill()
+    const { processPaymentFn, isPurchasePackagePending } = usePurchasePackage(onPurchaseSuccessFn)
 
     const [date, setDate] = React.useState<DateRange | undefined>({
         from: addDays(new Date(), 1),
         to: addMonths(new Date(), 1),
     })
+
+
+
+    useEffect(() => {
+        console.log("use Effect called")
+        getPackageBillFn({
+            startDate: date?.from?.toISOString(),
+            endDate: date?.to?.toISOString(),
+            packageSlug: "properties_promotion",
+            propertyId: property.id,
+        })
+    }, [date?.from, date?.to, getPackageBillFn, property.id]);
 
     useImperativeHandle(ref, () => {
         return {
@@ -52,8 +79,13 @@ const PromotePropertyForm =  forwardRef(({ property, className }: Props , ref: R
     const { mutate: mutatePromoteProperty, isPending: isPendingPromoteProperty } = useMutation({
         mutationKey: ['promote-property'],
         mutationFn: apiPromoteProperty,
-        onSuccess: async (resp) => {
-
+        onSuccess: async () => {
+            // property has been promoted
+            console.log("property has been promoted")
+            setOpen(false);
+            if(onPromoted) {
+                onPromoted(property.id)
+            }
         },
         onError: async (error) => {
             const axiosError = error as AxiosError<{ message: string }>;
@@ -64,6 +96,17 @@ const PromotePropertyForm =  forwardRef(({ property, className }: Props , ref: R
             });
         }
     })
+
+    const onPromoteButtonClickHandler = () => {
+        // check if user has subscribed
+        setOpen(false);
+        processPaymentFn({
+            propertyId: property.id,
+            packageSlug: "properties_promotion",
+            startDate: date?.from?.toISOString(),
+            endDate: date?.to?.toISOString(),
+        })
+    }
 
 
 
@@ -132,11 +175,17 @@ const PromotePropertyForm =  forwardRef(({ property, className }: Props , ref: R
                             <button type='button' className="font-semibold underline" onClick={() => setOpen(false)}>Close</button>
                             <button
                                 type='button'
+                                disabled={(isPendingPromoteProperty || isGetPackageBillPending || isPurchasePackagePending)}
                                 onClick={() => {
-                                    navigate('/properties/rent')
+                                    onPromoteButtonClickHandler()
                                 }}
-                                className="flex items-center gap-2 bg-[#e50005] text-white font-medium px-4 py-2 rounded-lg hover:bg-red-700">
-                                <ChartNoAxesCombined className="w-5 h-5"/> Promote
+                                className="flex items-center gap-2 bg-[#e50005] text-white font-medium px-4 py-2 rounded-lg hover:bg-red-700 font-[Inter]">
+                                {
+                                    !(isPendingPromoteProperty || isGetPackageBillPending || isPurchasePackagePending) ? (
+                                        <><ChartNoAxesCombined className="w-5 h-5"/> <span>Promote {bill && `at ${bill.currency} ${bill.amountToPay}`}</span></>
+                                    ): <LoaderCircle className="animate-spin" />
+                                }
+
                             </button>
                         </div>
 
