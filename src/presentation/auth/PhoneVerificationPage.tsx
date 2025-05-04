@@ -13,7 +13,7 @@ import {useRef} from "react";
 import {customLog, isAllDigits} from "@/lib/utils.ts";
 import { AxiosError } from "axios"
 import {useDispatch} from "react-redux";
-import {login} from "@/store/auth-slice.ts";
+import {updateAuthUser} from "@/store/auth-slice.ts";
 import {apiGetCurrentUserInfo} from "@/api/users.api.ts";
 import {useNavigate} from "react-router";
 import {appStorage} from "@/lib/storage.ts";
@@ -40,7 +40,7 @@ function PhoneVerificationPage({ onCancelVerification, phone, verificationRequir
             // save
             const authToken = res.data;
             appStorage.setAccessToken(authToken)
-            dispatch(login({ authToken: authToken }))
+            dispatch(updateAuthUser({ authToken: authToken }))
             reset()
 
             mutateGetCurrentUser()
@@ -63,7 +63,7 @@ function PhoneVerificationPage({ onCancelVerification, phone, verificationRequir
         onSuccess: async (res) => {
             const userInfo = res.data;
 
-            dispatch(login({ userInfo: userInfo }))
+            dispatch(updateAuthUser({ userInfo: userInfo }))
 
             // redirect user to dashboard
             navigate('/account/agent')

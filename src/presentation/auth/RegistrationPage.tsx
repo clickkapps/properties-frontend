@@ -11,7 +11,7 @@ import {useToast} from "@/hooks/use-toast.ts";
 import {RegistrationFormInputs} from "@/lib/types";
 import {apiUpdateCurrentUserInfo} from "@/api/users.api.ts";
 import {useDispatch} from "react-redux";
-import {login} from "@/store/auth-slice.ts";
+import {updateAuthUser} from "@/store/auth-slice.ts";
 import {useLoaderData, useNavigate} from "react-router";
 
 
@@ -46,7 +46,7 @@ function RegistrationPage() {
             customLog("Registration completed", res.data);
             // const data = rep.data;
             const userInfo = res.data;
-            dispatch(login({ userInfo: userInfo }))
+            dispatch(updateAuthUser({ userInfo: userInfo }))
             reset()
             toast({
                 variant: "default",

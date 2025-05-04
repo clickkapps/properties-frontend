@@ -1,5 +1,9 @@
 import apiClient from "@/api/config.api.ts";
 
 export const apiPostNewAd = async (formData: FormData) => {
-    return await apiClient.post(`/ads`, formData).then((response) =>  response.data)
+    return await apiClient.post(`/advertisements/new`, formData).then((response) =>  response.data)
+}
+
+export const apiFetchUserAds = async () => {
+    return await apiClient.get(`/advertisements`).then((response) =>  response.data.data)
 }

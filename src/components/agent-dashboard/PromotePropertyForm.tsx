@@ -86,6 +86,11 @@ const PromotePropertyForm =  forwardRef(({ property, className, onPromoted }: Pr
             if(onPromoted) {
                 onPromoted(property.id)
             }
+            toast({
+                variant: "default",
+                title: "Good job 🚀🔥🔥",
+                description: "This property will be promoted on the landing page as scheduled",
+            });
         },
         onError: async (error) => {
             const axiosError = error as AxiosError<{ message: string }>;

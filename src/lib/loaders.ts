@@ -1,6 +1,6 @@
 import {redirect} from "react-router";
 import store from "@/store";
-import {login, logout} from "@/store/auth-slice.ts";
+import {updateAuthUser, logout} from "@/store/auth-slice.ts";
 import {appStorage} from "@/lib/storage.ts";
 import {apiGetCurrentUserInfo} from "@/api/users.api.ts";
 import {User} from "@/lib/types";
@@ -9,7 +9,7 @@ import {User} from "@/lib/types";
 const initialiseUserInfo = async () => {
 
     const token = appStorage.getAccessToken();
-    // check if this user has a stored token, direct to login page if not
+    // check if this user has a stored token, direct to updateAuthUser page if not
     if (!token) {
         throw new Error("Unauthorized");
     }
@@ -23,7 +23,7 @@ const initialiseUserInfo = async () => {
         // if there is no userInfo in the state, get it from the server
         const data = await apiGetCurrentUserInfo()
         userInfo = data.data as User
-        store.dispatch(login({ userInfo  })); // set userInfo in state
+        store.dispatch(updateAuthUser({ userInfo  })); // set userInfo in state
     }
 
     return userInfo;

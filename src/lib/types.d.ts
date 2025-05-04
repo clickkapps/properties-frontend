@@ -64,12 +64,10 @@ export interface PropertyModel {
 }
 
 export interface AdvertisementFormInputs {
-    title: string;
-    image: File
-    startDate?: Date
-    endDate?: Date
-    contactPhone: string
-    contactEmail: string
+    image?: File
+    contactPhone?: string
+    contactEmail?: string
+    link?: string
 }
 
 export type KeyValue = {
@@ -94,6 +92,16 @@ export type User = {
     basicInfoUpdatedAt?: Date,
     createdAt?: Date,
     updatedAt?: Date
+    activeEntitlement: Entitlement
+}
+
+export type Entitlement = {
+    entitlement: "basic" | "standard",
+    entitlementAmountPaid?: string,
+    currency?: string,
+    createdAt?: Date,
+    updatedAt?: Date,
+    status?: string
 }
 
 export type PropertyFilters = {
@@ -132,5 +140,17 @@ export type PurchasePackageParams = {
     propertyId?: number,
     startDate?: string,
     endDate?: string,
-    packageSlug: "basic_package" | "standard_package" | "properties_promotion" | "advertisement"
+    packageSlug?: "basic_package" | "standard_package" | "properties_promotion" | "advertisement"
+}
+
+export type AdvertisementModel = {
+    id: number,
+    status: "pending" | "approved" | "active" | "inactive",
+    startFrom: string,
+    endAt: string,
+    contactPhone: string,
+    contactEmail?: string,
+    imagePath: string,
+    link?: string,
+    createdAt?: string,
 }

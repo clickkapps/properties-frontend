@@ -1,39 +1,40 @@
 import { Badge } from "@/components/ui/badge"
-import {agentsImg} from "@/assets";
+import {AdvertisementModel} from "@/lib/types";
+import {format} from "date-fns";
+import {getCdnFile} from "@/lib/utils.ts";
 
 type Props = {
-   title: string,
-   status?: string
+   ad: AdvertisementModel,
 }
 
-function AdvertisementCard({ title, status = "Pending" } : Props) {
+function AdvertisementCard({ ad } : Props) {
     return (
-        <div className="border rounded-md shadow-sm p-4 w-full max-w-sm sm:max-w-md">
+        <div className="flex flex-row gap-2 border rounded-md shadow-sm p-4 w-full">
             {/* Image */}
             <img
-                src={agentsImg}
+                src={getCdnFile(ad.imagePath)}
                 alt="agent image"
-                className="w-full h-[250px] object-cover rounded-md"
+                className="w-[40%] object-cover rounded-md"
             />
 
             {/* Agent info */}
-            <div className="mt-4">
-                <h3 className="text-md font-semibold">{ title }</h3>
+            <div className="border border-dashed w-full p-4">
+                <h3 className="text-md font-semibold">Created at { format((ad?.createdAt || new Date()), "LLL dd, y")}</h3>
 
                 <div className="divide-y">
                     <div className="flex flex-col py-4">
-                        <h3 className="font-medium">April 21, 2020</h3>
-                        <p className="text-sm">Starts from</p>
+                        <h3 className="font-medium">Starts from</h3>
+                        <p className="text-sm">{ format((ad?.startFrom || ''), "LLL dd, y") }</p>
                     </div>
                     <div className="flex flex-col py-4">
-                        <h3 className="font-medium">April 21, 2020</h3>
-                        <p className="text-sm">Ends at</p>
+                        <h3 className="font-medium">Ends at</h3>
+                        <p className="text-sm">{ format((ad?.endAt || ''), "LLL dd, y") }</p>
                     </div>
                     <div className="flex flex-col py-4 space-y-2">
                         <div>
-                            <Badge> { status } </Badge>
+                            <Badge> { ad.status } </Badge>
                         </div>
-                        <small>Created at April 4, 2025</small>
+                        <small>Created at { format((ad?.createdAt || new Date()), "LLL dd, y") }</small>
                     </div>
                 </div>
 

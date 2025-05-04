@@ -261,10 +261,10 @@ function ManagePropertiesList({ userId } : Props) {
                                     {selectedProperty.title}
                                     {!selectedProperty.published ? (
                                         <Badge className={"bg-amber-500 rounded-full"}>Not published</Badge>) : (
-                                        <Badge className={"bg-teal-500 rounded-full"}> Published</Badge>
+                                        <Badge className={"bg-black rounded-full"}> Published</Badge>
                                     )}
                                     { selectedProperty.promoted && (
-                                        <Badge className={"bg-black rounded-full"}> Promoted 🚀</Badge>
+                                        <Badge className={"bg-teal-500 rounded-full"}> Promoted 🚀</Badge>
                                     )}
                                 </div>
                             }

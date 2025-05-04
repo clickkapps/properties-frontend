@@ -10,3 +10,9 @@ export const apiUpdateCurrentUserInfo = async( payload: RegistrationFormInputs )
     // fetch user info if there's no error
     return apiGetCurrentUserInfo()
 };
+
+export const apiUpdateUserEntitlement = async( payload: { entitlement?: string, subscriptionId?: number} ) => {
+    await apiClient.put("/users/entitlement", payload).then((response) =>  response.data)
+    // fetch user info if there's no error
+    return apiGetCurrentUserInfo()
+};

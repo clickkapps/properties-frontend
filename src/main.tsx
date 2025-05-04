@@ -47,7 +47,7 @@ const router = createBrowserRouter([
         children: [
             {   index: true, element: <LandingPage /> },
             {   path: "login", loader: loginLoader, element: <SignInPage />,},
-            {   path: "admin/login", loader: loginLoader, element: <AdminSignInPage />,},
+            {   path: "admin/updateAuthUser", loader: loginLoader, element: <AdminSignInPage />,},
             {   path: "properties/:type", element: <PropertyListPage />},
             {   path: "property-detail",  element: <PropertyDetailPage />},
             {   path: "agents", element: <AgentsPage />},

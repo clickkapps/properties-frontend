@@ -57,12 +57,12 @@ const Navbar = ({ animate = true, className, children, rightMenuLinks, bgColor =
   const defaultRightMenuLinks = (
       <ul className="flex flex-row gap-2 py-4 md:py-0 mx-4">
 
-        {/*{ (!authState.userInfo && (location.pathname !== "/login")) && (*/}
+        {/*{ (!authState.userInfo && (location.pathname !== "/updateAuthUser")) && (*/}
         {/*    */}
         {/*)}*/}
 
         {/*<Button variant={'secondary'} className="w-full md:w-auto rounded-none md:rounded" onClick={() => {*/}
-        {/*  navigate("/login")*/}
+        {/*  navigate("/updateAuthUser")*/}
         {/*}}>Login</Button>*/}
         {/*<Button variant="link" className="text-white" onClick={() => {*/}
         {/*  navigate("/office")*/}

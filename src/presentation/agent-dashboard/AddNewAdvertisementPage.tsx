@@ -7,7 +7,6 @@ import {toast} from "@/hooks/use-toast.ts";
 import {cn, customLog} from "@/lib/utils.ts";
 import {AxiosError} from "axios";
 import { Calendar } from "@/components/ui/calendar"
-
 import {
     Popover,
     PopoverContent,
@@ -15,43 +14,70 @@ import {
 } from "@/components/ui/popover"
 import {Button} from "@/components/ui/button.tsx";
 import {CalendarIcon, LoaderCircle} from "lucide-react";
-import {format} from "date-fns";
+import {addDays, addMonths, format} from "date-fns";
 import FileSelector from "@/components/shared-dashboard/FileSelector.tsx";
 import {Input} from "@/components/ui/input.tsx";
-import {apiPostNewAdvertisement} from "@/api/advertisement.api.ts";
+import useGetPackageBill from "@/hooks/use-get-package-bill.ts";
+import * as React from "react";
+import {DateRange} from "react-day-picker";
+import usePurchasePackage from "@/hooks/use-purchase-package.ts";
+import {useAppSelector} from "@/hooks";
 
 
 function AddNewAdvertisementPage() {
 
+    const formDataRef = useRef<FormData>(new FormData());
     const imagesRef = useRef<InnerFormComponent>(null);
     const {
-        // register,
+        register,
         handleSubmit,
         reset,
         setValue,
-        watch,
         formState: { errors },
     } = useForm<AdvertisementFormInputs>()
 
-    // Watch the "startDate" field to trigger re-renders
-    const watchedStartDate = watch("startDate");
-    const watchedEndDate = watch("endDate");
-
+    const { userInfo: currentUser } = useAppSelector(state => state.auth )
     const { mutate: mutateCreateAdvertisement, isPending: isPendingCreateAdvertisement } = useMutation({
-        mutationKey: ['create-advertisement'],
-        mutationFn: apiPostNewAdvertisement,
-        onSuccess: async () => {
+        mutationKey: ['add-new-ad'],
+        mutationFn: apiPostNewAd,
+        onSuccess: async (resp) => {
+            // const data = resp.data;
+            customLog("added property:", resp.data)
+            toast({
+                title: "Rocket! 🚀🚀🚀",
+                description: "Advertisement created. It will kick off as scheduled",
+            })
+            reset()
+            imagesRef.current?.clear()
 
         },
         onError: async (error) => {
             const axiosError = error as AxiosError<{ message: string }>;
+            customLog("on error", error);
             toast({
                 variant: "destructive",
                 title: "Uh oh! Something went wrong",
                 description: axiosError.response?.data?.message || "Sorry! connection failed",
-            });
-        }
+            })
+        },
+
     })
+
+
+
+    // called when payment is completed
+    const onPurchaseSuccessFn = useCallback(({subId}: {subId:number, extra?: {userId?:number, propertyId?: number}}) => {
+        //  if modal is closed reopen it
+        formDataRef.current.append("subscriptionId", String(subId))
+
+        // create promotion
+        mutateCreateAdvertisement(formDataRef.current)
+
+    }, [mutateCreateAdvertisement])
+
+
+    const { isGetPackageBillPending, getPackageBillFn, bill } = useGetPackageBill()
+    const { processPaymentFn, isPurchasePackagePending } = usePurchasePackage(onPurchaseSuccessFn)
 
     useEffect(() => {
 
@@ -67,36 +93,59 @@ function AddNewAdvertisementPage() {
 
     }, [errors]);
 
-    const { mutate, isPending } = useMutation({
-        mutationKey: ['add-new-ad'],
-        mutationFn: apiPostNewAd,
-        onSuccess: async (resp) => {
-            // const data = resp.data;
-            customLog("added property:", resp.data)
-            toast({
-                title: "Great!",
-                description: "Property added successfully!",
-            })
-            reset()
-            // imagesRef.current?.clear()
-
-        },
-        onError: async (error) => {
-            const axiosError = error as AxiosError<{ message: string }>;
-            customLog("on error", error);
-            toast({
-                variant: "destructive",
-                title: "Uh oh! Something went wrong",
-                description: axiosError.response?.data?.message || "Sorry! connection failed",
-            })
-        },
-
-    })
 
     const submitHandler = (data: AdvertisementFormInputs) => {
-        const formData = new FormData();
-        formData.append("title", data.title);
-        mutate(formData)
+
+        if(!data.image) {
+            toast({
+                variant: "destructive",
+                title: "Flyer for advert not selected",
+                description: "Please set a valid image for the advertisement",
+            })
+            return
+        }
+
+        if(!data.contactPhone) {
+            toast({
+                variant: "destructive",
+                title: "Missing contact phone",
+                description: "Please set a valid phone number",
+            })
+            return
+        }
+
+        formDataRef.current.append("contactPhone", data.contactPhone);
+
+        if(data.contactEmail) {
+            formDataRef.current.append("contactEmail", data.contactEmail);
+        }
+        if(data.link) {
+            formDataRef.current.append("link", data.link);
+        }
+
+
+        formDataRef.current.append("image", data.image);
+
+
+        if(!(date?.from) || !(date?.to)) {
+            toast({
+                variant: "destructive",
+                title: "Invalid data selected",
+                description: "Please select a valid date range",
+            })
+            return;
+        }
+
+        formDataRef.current.append("endDate", date?.to?.toISOString());
+        formDataRef.current.append("startDate",  date?.from?.toISOString());
+
+        processPaymentFn({
+            packageSlug: "advertisement",
+            startDate: date?.to?.toISOString(),
+            endDate: date?.from?.toISOString(),
+        })
+
+
     }
 
     const filesChangeHandler = useCallback((files: File[]) => {
@@ -106,9 +155,26 @@ function AddNewAdvertisementPage() {
 
     }, [setValue])
 
+    const [date, setDate] = React.useState<DateRange | undefined>({
+        from: addDays(new Date(), 1),
+        to: addMonths(new Date(), 1),
+    })
+
+    useEffect(() => {
+        console.log("use Effect called")
+        getPackageBillFn({
+            startDate: date?.from?.toISOString(),
+            endDate: date?.to?.toISOString(),
+            packageSlug: "advertisement",
+        })
+    }, [date?.from, date?.to, getPackageBillFn]);
+
     return (
         <div className="container mx-auto">
-            <h2 className="text-2xl font-semibold mb-6">Publish a new Ad</h2>
+            <div className="mb-6">
+                <h2 className="text-2xl font-semibold ">Publish a new Ad</h2>
+                <p>Advertisements will show on the main website page</p>
+            </div>
             <form onSubmit={handleSubmit(submitHandler)}>
                 <div className="border bg-white px-10 py-6 mb-10 space-y-6">
 
@@ -122,88 +188,69 @@ function AddNewAdvertisementPage() {
 
                     <div className="flex flex-col md:flex-row gap-4">
                         <div className="w-full">
-                            <label className="block text-sm mb-1" htmlFor="start_date">Start from*</label>
+                            <label className="block text-sm mb-1">Date range</label>
                             <Popover>
                                 <PopoverTrigger asChild>
                                     <Button
+                                        id="date"
                                         variant={"outline"}
                                         className={cn(
-                                            "w-full pl-3 text-left font-normal",
-                                            !watchedStartDate && "text-muted-foreground"
+                                            "w-full justify-start text-left font-normal",
+                                            !date && "text-muted-foreground"
                                         )}
                                     >
-                                        {watchedStartDate ? (
-                                            format(watchedStartDate, "PPP")
+                                        <CalendarIcon/>
+                                        {date?.from ? (
+                                            date.to ? (
+                                                <>
+                                                    {format(date.from, "LLL dd, y")} -{" "}
+                                                    {format(date.to, "LLL dd, y")}
+                                                </>
+                                            ) : (
+                                                format(date.from, "LLL dd, y")
+                                            )
                                         ) : (
-                                            <span>Pick start date</span>
+                                            <span>Pick a date</span>
                                         )}
-                                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50"/>
                                     </Button>
                                 </PopoverTrigger>
                                 <PopoverContent className="w-auto p-0" align="start">
                                     <Calendar
-                                        mode="single"
-                                        selected={watchedStartDate}
-                                        onSelect={(date: Date | undefined) => setValue("startDate", date)}
-                                        disabled={(date) =>
-                                            date > new Date() || date < new Date("1900-01-01")
-                                        }
                                         initialFocus
+                                        mode="range"
+                                        defaultMonth={date?.from}
+                                        selected={date}
+                                        onSelect={setDate}
+                                        numberOfMonths={2}
                                     />
                                 </PopoverContent>
                             </Popover>
                         </div>
-                        <div className="w-full">
-                            <label className="block text-sm mb-1" htmlFor="start_date">End at*</label>
-                            <Popover>
-                                <PopoverTrigger asChild>
-                                    <Button
-                                        variant={"outline"}
-                                        className={cn(
-                                            "w-full pl-3 text-left font-normal",
-                                            !watchedEndDate && "text-muted-foreground"
-                                        )}
-                                    >
-                                        {watchedEndDate ? (
-                                            format(watchedEndDate, "PPP")
-                                        ) : (
-                                            <span>Pick end date</span>
-                                        )}
-                                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50"/>
-                                    </Button>
-                                </PopoverTrigger>
-                                <PopoverContent className="w-auto p-0" align="start">
-                                    <Calendar
-                                        mode="single"
-                                        selected={watchedEndDate}
-                                        onSelect={(date: Date | undefined) => setValue("endDate", date)}
-                                        disabled={(date) =>
-                                            date > new Date() || date < new Date("1900-01-01")
-                                        }
-                                        // initialFocus
-                                    />
-                                </PopoverContent>
-                            </Popover>
-                        </div>
-
                     </div>
 
                     <div className="flex flex-col md:flex-row gap-4">
                         <div className="flex-1">
                             <label className="block text-sm mb-1">Contact person's phone number</label>
                             <Input placeholder="eg. 0541234567"
+                                   {...register('contactPhone')}
+                                   defaultValue={currentUser?.contactPhone}
                             />
                         </div>
                         <div className="flex-1">
                             <label className="block text-sm mb-1">Contact person's email</label>
-                            <Input placeholder="eg. john@example.com"/>
+                            <Input placeholder="eg. john@example.com"
+                                {...register('contactEmail')}
+                                defaultValue={currentUser?.contactEmail}
+                            />
                         </div>
                     </div>
 
                     <div className="flex flex-col md:flex-row gap-4">
                         <div className="flex-1">
                             <label className="block text-sm mb-1">Any related link</label>
-                            <Input placeholder="eg. https://mywebsite.com"/>
+                            <Input placeholder="eg. https://mywebsite.com"
+                                   { ...register('link') }
+                            />
                         </div>
                     </div>
 
@@ -212,10 +259,10 @@ function AddNewAdvertisementPage() {
                         <Button
                             type="submit"
                             className="bg-primary text-white px-6"
-                            disabled={isPending}
+                            disabled={isPendingCreateAdvertisement || isGetPackageBillPending || isPurchasePackagePending}
                         >
-                            {isPending && <LoaderCircle className="animate-spin"/>}
-                            {!isPending && <span>Submit Property</span>}
+                            {(isPendingCreateAdvertisement || isGetPackageBillPending || isPurchasePackagePending) ? (<LoaderCircle className="animate-spin"/>) : (
+                                <span>Post Advert <span className="font-[Inter]">{bill && `at ${bill.currency} ${bill.amountToPay}`}</span> </span>)}
 
                         </Button>
                         <Button variant="outline" type={"button"} onClick={() => reset()}

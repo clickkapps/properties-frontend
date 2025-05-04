@@ -1,6 +1,11 @@
 import {Check, LoaderCircle} from "lucide-react";
 import {Button} from "@/components/ui/button.tsx";
 import useFetchPackages from "@/hooks/use-fetch-packages.ts";
+import {useAppDispatch, useAppSelector} from "@/hooks";
+import {PackageModel} from "@/lib/types";
+import {useNavigate} from "react-router";
+import {toggleSubscriptionDialog} from "@/store/ui-slice.ts";
+import {Badge} from "@/components/ui/badge.tsx";
 
 
 // const features = [
@@ -10,10 +15,18 @@ import useFetchPackages from "@/hooks/use-fetch-packages.ts";
 //   "Manage your property showings",
 //   "Forward title for your property",
 // ];
+type Props = {
+    className?: string,
+    showTitle?: boolean,
+    showGetStartedButton?: boolean,
+}
 
-const Packages = ({ className, showTitle = true }: { className?: string, showTitle?: boolean }) => {
+const Packages = ({ className, showTitle = true, }: Props) => {
 
+    const { userInfo: currentUser } = useAppSelector(state => state.auth);
+    const dispatch = useAppDispatch();
     const { isFetchingPackages, packages } = useFetchPackages("entitlement")
+    const navigate = useNavigate()
 
     if(isFetchingPackages) {
         return (
@@ -21,6 +34,15 @@ const Packages = ({ className, showTitle = true }: { className?: string, showTit
                 <LoaderCircle />
             </div>
         )
+    }
+
+    const activateClickedHandler = (pkg: PackageModel) => {
+        if(!currentUser) {
+            navigate("/login")
+            return
+        }
+
+        dispatch(toggleSubscriptionDialog({ option: pkg.slug }))
     }
 
     return (
@@ -37,10 +59,12 @@ const Packages = ({ className, showTitle = true }: { className?: string, showTit
         <div className="flex flex-col md:flex-row gap-8 justify-center items-stretch md:h-full">
           {packages && packages.map((pkg) => {
 
+              const activated = pkg.slug === currentUser?.activeEntitlement?.entitlement
+
               return (
                   <div
                       key={pkg.slug}
-                      className={`${pkg.uiColor} w-full md:w-auto group p-8 rounded-xl hover:bg-slate-800 hover:text-white cursor-pointer transition duration-150 flex flex-col`}
+                      className={`${!activated && pkg.uiColor} ${activated && ("border border-teal-500")}  w-full md:w-auto group p-8 rounded-xl hover:bg-slate-800 hover:text-white cursor-pointer transition duration-150 flex flex-col `}
                   >
                       <div>
                           <h3 className="text-lg font-semibold mb-4">{pkg.uiTitle}</h3>
@@ -67,13 +91,21 @@ const Packages = ({ className, showTitle = true }: { className?: string, showTit
                       <div className="flex-grow"></div>
 
                       <div>
-                          <Button className="mt-6 bg-black text-white text-[15px] py-2 px-3 rounded-md
-                         group-hover:border-white
-                         group-hover:border
-                         group-hover:scale-110
-                         transition duration-1000">
-                              Get {pkg.description}
-                          </Button>
+                          {
+                              (!activated) && (
+                                  <Button className="mt-6 bg-black text-white text-[15px] py-2 px-3 rounded-md
+                                     group-hover:border-white
+                                     group-hover:border
+                                     group-hover:scale-110
+                                     transition duration-1000" onClick={() => activateClickedHandler(pkg)}>
+                                    Activate
+                                </Button> )
+                          }
+                          {
+                              (activated) && (
+                                  <Badge className="rounded-full bg-teal-500 my-4"> Activated 🔥🔥🔥</Badge>
+                              )
+                          }
                       </div>
                   </div>
               );
