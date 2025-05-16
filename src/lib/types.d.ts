@@ -7,8 +7,13 @@ export type MenuLink = {
 }
 
 export type ModalHandle = {
-    open: () => void;
+    open: (data?: T) => void;
     close: () => void;
+};
+
+export type TableUpdateReq<T> = {
+    add: (row: T) => void;
+    update: (row: T) => void;
 };
 
 export type InnerFormComponent = { clear: () => void }
@@ -25,13 +30,17 @@ type SignInFormValues = {
 };
 
 export interface RegistrationFormInputs {
-    firstName: string;
-    lastName: string;
-    contactEmail: string;
-    contactPhone: string;
+    firstName?: string;
+    lastName?: string;
+    contactEmail?: string;
+    contactPhone?: string;
     companyName?: string;
     companyLocation?: string;
-    role?: string
+    role?: string,
+}
+
+export interface UserFormInputs extends RegistrationFormInputs {
+    uid?: number
 }
 
 export interface PropertyFormInput extends PropertyModel{
@@ -137,10 +146,11 @@ export type PackageUIConstants = {
 }
 
 export type PurchasePackageParams = {
+    userId?: number,
     propertyId?: number,
     startDate?: string,
     endDate?: string,
-    packageSlug?: "basic_package" | "standard_package" | "properties_promotion" | "advertisement"
+    packageSlug?: "basic_package" | "standard_package" | "properties_promotion" | "advertisement" | "property_showing"
 }
 
 export type AdvertisementModel = {
@@ -153,4 +163,39 @@ export type AdvertisementModel = {
     imagePath: string,
     link?: string,
     createdAt?: string,
+}
+
+export type SubscriptionModel = {
+    id: number,
+    status?: "pending" | "success",
+    userId: number
+    user: User
+    amountPayable?: string
+    amountPaid?: string
+    startDate?: string
+    endDate?: string
+    serviceType?: string
+
+}
+
+export type ShowingModel = {
+    id?: number,
+    user?: User
+    property?: PropertyModel
+    subscription?: SubscriptionModel
+    createdAt?: string
+    appointmentDate: string
+    status?: "pending" | "completed" | "cancelled"
+}
+
+export type ShowingFormInput = {
+    id?: number,
+    customerFirstName: string,
+    customerLastName?: string,
+    customerContactPhone: string,
+    customerContactEmail?: string,
+    propertyId?: number,
+    appointmentDate: string
+    userId?: number,
+    subscriptionId?: number,
 }

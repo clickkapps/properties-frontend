@@ -4,17 +4,10 @@ import {apiPostNewAd} from "@/api/ads.api.ts";
 import {useForm} from "react-hook-form";
 import {useCallback, useEffect, useRef} from "react";
 import {toast} from "@/hooks/use-toast.ts";
-import {cn, customLog} from "@/lib/utils.ts";
+import {customLog} from "@/lib/utils.ts";
 import {AxiosError} from "axios";
-import { Calendar } from "@/components/ui/calendar"
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover"
 import {Button} from "@/components/ui/button.tsx";
-import {CalendarIcon, LoaderCircle} from "lucide-react";
-import {addDays, addMonths, format} from "date-fns";
+import {LoaderCircle} from "lucide-react";
 import FileSelector from "@/components/shared-dashboard/FileSelector.tsx";
 import {Input} from "@/components/ui/input.tsx";
 import useGetPackageBill from "@/hooks/use-get-package-bill.ts";
@@ -22,6 +15,8 @@ import * as React from "react";
 import {DateRange} from "react-day-picker";
 import usePurchasePackage from "@/hooks/use-purchase-package.ts";
 import {useAppSelector} from "@/hooks";
+import DateRangePickerInput from "@/components/ui/DateRangePickerInput.tsx";
+import {addDays} from "date-fns";
 
 
 function AddNewAdvertisementPage() {
@@ -155,9 +150,9 @@ function AddNewAdvertisementPage() {
 
     }, [setValue])
 
-    const [date, setDate] = React.useState<DateRange | undefined>({
+    const [date, setDate] = React.useState<DateRange | undefined>( {
         from: addDays(new Date(), 1),
-        to: addMonths(new Date(), 1),
+        to: addDays(new Date(), 8),
     })
 
     useEffect(() => {
@@ -189,42 +184,7 @@ function AddNewAdvertisementPage() {
                     <div className="flex flex-col md:flex-row gap-4">
                         <div className="w-full">
                             <label className="block text-sm mb-1">Date range</label>
-                            <Popover>
-                                <PopoverTrigger asChild>
-                                    <Button
-                                        id="date"
-                                        variant={"outline"}
-                                        className={cn(
-                                            "w-full justify-start text-left font-normal",
-                                            !date && "text-muted-foreground"
-                                        )}
-                                    >
-                                        <CalendarIcon/>
-                                        {date?.from ? (
-                                            date.to ? (
-                                                <>
-                                                    {format(date.from, "LLL dd, y")} -{" "}
-                                                    {format(date.to, "LLL dd, y")}
-                                                </>
-                                            ) : (
-                                                format(date.from, "LLL dd, y")
-                                            )
-                                        ) : (
-                                            <span>Pick a date</span>
-                                        )}
-                                    </Button>
-                                </PopoverTrigger>
-                                <PopoverContent className="w-auto p-0" align="start">
-                                    <Calendar
-                                        initialFocus
-                                        mode="range"
-                                        defaultMonth={date?.from}
-                                        selected={date}
-                                        onSelect={setDate}
-                                        numberOfMonths={2}
-                                    />
-                                </PopoverContent>
-                            </Popover>
+                            <DateRangePickerInput defaultValue={date} onSelectionChangedFn={setDate} fromDate={addDays(new Date(), 1)} />
                         </div>
                     </div>
 

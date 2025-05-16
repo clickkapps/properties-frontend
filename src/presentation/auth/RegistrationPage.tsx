@@ -9,7 +9,7 @@ import {customLog} from "@/lib/utils.ts";
 import {AxiosError} from "axios";
 import {useToast} from "@/hooks/use-toast.ts";
 import {RegistrationFormInputs} from "@/lib/types";
-import {apiUpdateCurrentUserInfo} from "@/api/users.api.ts";
+import {apiUpdateUserInfo} from "@/api/users.api.ts";
 import {useDispatch} from "react-redux";
 import {updateAuthUser} from "@/store/auth-slice.ts";
 import {useLoaderData, useNavigate} from "react-router";
@@ -40,7 +40,7 @@ function RegistrationPage() {
 
     const { mutate, isPending, } = useMutation({
         mutationKey: ['updateCurrentUserInfo'],
-        mutationFn: apiUpdateCurrentUserInfo,
+        mutationFn: apiUpdateUserInfo,
         onSuccess: async (res) => {
 
             customLog("Registration completed", res.data);
@@ -179,7 +179,7 @@ function RegistrationPage() {
                                 }
                             </div>
                             <div className="w-full">
-                                <label className="block text-sm  mb-1">Your company name</label>
+                                <label className="block text-sm  mb-1">Your company location</label>
                                 <Input
                                     {...register('companyLocation')}
                                     placeholder="Enter your company location here"

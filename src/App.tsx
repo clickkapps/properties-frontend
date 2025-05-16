@@ -1,7 +1,7 @@
 import {Outlet, ScrollRestoration} from "react-router";
 import {Toaster} from "@/components/ui/toaster.tsx";
 import ConfirmDialogProvider from "@/contexts/ConfirmDialogProvider.tsx";
-import EntitlementSubscriptionDialog from "@/components/agent-dashboard/EntitlementSubscriptionDialog.tsx";
+import EntitlementSubscriptionModal from "@/components/agent-dashboard/EntitlementSubscriptionModal.tsx";
 
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
               <ScrollRestoration />
               <Outlet />
               <Toaster />
-              <EntitlementSubscriptionDialog />
+              <EntitlementSubscriptionModal />
           </ConfirmDialogProvider>
   )
 }

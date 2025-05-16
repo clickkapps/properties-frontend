@@ -106,7 +106,7 @@ const SignInPage = () => {
                                   })}
                                   type="number"
                                   placeholder="Phone number here"
-                                  className="w-full p-3 mt-2 text-sm outline-none"
+                                  className="w-full p-3 mt-2 text-sm outline-none font-[Inter]"
                               />
                               <div className="flex items-center justify-between px-4 py-3 border-t border-gray-300">
                                   <div className="flex flex-col">

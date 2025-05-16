@@ -72,7 +72,7 @@ const MembershipCard = () => {
                   className="flex flex-col md:flex-row items-center justify-center gap-4 py-8 md:py-0 border md:border-none h-full">
                   {/*<p className="text-6xl font-medium font-[inter]">$50</p>*/}
                   <div className="flex flex-col items-center space-y-4">
-                      <h3 className="text-lg text-black font-medium">{!(currentUser?.activeEntitlement) ? "No Active subscription found" : "You have subscribe"}</h3>
+                      <h3 className="text-lg text-black font-medium">{!(currentUser?.activeEntitlement) ? "No Active subscription found" : "You have subscribed 👍"}</h3>
                       {
                           !(currentUser?.activeEntitlement) ? (
                               <p className="text-sm">Your active subscription will appear here

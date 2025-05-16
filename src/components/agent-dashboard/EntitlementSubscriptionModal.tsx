@@ -27,9 +27,9 @@ import {AxiosError} from "axios";
 import {toast} from "@/hooks/use-toast.ts";
 import {updateAuthUser} from "@/store/auth-slice.ts";
 
-function EntitlementSubscriptionDialog() {
+function EntitlementSubscriptionModal() {
 
-    const { open: openSubscriptionDialog, option: subScriptionDialogOption } = useAppSelector(state => state.ui.subscriptionDialogState)
+    const { open: openSubscriptionDialog, option: subSubscriptionDialogOption } = useAppSelector(state => state.ui.subscriptionDialogState)
     const dispatch = useAppDispatch()
     const [selectedPkg, setSelectedPkg] = useState<PackageModel|undefined>(undefined)
     const { mutate: mutateUpdateUserEntitlement, isPending: isPendingUpdateUserEntitlement  } = useMutation({
@@ -134,10 +134,10 @@ function EntitlementSubscriptionDialog() {
 
             <div className="flex flex-col gap-2 w-full">
                 {packages && packages.filter(item => {
-                    if(subScriptionDialogOption === "all"){
+                    if(subSubscriptionDialogOption === "all"){
                         return true
                     }
-                    return item.slug === subScriptionDialogOption
+                    return item.slug === subSubscriptionDialogOption
                 }).map((pkg, index) => (
                     <div key={pkg.slug}
                          className={`p-4 rounded-lg border cursor-pointer hover:bg-slate-200 w-full ${selectedPkg?.slug === pkg.slug && (`bg-slate-200`)}`}
@@ -188,4 +188,4 @@ function EntitlementSubscriptionDialog() {
 }
 
 
-export default EntitlementSubscriptionDialog
+export default EntitlementSubscriptionModal

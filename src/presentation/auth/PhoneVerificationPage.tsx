@@ -12,11 +12,9 @@ import {useForm} from "react-hook-form";
 import {useRef} from "react";
 import {customLog, isAllDigits} from "@/lib/utils.ts";
 import { AxiosError } from "axios"
-import {useDispatch} from "react-redux";
-import {updateAuthUser} from "@/store/auth-slice.ts";
-import {apiGetCurrentUserInfo} from "@/api/users.api.ts";
 import {useNavigate} from "react-router";
 import {appStorage} from "@/lib/storage.ts";
+import useGetCurrentUser from "@/hooks/use-get-current-user.ts";
 
 
 function PhoneVerificationPage({ onCancelVerification, phone, verificationRequirements } : { onCancelVerification?: () => void, phone: string, verificationRequirements: { serverId: string, isNew: boolean } }) {
@@ -28,9 +26,21 @@ function PhoneVerificationPage({ onCancelVerification, phone, verificationRequir
         formState: { errors },
     } = useForm<{ otp: string }>()
 
-    const inputRef = useRef<string>()
-    const dispatch = useDispatch()
     const navigate = useNavigate()
+
+    const inputRef = useRef<string>()
+    const { mutateGetCurrentUser, inPendingGetCurrentUser} = useGetCurrentUser({
+        onSuccessFn: () => {
+            // redirect user to dashboard
+            navigate('/account/agent')
+        },
+        onErrorFn: error => {
+            setError("otp", {
+                type: "manual",
+                message: error,
+            })
+        }
+    })
 
     const { mutate: mutateVerifyPhone, isPending: isPendingVerifyPhone } = useMutation({
         mutationKey: ['verifyPhone'],
@@ -40,7 +50,6 @@ function PhoneVerificationPage({ onCancelVerification, phone, verificationRequir
             // save
             const authToken = res.data;
             appStorage.setAccessToken(authToken)
-            dispatch(updateAuthUser({ authToken: authToken }))
             reset()
 
             mutateGetCurrentUser()
@@ -57,25 +66,7 @@ function PhoneVerificationPage({ onCancelVerification, phone, verificationRequir
     })
 
     // storage.save("userInfo", userInfo)
-    const { mutate: mutateGetCurrentUser, isPending: inPendingGetCurrentUser } = useMutation({
-        mutationKey: ['getUserInfo'],
-        mutationFn: apiGetCurrentUserInfo,
-        onSuccess: async (res) => {
-            const userInfo = res.data;
 
-            dispatch(updateAuthUser({ userInfo: userInfo }))
-
-            // redirect user to dashboard
-            navigate('/account/agent')
-        },
-        onError: async (error ) => {
-            const axiosError = error as AxiosError<{ message: string }>;
-            setError("otp", {
-                type: "manual",
-                message: axiosError.response?.data?.message ?? error.message,
-            })
-        }
-    })
 
 
     function submitHandler(value?: string) {

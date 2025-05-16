@@ -3,7 +3,7 @@ import {Button} from "@/components/ui/button.tsx";
 import {useNavigate} from "react-router";
 import {useAppSelector} from "@/hooks";
 
-function MyListingsPage() {
+function MyPropertiesPage() {
 
     const navigate = useNavigate();
     const currentUser = useAppSelector(state => state.auth);
@@ -21,4 +21,4 @@ function MyListingsPage() {
     )
 }
 
-export default MyListingsPage
+export default MyPropertiesPage

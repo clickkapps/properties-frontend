@@ -1,5 +1,4 @@
 import Navbar from "@/components/website/Navbar";
-
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { LoaderCircle } from "lucide-react";
@@ -9,9 +8,13 @@ import { AxiosError } from "axios";
 import { useToast } from "@/hooks/use-toast";
 import {useNavigate} from "react-router";
 import Footer from "@/components/website/Footer.tsx";
+import {apiLoginWithPassword} from "@/api/auth.api.ts";
+import {customLog} from "@/lib/utils.ts";
+import {appStorage} from "@/lib/storage.ts";
+import useGetCurrentUser from "@/hooks/use-get-current-user.ts";
 
 type AdminLoginInputs = {
-    username: string;
+    loginId: string;
     password: string;
 };
 
@@ -19,31 +22,38 @@ function AdminSignInPage() {
     const { toast } = useToast();
     const navigate = useNavigate();
 
+    const { mutateGetCurrentUser, inPendingGetCurrentUser} = useGetCurrentUser({
+        onSuccessFn: () => {
+            // redirect user to dashboard
+            navigate('/account/office')
+        },
+        onErrorFn: error => {
+            toast({
+                variant: "destructive",
+                title: "Uh Oh!. Something went wrong",
+                description: error
+            })
+        }
+    })
+
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm<AdminLoginInputs>();
 
     const { mutate, isPending } = useMutation({
         mutationKey: ["admin-sign-in"],
-        mutationFn: async (data: AdminLoginInputs) => {
-            // Replace this with your actual API call
-            const response = await fetch("/api/admin/login", {
-                method: "POST",
-                body: JSON.stringify(data),
-                headers: { "Content-Type": "application/json" },
-            });
+        mutationFn: async (data: AdminLoginInputs) => apiLoginWithPassword({loginId: data.loginId, password: data.password}),
+        onSuccess: async (res) => {
+            customLog("on success", res.data);
+            // save
+            const authToken = res.data;
+            appStorage.setAccessToken(authToken)
+            reset()
+            mutateGetCurrentUser()
 
-            if (!response.ok) throw new Error("Invalid credentials");
-            return response.json();
-        },
-        onSuccess: () => {
-            toast({
-                title: "Signed in",
-                description: "Welcome, admin!",
-            });
-            navigate("/admin/dashboard"); // Update to your actual admin route
         },
         onError: (error) => {
             const err = error as AxiosError<{ message: string }>;
@@ -69,14 +79,15 @@ function AdminSignInPage() {
 
                         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
                             <div>
-                                <label className="block text-sm mb-1">Username</label>
+                                <label className="block text-sm mb-1">Email</label>
                                 <Input
-                                    {...register("username", {required: "Username is required"})}
-                                    placeholder="Enter admin username"
+                                    type={"email"}
+                                    placeholder="Enter admin email"
                                     className="focus:outline-none focus:ring-0 focus:ring-offset-0"
+                                    {...register("loginId", {required: "Email is required",})}
                                 />
-                                {errors.username && (
-                                    <p className="text-[11px] mt-2 text-red-700">{errors.username.message}</p>
+                                {errors.loginId && (
+                                    <p className="text-[11px] mt-2 text-red-700">{errors.loginId.message}</p>
                                 )}
                             </div>
 
@@ -96,6 +107,7 @@ function AdminSignInPage() {
                             <Button
                                 className="w-full bg-red-600 text-white rounded-lg mt-4 py-6"
                                 type="submit"
+                                disabled={isPending || inPendingGetCurrentUser}
                             >
                                 {isPending && <LoaderCircle className="animate-spin"/>}
                                 {!isPending && <span>Sign In</span>}

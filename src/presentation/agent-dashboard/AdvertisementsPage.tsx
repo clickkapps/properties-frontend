@@ -5,6 +5,7 @@ import {useQuery} from "@tanstack/react-query";
 import {apiFetchUserAds} from "@/api/ads.api.ts";
 import {AdvertisementModel} from "@/lib/types";
 import {Skeleton} from "@/components/ui/skeleton.tsx";
+import EmptyDisplayPage from "@/components/ui/EmptyDisplayPage.tsx";
 
 function AdvertisementsPage() {
     const navigate = useNavigate();
@@ -22,6 +23,7 @@ function AdvertisementsPage() {
                 <Button variant="default" onClick={() => navigate("/account/agent/create-ads")}> Create advertisement </Button>
             </div>
 
+
             {
                 isPendingFetchUserAds && (<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {
@@ -34,12 +36,14 @@ function AdvertisementsPage() {
                 </div>)
             }
             {
-                dataFetchUserAds && (
+                dataFetchUserAds && dataFetchUserAds.length > 0  ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {dataFetchUserAds.map((ad) => (
                             <AdvertisementCard ad={ad} key={ad.id}  />
                         ))}
                     </div>
+                ) : (
+                    <EmptyDisplayPage />
                 )
             }
 

@@ -10,3 +10,7 @@ export const apiVerifyPhoneOTP = async(payload: { code: string, serverId: string
     console.log("payload", payload)
     return apiClient.post("/auth/phone/verify", payload).then((response) =>  response.data)
 };
+
+export const apiLoginWithPassword = async(payload: { loginId: string, password: string }) => {
+    return apiClient.post("/auth/password", payload).then((response) =>  response.data)
+};

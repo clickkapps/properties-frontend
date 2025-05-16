@@ -2,7 +2,7 @@ import {redirect} from "react-router";
 import store from "@/store";
 import {updateAuthUser, logout} from "@/store/auth-slice.ts";
 import {appStorage} from "@/lib/storage.ts";
-import {apiGetCurrentUserInfo} from "@/api/users.api.ts";
+import {apiGetUserInfo} from "@/api/users.api.ts";
 import {User} from "@/lib/types";
 
 
@@ -21,7 +21,7 @@ const initialiseUserInfo = async () => {
 
     if(!userInfo) {
         // if there is no userInfo in the state, get it from the server
-        const data = await apiGetCurrentUserInfo()
+        const data = await apiGetUserInfo()
         userInfo = data.data as User
         store.dispatch(updateAuthUser({ userInfo  })); // set userInfo in state
     }

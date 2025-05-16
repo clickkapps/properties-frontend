@@ -89,7 +89,7 @@ const SpecificationsCard = forwardRef(({onChange, spec, onDeleteSavedSpecificati
                             className="w-full"
                             readOnly={readOnly}
                         />
-                        { !readOnly && <Button
+                        { <Button
                             type="button"
                             onClick={() => removeSpecificationField(spec.localId)}
                             variant="outline"

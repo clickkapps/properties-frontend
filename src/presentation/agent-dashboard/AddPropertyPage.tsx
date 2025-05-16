@@ -22,7 +22,7 @@ import {ghRegions} from "@/constants/ui.constants.ts";
 import SpecificationsCard from "@/components/agent-dashboard/SpecificationsCard.tsx";
 import {useAppSelector} from "@/hooks";
 
-function AddListingPage() {
+function AddPropertyPage() {
 
 
   const specificationsRef = useRef<InnerFormComponent>(null);
@@ -329,4 +329,4 @@ function AddListingPage() {
   );
 }
 
-export default AddListingPage;
+export default AddPropertyPage;

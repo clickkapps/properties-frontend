@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button.tsx";
 import {AlertCircle, CircleCheck} from "lucide-react";
 import { useNavigate } from "react-router";
 
-function AddListingOptionPage() {
+function AddPropertyOptionPage() {
   const navigate = useNavigate();
 
   return (
@@ -68,4 +68,4 @@ function AddListingOptionPage() {
   );
 }
 
-export default AddListingOptionPage;
+export default AddPropertyOptionPage;

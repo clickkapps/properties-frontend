@@ -3,7 +3,7 @@ import {
     BriefcaseConveyorBeltIcon, Camera, EyeIcon,
     House,
     LayoutDashboard,
-    ScrollText, SquareCheckBigIcon,
+    ScrollText,
     Star,
     UserCog,
     UsersRound, VideoIcon,
@@ -73,11 +73,23 @@ export const officeMenuLinks: MenuLink[] = [
         external: false,
         icon: LayoutDashboard
     },
+    // {
+    //     title: "Properties",
+    //     url: "/account/office/properties",
+    //     external: false,
+    //     icon: House
+    // },
     {
         title: "Properties",
-        url: "/account/office/properties",
+        url: "/account/office/approvals",
         external: false,
         icon: House
+    },
+    {
+        title: "Scheduled Viewings",
+        url: "/account/office/viewings",
+        external: false,
+        icon: EyeIcon
     },
     {
         title: "Officers",
@@ -90,18 +102,6 @@ export const officeMenuLinks: MenuLink[] = [
         url: "/account/office/agents",
         external: false,
         icon: UsersRound
-    },
-    {
-        title: "Approvals",
-        url: "/account/office/approvals",
-        external: false,
-        icon: SquareCheckBigIcon
-    },
-    {
-        title: "Viewings",
-        url: "/account/office/viewings",
-        external: false,
-        icon: EyeIcon
     },
     {
         title: "Photography",
