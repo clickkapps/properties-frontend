@@ -13,6 +13,7 @@ function PropertyShowingsPage() {
 
     const pendingTableRef = useRef<TableUpdateReq<ShowingModel>>()
     const completedTableRef = useRef<TableUpdateReq<ShowingModel>>()
+    const cancelledTableRef = useRef<TableUpdateReq<ShowingModel>>()
 
     // makes changes to the table
     const recordAddedHandler = (record: ShowingModel) => {
@@ -43,6 +44,10 @@ function PropertyShowingsPage() {
                         Completed
                     </TabsTrigger>
 
+                    <TabsTrigger value="cancelled" className="h-full md:pr-36 data-[state=active]:bg-white data-[state=active]:border-b-2 data-[state=active]:border-red-700 data-[state=active]:shadow-none data-[state=active]:rounded-none data-[state=active]:text-red-700 data-[state=active]:font-semibold flex justify-start">
+                        Cancelled
+                    </TabsTrigger>
+
                 </TabsList>
 
                 <TabsContent value="pending">
@@ -51,6 +56,10 @@ function PropertyShowingsPage() {
 
                 <TabsContent value="completed">
                     <ShowingsTable ref={completedTableRef} key="completed" status="completed" />
+                </TabsContent>
+
+                <TabsContent value="cancelled">
+                    <ShowingsTable ref={cancelledTableRef} key="completed" status="cancelled" />
                 </TabsContent>
 
 

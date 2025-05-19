@@ -52,7 +52,7 @@ function AdminSignInPage() {
             const authToken = res.data;
             appStorage.setAccessToken(authToken)
             reset()
-            mutateGetCurrentUser()
+            mutateGetCurrentUser(undefined)
 
         },
         onError: (error) => {
@@ -77,7 +77,7 @@ function AdminSignInPage() {
                     <div className="bg-white p-8 w-full md:w-[500px]">
                         <h2 className="text-center text-lg font-semibold mb-8">Admin Sign In</h2>
 
-                        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
+                        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
                             <div>
                                 <label className="block text-sm mb-1">Email</label>
                                 <Input

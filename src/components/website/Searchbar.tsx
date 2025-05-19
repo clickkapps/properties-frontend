@@ -22,6 +22,8 @@ const Searchbar = ({ className }: { className: string}) => {
     const navigate = useNavigate()
     const [searchValues, setSearchValues] = useState<Record<string, string> | undefined >(undefined)
 
+    console.log("searchValues => ", searchValues)
+
 
     const editSearchValueHandler = (arg: {key: string, value: string}) => {
         setSearchValues( (prev) => {

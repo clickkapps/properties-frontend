@@ -44,7 +44,7 @@ function LandingPage() {
                 {/*------- End of Packages ------------*/}
 
                 {/*------- Partners ------------*/}
-                {/*<section id="partners" className="my-16">*/}
+                {/*<section subscriptionId="partners" className="my-16">*/}
                 {/*    <Partners/>*/}
                 {/*</section>*/}
                 {/*------- End of Partners ------------*/}

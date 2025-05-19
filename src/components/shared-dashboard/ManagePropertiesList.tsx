@@ -33,7 +33,7 @@ import EmptyDisplayPage from "@/components/ui/EmptyDisplayPage.tsx";
 
 // const propertyList = Array.from({ length: 5 }).map((_, i) => {
 //     return {
-//         id: `id-${i}`,
+//         subscriptionId: `subscriptionId-${i}`,
 //         title: "Dan's Villa",
 //         selected: i == 0
 //     }
@@ -123,7 +123,7 @@ function ManagePropertiesList({ userId } : Props) {
         mutationKey: ['unpublish-property'],
         mutationFn: apiUnPublishProperty,
         onSuccess: async (resp) => {
-            // mutatePropertyDetail(selectedProperty.id)
+            // mutatePropertyDetail(selectedProperty.subscriptionId)
             const updatedProperty: PropertyModel =  resp.data as PropertyModel
             setSelectedProperty(updatedProperty)
         },

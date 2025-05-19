@@ -12,16 +12,16 @@ import {ModalHandle, ShowingModel, TableUpdateReq} from "@/lib/types";
 import {useQuery, useQueryClient} from "@tanstack/react-query";
 import {apiDeleteShowing, apiGetShowings, apiUpdateShowingStatus} from "@/api/showings.api.ts";
 import {forwardRef, Ref, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState} from "react";
-import {quickFormatDateTime} from "@/lib/utils.ts";
+import {axiosErrorHandler, quickFormatDateTime} from "@/lib/utils.ts";
 import EditShowingFormModal from "@/components/office-dashboard/showings/EditShowingFormModal.tsx";
 import {toast} from "@/hooks/use-toast.ts";
-import {apiResendPaymentReminder} from "@/api/subscription.api.ts";
+import {apiResendPaymentReminder, apiUpdateSubscriptionStatus} from "@/api/subscription.api.ts";
 import {useConfirmDialog} from "@/hooks/use-confirm-dialog.ts";
 import {Badge} from "@/components/ui/badge.tsx";
 
 
 type Props = {
-    status: "pending" | "completed"
+    status: "pending" | "completed" | "cancelled"
 }
 
 const ShowingsTable = forwardRef(( { status = "pending"  } : Props, ref: Ref<TableUpdateReq<ShowingModel> | undefined>) => {
@@ -58,7 +58,7 @@ const ShowingsTable = forwardRef(( { status = "pending"  } : Props, ref: Ref<Tab
 
             // ------Rollback if the API call fails
             // queryClient.setQueryData<ShowingModel[]>(['fetch-showings', type], (old) =>
-            //  old?.filter((item) => item.id !== row.id) || []
+            //  old?.filter((item) => item.subscriptionId !== row.subscriptionId) || []
             //  );
             },
             update: (row: ShowingModel) => {
@@ -188,12 +188,16 @@ const ShowingsTable = forwardRef(( { status = "pending"  } : Props, ref: Ref<Tab
             onConfirm: () => {
                 toast({ title: "Status changed to pending" })
                 removeRecordFromTable(model.id!)
-                apiUpdateShowingStatus({ id: model.id, status: "pending" }).catch((error) => {
-                    toast({ title: "Oops! Something went wrong", variant: "destructive", description: error.message})
-                })
+                apiUpdateShowingStatus({ id: model.id, status: "pending" }).catch(axiosErrorHandler)
             }
         })
-    }, [showConfirmDialog])
+    }, [removeRecordFromTable, showConfirmDialog])
+
+    const changeSubscriptionStatusHandler = useCallback((model:ShowingModel, status: string) => {
+        apiUpdateSubscriptionStatus({ subscriptionId: model.subscription?.id, status}).then(() => {
+            refreshAndSyncRecordsWithServer()
+        }).catch(axiosErrorHandler)
+    },[refreshAndSyncRecordsWithServer])
 
     //  Columns here -------
     const columns: ColumnDef<ShowingModel>[] = useMemo(() => {
@@ -341,6 +345,28 @@ const ShowingsTable = forwardRef(( { status = "pending"  } : Props, ref: Ref<Tab
                                             }}
                                         >
                                            Change To Pending
+                                        </DropdownMenuItem>
+                                    )
+                                }
+                                {
+                                    (model.subscription?.status === "pending") && (
+                                        <DropdownMenuItem
+                                            onClick={() => {
+                                                changeSubscriptionStatusHandler(model, "success")
+                                            }}
+                                        >
+                                           Mark as paid
+                                        </DropdownMenuItem>
+                                    )
+                                }
+                                {
+                                    (model.subscription?.status === "success" ) && (
+                                        <DropdownMenuItem
+                                            onClick={() => {
+                                                changeSubscriptionStatusHandler(model, "pending")
+                                            }}
+                                        >
+                                           Mark as NOT paid
                                         </DropdownMenuItem>
                                     )
                                 }

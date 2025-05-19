@@ -52,7 +52,7 @@ function PhoneVerificationPage({ onCancelVerification, phone, verificationRequir
             appStorage.setAccessToken(authToken)
             reset()
 
-            mutateGetCurrentUser()
+            mutateGetCurrentUser(undefined)
 
         },
         onError: async (error ) => {

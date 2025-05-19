@@ -16,3 +16,7 @@ export const apiVerifySubscriptionStatus = async( reference: string ) => {
 export const apiResendPaymentReminder = async( payload: { userId?: number, subscriptionId?: number } ) => {
     return await apiClient.post(`/subscription/reminder`, payload).then((response) =>  response.data)
 }
+
+export const apiUpdateSubscriptionStatus = async( payload: {subscriptionId?: number, status: string} ) => {
+    return await apiClient.put(`/subscription/status/${payload.subscriptionId}`, payload).then((response) =>  response.data)
+}
