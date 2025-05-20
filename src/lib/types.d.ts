@@ -150,7 +150,8 @@ export type PurchasePackageParams = {
     propertyId?: number,
     startDate?: string,
     endDate?: string,
-    packageSlug?: "basic_package" | "standard_package" | "properties_promotion" | "advertisement" | "property_showing"
+    packageSlug?: "basic_package" | "standard_package" | "properties_promotion" | "advertisement" | "property_showing" |
+    "conveyance_request"
 }
 
 export type AdvertisementModel = {
@@ -198,4 +199,19 @@ export type ShowingFormInput = {
     appointmentDate: string
     userId?: number,
     subscriptionId?: number,
+}
+
+export type ConveyanceFormInput = {
+    id?: number,
+    clientName: string,
+    clientCurrentLocation: string,
+    clientNewLocation: string,
+    customerLastName?: string,
+    customerContactPhone: string,
+    customerContactEmail?: string,
+    propertyId?: number,
+    conveyanceDate: string
+    userId?: number,
+    subscriptionId?: number,
+    description: string,
 }

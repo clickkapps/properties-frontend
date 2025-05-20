@@ -2,12 +2,11 @@ import PropertiesDropdown from "@/components/ui/PropertiesDropdown.tsx";
 import {Input} from "@/components/ui/input.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {useMutation} from "@tanstack/react-query";
-import {axiosErrorHandler, customLog, formErrorsHandler} from "@/lib/utils.ts";
+import {axiosErrorHandler, formErrorsHandler} from "@/lib/utils.ts";
 import {toast} from "@/hooks/use-toast.ts";
 import {apiCreateNewShowing} from "@/api/showings.api.ts";
 import {useForm} from "react-hook-form";
 import {ShowingFormInput, ShowingModel} from "@/lib/types";
-import {useEffect} from "react";
 import {LoaderCircle} from "lucide-react";
 import DatePickerInput from "@/components/ui/DatePickerInput.tsx";
 
@@ -23,32 +22,17 @@ function AddShowingForm({ onRecordAdded }: Prop) {
         handleSubmit,
         reset,
         setValue,
-        formState: { errors },
     } = useForm<ShowingFormInput>()
 
 
-    // Show error if something goes wrong
-    useEffect(() => {
-
-        if(Object.keys(errors).length > 0) {
-            const firstErrorKey = Object.keys(errors)[0] as keyof ShowingFormInput;
-            const firstErrorMessage = errors[firstErrorKey]?.message;
-            toast({
-                title: "Uh oh! Something went wrong",
-                description: firstErrorMessage,
-                variant: "destructive"
-            })
-        }
-
-    }, [errors]);
 
     // this sends form data to backend
     const { mutate, isPending } = useMutation({
-        mutationKey: ['add-property'],
+        mutationKey: ['add-showing'],
         mutationFn: (formData: ShowingFormInput) => apiCreateNewShowing(formData),
         onSuccess: async (resp) => {
             // const data = resp.data;
-            customLog("added property:", resp.data)
+            console.log("added showing:", resp.data)
             toast({
                 title: "Great!",
                 description: "Record created!",

@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import {payments} from "@/constants/ui.constants.ts";
 import {ListingType} from "@/lib/types";
+import AddConveyanceForm from "@/components/office-dashboard/conveyance/AddConveyanceForm";
 
 const columns: ColumnDef<ListingType>[] = [
   {
@@ -97,46 +98,7 @@ function ConveyancePage() {
       <div className="mb-10">
   <h3 className="text-xl font-semibold mb-6">Add Order</h3>
 
-  <form className="space-y-6">
-    {/* Client Name & Contact */}
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div>
-        <label className="block text-sm  mb-1">Client Name</label>
-        <Input placeholder="name" className="focus:outline-none focus:ring-0 focus:ring-offset-0"/>
-      </div>
-      <div>
-        <label className="block text-sm  mb-1">Contact</label>
-        <Input placeholder="name" className="focus:outline-none focus:ring-0 focus:ring-offset-0" />
-      </div>
-    </div>
-
-    {/* From, To, Date */}
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div>
-        <label className="block text-sm  mb-1">From Location</label>
-        <Input placeholder="name" />
-      </div>
-      <div>
-        <label className="block text-sm  mb-1">To Location</label>
-        <Input placeholder="name" />
-      </div>
-      <div>
-        <label className="block text-sm  mb-1">Date</label>
-        <Input placeholder="name" />
-      </div>
-    </div>
-
-    {/* Description */}
-    <div>
-      <label className="block text-sm  mb-1">Description</label>
-      <Textarea placeholder="name" className="min-h-[120px]" />
-    </div>
-
-    {/* Button */}
-    <Button type="submit" className="bg-[#020050] hover:bg-[#0D0B66] rounded-md text-sm">
-      Add Order
-    </Button>
-  </form>
+   <AddConveyanceForm />
 </div>
 
       <Tabs defaultValue="orders" className="w-full">
