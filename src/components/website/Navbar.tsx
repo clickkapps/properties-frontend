@@ -8,6 +8,7 @@ import {MenuLink} from "@/lib/types";
 import {useAppDispatch} from "@/hooks";
 import {logout} from "@/store/auth-slice.ts";
 import {appStorage} from "@/lib/storage.ts";
+import {useConfirmDialog} from "@/hooks/use-confirm-dialog.ts";
 
 const defaultCenteredMenuLinks = websiteMenuLinks.map((link: MenuLink) => {
   return (
@@ -26,6 +27,7 @@ const Navbar = ({ animate = true, className, children, rightMenuLinks, bgColor =
   // const authState = useAppSelector(state => state.auth)
   const  dispatch = useAppDispatch();
   const location = useLocation();
+  const confirmDialog = useConfirmDialog()
 
   useEffect(() => {
 
@@ -47,9 +49,17 @@ const Navbar = ({ animate = true, className, children, rightMenuLinks, bgColor =
   // </ul>
 
   const logoutHandler = async () => {
-      appStorage.removeAccessToken()
-      dispatch(logout())
-      navigate("/login")
+
+      confirmDialog.showConfirmDialog({
+          title: "Logout?",
+          description: `You will be required to login again next time you visit the site`,
+          onConfirm: () => {
+              appStorage.removeAccessToken()
+              dispatch(logout())
+              navigate("/login")
+          },
+      })
+
   }
 
 

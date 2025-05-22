@@ -20,7 +20,7 @@ function AgentMobileSideDrawer() {
                 handleOnly={false}
                 open={openAgentMobileSideDrawer} onOpenChange={() => dispatch(toggleAgentSidebarDrawer()) }>
                 {/*<DrawerTrigger>Open</DrawerTrigger>*/}
-                <DrawerContent>
+                <DrawerContent className={`bg-white`}>
                     <DrawerHeader>
                         <DrawerTitle> </DrawerTitle>
                         <DrawerDescription></DrawerDescription>

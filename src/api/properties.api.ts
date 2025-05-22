@@ -17,14 +17,24 @@ export const apiGetPropertyCategories = async( ) => {
     return await apiClient.get(`/properties/categories`).then((response) =>  response.data.data)
 };
 
-export const apiGetProperties = async({ userId, filters }: { userId?: number, filters?: PropertyFilters} ) => {
-    return await apiClient.get(`/properties`, {
+export const apiGetProperties = async({ userId, filters, endpoint="" }: { userId?: number, filters?: PropertyFilters, endpoint?: string} ) => {
+    return await apiClient.get(`/properties${endpoint}`, {
         params: {
             userId,
             ...filters
         }
     }).then((response) =>  response.data.data)
 }
+
+export const apiCountProperties = async({ userId, filters, endpoint="" }: { userId?: number, filters?: PropertyFilters, endpoint?: string} ) => {
+    return await apiClient.get(`/properties${endpoint}`, {
+        params: {
+            userId,
+            ...filters
+        }
+    }).then((response) =>  response.data.data)
+}
+
 
 export const apiGetPropertyDetail = async( id? : number ) => {
     return await apiClient.get(`/properties/${id}`).then((response) =>  response.data)

@@ -114,7 +114,16 @@ export type Entitlement = {
 }
 
 export type PropertyFilters = {
-    country?: string
+    country?: string,
+    published?: boolean,
+    categoryId?: number,
+    offerType?: string,
+    rooms?: number,
+    washrooms?: number,
+    price?: number,
+    sortBy?: string,
+    sortOrder?: string,
+    search?: string,
 }
 
 export type ConfirmDialogOptions = {

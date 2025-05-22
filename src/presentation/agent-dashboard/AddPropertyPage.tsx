@@ -4,12 +4,11 @@ import { Textarea } from "@/components/ui/textarea";
 import {LoaderCircle} from "lucide-react";
 import {useMutation, useQuery,} from "@tanstack/react-query";
 import {apiAddNewProperty, apiGetPropertyCategories} from "@/api/properties.api.ts";
-import {customLog} from "@/lib/utils.ts";
-import {AxiosError} from "axios";
+import {axiosErrorHandler, customLog, formErrorsHandler} from "@/lib/utils.ts";
 import {toast} from "@/hooks/use-toast.ts";
 import {useForm} from "react-hook-form";
 import {InnerFormComponent, KeyValue, PropertyFormInput} from "@/lib/types";
-import {useCallback, useEffect, useRef} from "react";
+import {useCallback, useRef} from "react";
 import {
   Select,
   SelectContent,
@@ -36,23 +35,15 @@ function AddPropertyPage() {
     handleSubmit,
     reset,
     setValue,
-    formState: { errors },
+    watch,
   } = useForm<PropertyFormInput>()
 
+  const offerType = watch("offerType")
+  const categoryId = watch("categoryId")
+  const currency = watch("currency")
+  const country = watch("country")
+  const region = watch("region")
 
-  useEffect(() => {
-
-    if(Object.keys(errors).length > 0) {
-      const firstErrorKey = Object.keys(errors)[0] as keyof PropertyFormInput;
-      const firstErrorMessage = errors[firstErrorKey]?.message;
-      toast({
-        title: "Uh oh! Something went wrong",
-        description: firstErrorMessage,
-        variant: "destructive"
-      })
-    }
-
-  }, [errors]);
 
   const { mutate, isPending } = useMutation({
     mutationKey: ['add-property'],
@@ -70,15 +61,7 @@ function AddPropertyPage() {
       otherImagesRef.current?.clear()
 
     },
-    onError: async (error) => {
-      const axiosError = error as AxiosError<{ message: string }>;
-      customLog("on error", error);
-      toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong",
-        description: axiosError.response?.data?.message || "Sorry! connection failed",
-      })
-    },
+    onError: axiosErrorHandler
   })
 
   const mainImagefileChangeHandler = useCallback((files: File[]) => {
@@ -150,10 +133,9 @@ function AddPropertyPage() {
   return (
       <div className="container mx-auto">
 
-        <h2 className="text-2xl font-semibold mb-6">Add Property</h2>
+        <h2 className="text-2xl font-semibold mb-6">Add New Property</h2>
 
-
-        <form onSubmit={handleSubmit(submitHandler)}>
+        <form onSubmit={handleSubmit(submitHandler, formErrorsHandler)}>
           <div className="border bg-white px-10 py-6 mb-10 space-y-6">
 
 
@@ -166,7 +148,9 @@ function AddPropertyPage() {
               <div className="flex flex-row gap-2">
                 <div className="w-[180px]">
                   <label className="block text-sm mb-1">Property For*</label>
-                  <Select onValueChange={(value) => {
+                  <Select
+                      value={offerType || ""}
+                      onValueChange={(value) => {
                     setValue('offerType', value)
                   }} name={"offerType"} required>
                     <SelectTrigger className="w-full">
@@ -180,7 +164,9 @@ function AddPropertyPage() {
                 </div>
                 <div className="w-full">
                   <label className="block text-sm mb-1">Select Category*</label>
-                  <Select onValueChange={(value) => {
+                  <Select
+                      value={categoryId ? String(categoryId) : ""}
+                      onValueChange={(value) => {
                     setValue('categoryId', +value)
                   }} required>
                     <SelectTrigger className="w-full">
@@ -226,15 +212,17 @@ function AddPropertyPage() {
               <div>
                 <label className="block text-sm mb-1">Property Price*</label>
                 <div className="flex gap-2">
-                  <Select onValueChange={(value) => {
+                  <Select
+                      value={currency || ""}
+                      onValueChange={(value) => {
                     setValue('currency', value)
                   }} required >
                     <SelectTrigger className="w-[180px]">
                       <SelectValue placeholder="Currency"/>
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="USD">USD</SelectItem>
                       <SelectItem value="GHS">GH₵</SelectItem>
+                      <SelectItem value="USD">USD</SelectItem>
                     </SelectContent>
                   </Select>
                   <Input placeholder="eg. 5000" className="w-full" {...register('amount')} required />
@@ -245,7 +233,9 @@ function AddPropertyPage() {
               <div className={"col-span-2"}>
                 <label className="block text-sm mb-1">Property Address*</label>
                 <div className="flex flex-col md:flex-row gap-2">
-                  <Select onValueChange={(value) => {
+                  <Select
+                      value={country || ""}
+                      onValueChange={(value) => {
                     setValue('country', value)
                   }}  required >
                     <SelectTrigger className="w-full md:w-[180px]">
@@ -256,7 +246,9 @@ function AddPropertyPage() {
                       {/*<SelectItem value="Canada">Canada</SelectItem>*/}
                     </SelectContent>
                   </Select>
-                  <Select onValueChange={(value) => {
+                  <Select
+                      value={region || ""}
+                      onValueChange={(value) => {
                     setValue('region', value)
                   }} required >
                     <SelectTrigger className="w-full md:w-[180px]">
@@ -277,7 +269,7 @@ function AddPropertyPage() {
             {/* Description */}
             <div>
               <label className="block text-sm mb-1">Property Description</label>
-              <Textarea placeholder="eg. pets allowed" className="min-h-[120px]" {...register('description')}/>
+              <Textarea placeholder="eg. This a apartment is suitable for couples" className="min-h-[120px]" {...register('description')}/>
             </div>
 
             {/*<div className="h-8"></div>*/}

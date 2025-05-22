@@ -216,135 +216,139 @@ function ManagePropertiesList({ userId } : Props) {
 
 
     return (
-        <div className="py-4">
-            <div className="flex flex-row border md:divide-x">
-                <div
-                    className={` ${activatedMobileSection == 'list' ? 'block' : 'hidden'} md:block w-full md:w-[20%] divide-y`}>
-                    {isPendingFetchProperties && (
-                        <div className={"px-4 py-4 space-y-4"}>
-                            {Array.from({length: 5}).map((_, index) => (
-                                <SkeletonListItem showAvatar={false} showSubTitle={false}
-                                                  key={"sk-" + index}/>))}
+        <div className="flex flex-row border md:divide-x w-full">
+
+            {/* Left Side List */}
+            <div
+                className={` ${activatedMobileSection == 'list' ? 'block' : 'hidden'} md:block w-full md:w-[20%] divide-y`}>
+                {isPendingFetchProperties && (
+                    <div className={"px-4 py-4 space-y-4"}>
+                        {Array.from({length: 5}).map((_, index) => (
+                            <SkeletonListItem showAvatar={false} showSubTitle={false}
+                                              key={"sk-" + index}/>))}
+                    </div>
+                )}
+                {dataFetchProperties && dataFetchProperties.map((item) => {
+                    const selected = selectedProperty && (item.id === selectedProperty?.id);
+                    return (
+                        <div
+                            key={item.id}
+                            onClick={() => listItemClickHandler(item)}
+                            className={`flex flex-row justify-between cursor-pointer py-4 px-4 text-sm ${selected ? 'bg-[#f5f5f5]' : ''}`}>
+                            <p className={`inline-flex items-center gap-2 font-[Inter] ${item.promoted && "text-teal-500 font-semibold"}`}>
+                                {item.title} {!item.published && "🔒"} {item.published && "✓"}
+                                {/*{!item.published && <i className="fa-solid fa-circle text-amber-500 "></i>}*/}
+                            </p>
+
+                            <ChevronRight className="block md:hidden"/>
                         </div>
-                    )}
-                    {dataFetchProperties && dataFetchProperties.map((item) => {
-                        const selected = selectedProperty && (item.id === selectedProperty?.id);
-                        return (
-                            <div
-                                key={item.id}
-                                onClick={() => listItemClickHandler(item)}
-                                className={`flex flex-row justify-between cursor-pointer py-4 px-4 text-sm ${selected ? 'bg-[#f5f5f5]' : ''}`}>
-                                <p className={`inline-flex items-center gap-2 font-[Inter] ${item.promoted && "text-teal-500 font-semibold" }`}>
-                                    {item.title} {!item.published && "🔒"} {item.published && "✓"}
-                                    {/*{!item.published && <i className="fa-solid fa-circle text-amber-500 "></i>}*/}
-                                </p>
+                    );
+                })}
+            </div>
 
-                                <ChevronRight className="block md:hidden"/>
+            {/* Right Main content*/}
+            <div
+                className={` ${activatedMobileSection == 'detail' ? 'block' : 'hidden'} md:block w-full md:w-[80%] flex flex-col `}>
+
+                <div className="py-2 px-6 border-b  w-full flex justify-between items-center">
+
+                    <div className="inline-flexspace-x-4" onClick={() => setActivatedMobileSection('list')}>
+                        {dataFetchProperties && selectedProperty &&
+                            <div className="inline-flex space-x-1 text-blue-500 items-center md:hidden">
+                                <ChevronLeftIcon/>
+                                <span className="text-sm">Back</span>
                             </div>
-                        );
-                    })}
-                </div>
-                <div
-                    className={` ${activatedMobileSection == 'detail' ? 'block' : 'hidden'} md:block w-full md:w-[80%] flex flex-col `}>
-
-                    <div className="py-2 px-2 border-b  w-full flex justify-between items-center">
-
-                        <div className="inline-flexspace-x-4" onClick={() => setActivatedMobileSection('list')}>
-                            {dataFetchProperties && selectedProperty &&
-                                <div className="inline-flex space-x-1 text-blue-500 items-center md:hidden">
-                                    <ChevronLeftIcon/>
-                                    <span className="text-sm">Back</span>
-                                </div>
-                            }
-                            {dataFetchProperties && selectedProperty &&
-                                <div className="font-semibold inline-flex gap-1 items-center">
-                                    {selectedProperty.title}
+                        }
+                        {dataFetchProperties && selectedProperty &&
+                            <div className="font-semibold md:inline-flex flex flex-col md:flex-row gap-1 md:items-center">
+                               <span> {selectedProperty.title} </span>
+                                <div className="space-x-1">
                                     {!selectedProperty.published ? (
                                         <Badge className={"bg-amber-500 rounded-full"}>Not published</Badge>) : (
                                         <Badge className={"bg-black rounded-full"}> Published</Badge>
                                     )}
-                                    { selectedProperty.promoted && (
+                                    {selectedProperty.promoted && (
                                         <Badge className={"bg-teal-500 rounded-full"}> Promoted 🚀</Badge>
                                     )}
                                 </div>
-                            }
-                        </div>
-
-                        {/* More menu   */}
-
-                        <div>
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    {(isPendingUnpublishProperty || isPendingPublishProperty) ? (
-                                        <LoaderCircle/>
-                                    ) : (
-                                        <Button variant="outline">Actions</Button>
-                                    )}
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent className="w-56">
-                                    <DropdownMenuLabel>Options</DropdownMenuLabel>
-                                    <DropdownMenuSeparator/>
-                                    {selectedProperty && selectedProperty.published && (
-                                        <DropdownMenuItem
-                                            onClick={() => unpublishPropertyHandler(selectedProperty.id)}>
-                                            <X/>
-                                            UnPublish
-                                        </DropdownMenuItem>
-                                    )}
-                                    {selectedProperty && !selectedProperty.published && (
-                                        <DropdownMenuItem
-                                            onClick={() => publishPropertyHandler(selectedProperty.id)}>
-                                            <EarthIcon/>
-                                            <span>Publish</span>
-                                        </DropdownMenuItem>
-
-                                    )}
-
-                                    {selectedProperty && selectedProperty.published && !selectedProperty.promoted && (
-                                        <DropdownMenuItem onClick={() => {
-                                            if (promotePropertyModalRef) {
-                                                promotePropertyModalRef.current?.open()
-                                            }
-                                        }}>
-                                            <ChartNoAxesCombined/>
-                                            <span>Promote Property</span>
-                                        </DropdownMenuItem>
-                                    )}
-
-                                </DropdownMenuContent>
-                            </DropdownMenu>
-                            {selectedProperty &&
-                                <PromotePropertyForm
-                                    property={selectedProperty}
-                                    ref={promotePropertyModalRef}
-                                    onPromoted={propertyPromotedHandler}
-                            />
-                            }
-                        </div>
-
+                            </div>
+                        }
                     </div>
 
+                    {/* More menu   */}
 
-                    {/* Content here for item detail */}
+                    <div>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                {(isPendingUnpublishProperty || isPendingPublishProperty) ? (
+                                    <LoaderCircle/>
+                                ) : (
+                                    <Button variant="outline">Actions</Button>
+                                )}
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent className="w-56">
+                                <DropdownMenuLabel>Options</DropdownMenuLabel>
+                                <DropdownMenuSeparator/>
+                                {selectedProperty && selectedProperty.published && (
+                                    <DropdownMenuItem
+                                        onClick={() => unpublishPropertyHandler(selectedProperty.id)}>
+                                        <X/>
+                                        UnPublish
+                                    </DropdownMenuItem>
+                                )}
+                                {selectedProperty && !selectedProperty.published && (
+                                    <DropdownMenuItem
+                                        onClick={() => publishPropertyHandler(selectedProperty.id)}>
+                                        <EarthIcon/>
+                                        <span>Publish</span>
+                                    </DropdownMenuItem>
 
-                    {
-                        (isPendingFetchProperties) &&
-                        <div className=" py-4 px-6 flex flex-row overflow-y-auto gap-4">
-                            {
-                                Array.from({length: 4}).map((_, index) => (
-                                    <SkeletonCard key={"sk-" + index}/>
-                                ))
-                            }
-                        </div>
-                    }
+                                )}
 
-                    {(dataFetchProperties && selectedProperty) && <ManagePropertyDetail
-                        key={"property-detail-" + selectedProperty.id}
-                        selectedProperty={selectedProperty}
-                    />}
+                                {selectedProperty && selectedProperty.published && !selectedProperty.promoted && (
+                                    <DropdownMenuItem onClick={() => {
+                                        if (promotePropertyModalRef) {
+                                            promotePropertyModalRef.current?.open()
+                                        }
+                                    }}>
+                                        <ChartNoAxesCombined/>
+                                        <span>Promote Property</span>
+                                    </DropdownMenuItem>
+                                )}
 
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                        {selectedProperty &&
+                            <PromotePropertyForm
+                                property={selectedProperty}
+                                ref={promotePropertyModalRef}
+                                onPromoted={propertyPromotedHandler}
+                            />
+                        }
+                    </div>
 
                 </div>
+
+
+                {/* Content here for item detail */}
+
+                {
+                    (isPendingFetchProperties) &&
+                    <div className=" py-4 px-6 flex flex-row overflow-y-auto gap-4">
+                        {
+                            Array.from({length: 4}).map((_, index) => (
+                                <SkeletonCard key={"sk-" + index}/>
+                            ))
+                        }
+                    </div>
+                }
+
+                {(dataFetchProperties && selectedProperty) && <ManagePropertyDetail
+                    key={"property-detail-" + selectedProperty.id}
+                    selectedProperty={selectedProperty}
+                />}
+
+
             </div>
         </div>
     )

@@ -317,7 +317,7 @@ function ManagePropertyDetail({ selectedProperty }: Props) {
             { (isPendingDeleteOtherImage || isPendingDeleteSpecification) && (
                 <HorizontalLoader />
             )}
-            <div className="px-6 py-4">
+            <div className="px-6 py-4 overflow-hidden w-full">
 
 
                 {
@@ -333,58 +333,62 @@ function ManagePropertyDetail({ selectedProperty }: Props) {
                 {
                     (!isPendingPropertyDetail && property) &&
                     <div className="animated fadeIn duration-700">
+
                         {/*<h2> Property Gallery </h2>*/}
                         {/* Featured image  */}
 
-                        <div className="flex flex-row overflow-y-auto gap-4 py-4 ">
+                        <div className="overflow-x-auto md:overflow-x-visible w-full">
 
+                            <div className="flex gap-4 md:w-full md:flex-wrap py-4 w-max">
 
-                            {property.mainImagePath && property.mainImagePath !== "" && (
-                                <div className=" w-48 h-48 overflow-clip group relative rounded-lg cursor-pointer">
-                                    <img key={property.mainImagePath}
-                                         src={getCdnFile(property.mainImagePath)} alt={"property image"}
-                                         className="aspect-square w-full h-full object-cover absolute"/>
-                                    <div
-                                        className="bg-black/30 group-hover:bg-black/30 transition duration-700 w-full h-full absolute flex justify-center items-center ">
-                                        <p className="inline-flex gap-2 items-center font-bold text-amber-500 absolute left-2 top-2">
-                                            <span>Featured</span>
-                                            <StarIcon fill={'#fff'} size={14}/></p>
-                                        {/*<Button*/}
-                                        {/*    className="hidden group-hover:block transition duration-900 inset-x-4 space-y-2 bg-black/30 text-white rounded-none hover:bg-black/50 hover:text-white"*/}
-                                        {/*    variant="outline">Expand</Button>*/}
+                                {property.mainImagePath && property.mainImagePath !== "" && (
+                                    <div className="w-48 h-48 group shrink-0 group relative rounded-lg cursor-pointer overflow-clip bg-gray-200">
 
-
-                                    </div>
-                                </div>
-                            )}
-                            {
-                                property.gallery.filter(e => e.path && e.path !== "").map((item) => (
-                                    <div
-                                        key={item.id}
-                                        className=" w-48 h-48 overflow-clip group relative rounded-lg cursor-pointer">
-                                        <img
-                                            src={getCdnFile(item.path)}
-                                            alt={"property image"}
-                                            className="aspect-square w-full h-full object-cover absolute"/>
+                                        <img key={property.mainImagePath}
+                                             src={getCdnFile(property.mainImagePath)} alt={"property image"}
+                                             className="aspect-square w-full h-full object-cover absolute"/>
                                         <div
-                                            className="group-hover:bg-black/30 transition duration-700 w-full h-full absolute flex justify-center items-center ">
-                                            <div
-                                                className={"hidden group-hover:block transition duration-900 inset-x-4 space-y-2"}>
-                                                { !isPendingDeleteOtherImage && (<Button
-                                                    className="w-full bg-black/30 text-white rounded-none  hover:bg-black/50 hover:text-white"
-                                                    variant="outline"
-                                                    onClick={() => deleteOtherImageHandler(item.id)}>Delete</Button>
-                                                )}
-                                                {/*<Button*/}
-                                                {/*    className="w-full bg-black/30 text-white rounded-none hover:bg-black/50 hover:text-white"*/}
-                                                {/*    variant="outline">Expand</Button>*/}
-                                            </div>
+                                            className="bg-black/30 group-hover:bg-black/30 transition duration-700 w-full h-full absolute flex justify-center items-center ">
+                                            <p className="inline-flex gap-2 items-center font-bold text-amber-500 absolute left-2 top-2">
+                                                <span>Featured</span>
+                                                <StarIcon fill={'#fff'} size={14}/></p>
+                                            {/*<Button*/}
+                                            {/*    className="hidden group-hover:block transition duration-900 inset-x-4 space-y-2 bg-black/30 text-white rounded-none hover:bg-black/50 hover:text-white"*/}
+                                            {/*    variant="outline">Expand</Button>*/}
 
 
                                         </div>
                                     </div>
-                                ))
-                            }
+                                )}
+                                {
+                                    property.gallery.filter(e => e.path && e.path !== "").map((item) => (
+                                        <div
+                                            key={item.id}
+                                            className="w-48 h-48 group shrink-0 group relative rounded-lg cursor-pointer overflow-clip bg-gray-200">
+                                            <img
+                                                src={getCdnFile(item.path)}
+                                                alt={"property image"}
+                                                className="aspect-square w-full h-full object-cover absolute"/>
+                                            <div
+                                                className="group-hover:bg-black/30 transition duration-700 w-full h-full absolute flex justify-center items-center ">
+                                                <div
+                                                    className={"hidden group-hover:block transition duration-900 inset-x-4 space-y-2"}>
+                                                    {!isPendingDeleteOtherImage && (<Button
+                                                            className="w-full bg-black/30 text-white rounded-none  hover:bg-black/50 hover:text-white"
+                                                            variant="outline"
+                                                            onClick={() => deleteOtherImageHandler(item.id)}>Delete</Button>
+                                                    )}
+                                                    {/*<Button*/}
+                                                    {/*    className="w-full bg-black/30 text-white rounded-none hover:bg-black/50 hover:text-white"*/}
+                                                    {/*    variant="outline">Expand</Button>*/}
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    ))
+                                }
+                            </div>
                         </div>
                     </div>
                 }
