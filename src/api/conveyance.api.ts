@@ -8,8 +8,8 @@ export const apiCreateNewConveyance = async( payload: ConveyanceFormInput ) => {
   // we need to create user out of the user details
   const { data: user} = await apiAutoCreateUser({
     userFirstName: payload.clientName,
-    userLastName: "",
-    contactEmail: "",
+    userLastName: payload.customerLastName,
+    contactEmail: payload.customerContactEmail,
     contactPhone: payload.customerContactPhone,
   })
 

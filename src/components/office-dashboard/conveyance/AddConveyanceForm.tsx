@@ -1,3 +1,4 @@
+import { apiCreateNewConveyance } from "@/api/conveyance.api"
 import { Button } from "@/components/ui/button"
 import DatePickerInput from "@/components/ui/DatePickerInput"
 import { Input } from "@/components/ui/input"
@@ -7,7 +8,6 @@ import { ConveyanceFormInput } from "@/lib/types"
 import { axiosErrorHandler, formErrorsHandler } from "@/lib/utils"
 import { useMutation } from "@tanstack/react-query"
 import { LoaderCircle } from "lucide-react"
-import { title } from "process"
 import { useForm } from "react-hook-form"
 
 const AddConveyanceForm = () => {
@@ -30,9 +30,9 @@ const AddConveyanceForm = () => {
             description: "Record created",
           })
           reset()
-          if(onRecordAdded) {
-            onRecordAdded(resp.data)
-          }
+          // if(onRecordAdded) {
+          //   onRecordAdded(resp.data)
+          // }
         },
         onError: axiosErrorHandler,
       })
@@ -49,14 +49,14 @@ const AddConveyanceForm = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label className="block text-sm  mb-1">Client Name</label>
-            <Input placeholder="name" className="focus:outline-none focus:ring-0 focus:ring-offset-0"
+            <Input placeholder="Client name" className="focus:outline-none focus:ring-0 focus:ring-offset-0"
             { ...register('clientName') }
             required
             />
           </div>
           <div>
             <label className="block text-sm  mb-1">Contact</label>
-            <Input placeholder="name" className="focus:outline-none focus:ring-0 focus:ring-offset-0" 
+            <Input placeholder="Contact" className="focus:outline-none focus:ring-0 focus:ring-offset-0" 
             { ...register('customerContactPhone') }
             required
             />
@@ -67,14 +67,14 @@ const AddConveyanceForm = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div>
             <label className="block text-sm  mb-1">From Location</label>
-            <Input placeholder="name" 
+            <Input placeholder="Current location" 
             { ...register('clientCurrentLocation') }
             required
             />
           </div>
           <div>
             <label className="block text-sm  mb-1">To Location</label>
-            <Input placeholder="name" 
+            <Input placeholder="New location" 
             { ...register('clientNewLocation') }
             required
             />
@@ -96,7 +96,7 @@ const AddConveyanceForm = () => {
         {/* Description */}
         <div>
           <label className="block text-sm  mb-1">Description</label>
-          <Textarea placeholder="name" className="min-h-[120px]" 
+          <Textarea placeholder="Description" className="min-h-[120px]" 
           { ...register('description') }
             required
           />

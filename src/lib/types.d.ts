@@ -196,7 +196,7 @@ export type ShowingFormInput = {
     customerContactPhone: string,
     customerContactEmail?: string,
     propertyId?: number,
-    appointmentDate: string
+    appointmentDate: string,
     userId?: number,
     subscriptionId?: number,
 }
@@ -210,7 +210,7 @@ export type ConveyanceFormInput = {
     customerContactPhone: string,
     customerContactEmail?: string,
     propertyId?: number,
-    conveyanceDate: string
+    conveyanceDate: string,
     userId?: number,
     subscriptionId?: number,
     description: string,
