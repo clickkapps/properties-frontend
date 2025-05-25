@@ -12,8 +12,13 @@ import MarketedBy from "@/components/website/MarketedBy.tsx";
 import ReportListing from "@/components/website/ReportListing.tsx";
 import SafetyTips from "@/components/website/SafetyTips.tsx";
 import RelatedProperties from "@/components/website/RelatedProperties.tsx";
+import {useLoaderData} from "react-router";
+import {PropertyModel} from "@/lib/types";
 
 function PropertyDetailPage() {
+
+    const propertyData = useLoaderData<PropertyModel>()
+
     return (
         <>
             <Navbar className="fixed bg-black w-full z-20 " animate={false}/>
@@ -24,9 +29,10 @@ function PropertyDetailPage() {
 
                     {/* Left Column*/}
                     <div className="w-full md:w-[65%]">
-                        <h2 className="uppercase font-normal text-xl md:text-3xl py-8"><span
-                            className="font-[Inter]">5</span> - Bedroom house for sale at labardi, accra</h2>
-                        <PropertyImages/>
+                        <h2 className="uppercase font-normal text-xl md:text-3xl py-8">
+                            { propertyData.title }
+                        </h2>
+                        <PropertyImages property={propertyData}/>
                         <h2 className="font-normal text-xl md:text-2xl my-4">Interested in this property?</h2>
                         <div className="flex gap-2 md:gap-4">
                             <Button className="bg-[#E50005] flex-1 md:py-6"> <Phone/> Call </Button>
@@ -83,7 +89,7 @@ function PropertyDetailPage() {
                 <h2 className="font-normal text-xl md:text-4xl my-4 text-center">Related Properties</h2>
                 <div className="h-12"></div>
 
-                <RelatedProperties />
+                <RelatedProperties propertyId={propertyData.id}/>
 
             </main>
 

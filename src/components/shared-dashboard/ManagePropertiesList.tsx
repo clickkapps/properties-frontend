@@ -4,7 +4,7 @@ import {
     ChevronRight,
     EarthIcon,
     LoaderCircle,
-    X
+    X, XCircleIcon
 } from 'lucide-react';
 import {useEffect, useRef, useState} from "react";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
@@ -17,7 +17,7 @@ import ManagePropertyDetail from "@/components/shared-dashboard/ManagePropertyDe
 import {Badge} from "@/components/ui/badge.tsx";
 import {SkeletonCard} from "@/components/ui/SkeletonCard.tsx";
 import {AxiosError} from "axios";
-import {customLog} from "@/lib/utils.ts";
+import {canPublishProperties, canUnpublishProperties, customLog} from "@/lib/utils.ts";
 import {toast} from "@/hooks/use-toast.ts";
 import {
     DropdownMenu,
@@ -30,6 +30,7 @@ import {Button} from "@/components/ui/button.tsx";
 import {useConfirmDialog} from "@/hooks/use-confirm-dialog.ts";
 import PromotePropertyForm from "@/components/agent-dashboard/PromotePropertyForm.tsx";
 import EmptyDisplayPage from "@/components/ui/EmptyDisplayPage.tsx";
+import {useAppSelector} from "@/hooks";
 
 // const propertyList = Array.from({ length: 5 }).map((_, i) => {
 //     return {
@@ -40,15 +41,21 @@ import EmptyDisplayPage from "@/components/ui/EmptyDisplayPage.tsx";
 // })
 
 type Props = {
-    userId?: number
+    userId?: number,
+    published?: boolean,
 }
 
-function ManagePropertiesList({ userId } : Props) {
+function ManagePropertiesList({ userId, published } : Props) {
 
-
+    const currentUser = useAppSelector(state => state.auth);
     const promotePropertyModalRef = useRef<ModalHandle|undefined>(undefined)
     const queryClient = useQueryClient();
-    const { isPending: isPendingFetchProperties, data: dataFetchProperties } = useQuery<PropertyModel[]>({ queryKey: ['fetch-properties'], queryFn: () => apiGetProperties({ userId: userId }) });
+    const { isPending: isPendingFetchProperties, data: dataFetchProperties } = useQuery<PropertyModel[]>({ queryKey: ['fetch-properties', published], queryFn: () => apiGetProperties({
+            userId: userId,
+            filters: {
+                published: published
+            }
+    }) });
     const [activatedMobileSection, setActivatedMobileSection] = useState<'list' | 'detail'>('list')
     const [selectedProperty, setSelectedProperty] = useState<PropertyModel|undefined>()
     const { showConfirmDialog } = useConfirmDialog()
@@ -85,7 +92,7 @@ function ManagePropertiesList({ userId } : Props) {
 
             // ✅ Rollback to previous state if available
             if (context?.previousData) {
-                queryClient.setQueryData(['fetch-properties'], context.previousData);
+                queryClient.setQueryData(['fetch-properties', published], context.previousData);
             }
 
             // Log and notify the user
@@ -100,10 +107,10 @@ function ManagePropertiesList({ userId } : Props) {
         // ✅ Optimistically update the UI
         onMutate: async ( id ) => {
 
-            await queryClient.cancelQueries({ queryKey: ['fetch-properties'] })
-            const previousData = queryClient.getQueryData<PropertyModel[]>(['fetch-properties']);
+            await queryClient.cancelQueries({ queryKey: ['fetch-properties', published] })
+            const previousData = queryClient.getQueryData<PropertyModel[]>(['fetch-properties', published]);
 
-            queryClient.setQueryData<PropertyModel[]>(['fetch-properties'], (old) =>
+            queryClient.setQueryData<PropertyModel[]>(['fetch-properties', published], (old) =>
                 old?.map((item) => {
                     if(item.id === id) {
                         item.published = true;
@@ -131,7 +138,7 @@ function ManagePropertiesList({ userId } : Props) {
             const axiosError = error as AxiosError<{ message: string }>;
             // ✅ Rollback to previous state if available
             if (context?.previousData) {
-                queryClient.setQueryData(['fetch-properties'], context.previousData);
+                queryClient.setQueryData(['fetch-properties', published], context.previousData);
             }
 
             // Log and notify the user
@@ -145,10 +152,10 @@ function ManagePropertiesList({ userId } : Props) {
         },
         onMutate: async ( id ) => {
 
-            await queryClient.cancelQueries({ queryKey: ['fetch-properties'] })
-            const previousData = queryClient.getQueryData<PropertyModel[]>(['fetch-properties']);
+            await queryClient.cancelQueries({ queryKey: ['fetch-properties', published] })
+            const previousData = queryClient.getQueryData<PropertyModel[]>(['fetch-properties', published]);
 
-            queryClient.setQueryData<PropertyModel[]>(['fetch-properties'], (old) =>
+            queryClient.setQueryData<PropertyModel[]>(['fetch-properties', published], (old) =>
                 old?.map((item) => {
                     if(item.id === id) {
                         item.published = false;
@@ -191,8 +198,8 @@ function ManagePropertiesList({ userId } : Props) {
     const propertyPromotedHandler = async (propertyId?: number) => {
         if(propertyId && selectedProperty?.id == propertyId) {
             // refresh list locally
-            await queryClient.cancelQueries({ queryKey: ['fetch-properties'] })
-            queryClient.setQueryData<PropertyModel[]>(['fetch-properties'], (old) =>
+            await queryClient.cancelQueries({ queryKey: ['fetch-properties', published] })
+            queryClient.setQueryData<PropertyModel[]>(['fetch-properties', published], (old) =>
                 old?.map((item) => {
                     if(item.id === selectedProperty?.id) {
                         item.promoted = true;
@@ -289,21 +296,25 @@ function ManagePropertiesList({ userId } : Props) {
                             <DropdownMenuContent className="w-56">
                                 <DropdownMenuLabel>Options</DropdownMenuLabel>
                                 <DropdownMenuSeparator/>
-                                {selectedProperty && selectedProperty.published && (
-                                    <DropdownMenuItem
-                                        onClick={() => unpublishPropertyHandler(selectedProperty.id)}>
-                                        <X/>
-                                        UnPublish
-                                    </DropdownMenuItem>
-                                )}
-                                {selectedProperty && !selectedProperty.published && (
+                                {
+                                    canUnpublishProperties(currentUser?.userInfo) && (
+                                        selectedProperty && selectedProperty.published && (
+                                            <DropdownMenuItem
+                                                onClick={() => unpublishPropertyHandler(selectedProperty.id)}>
+                                                <X/>
+                                                UnPublish
+                                            </DropdownMenuItem>
+                                        )
+                                    )
+                                }
+                                {canPublishProperties(currentUser?.userInfo) && (selectedProperty && !selectedProperty.published && (
                                     <DropdownMenuItem
                                         onClick={() => publishPropertyHandler(selectedProperty.id)}>
                                         <EarthIcon/>
                                         <span>Publish</span>
                                     </DropdownMenuItem>
 
-                                )}
+                                ))}
 
                                 {selectedProperty && selectedProperty.published && !selectedProperty.promoted && (
                                     <DropdownMenuItem onClick={() => {
@@ -315,6 +326,10 @@ function ManagePropertiesList({ userId } : Props) {
                                         <span>Promote Property</span>
                                     </DropdownMenuItem>
                                 )}
+
+                                <DropdownMenuItem>
+                                    <XCircleIcon/> <span>Close</span>
+                                </DropdownMenuItem>
 
                             </DropdownMenuContent>
                         </DropdownMenu>

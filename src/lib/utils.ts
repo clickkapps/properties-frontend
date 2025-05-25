@@ -5,6 +5,7 @@ import { format } from "date-fns"
 import {FieldErrors, FieldValues} from "react-hook-form";
 import {toast} from "@/hooks/use-toast.ts";
 import {AxiosError} from "axios";
+import {User} from "@/lib/types";
 
 const cdnFileAsset = import.meta.env.VITE_CDN_BASE_URL
 const environment = import.meta.env.VITE_API_ENV
@@ -65,4 +66,46 @@ export const axiosErrorHandler = (error: Error) => {
         title: "Uh oh! Something went wrong",
         description: axiosError.response?.data?.message || "Sorry! connection failed",
     })
+}
+
+// you can create all your permission helpers here
+// my rule for permissions in the application is, its always true util its changed to false
+
+// method naming convention: verbActionSubject
+export const canPublishProperties = (user?: User) => {
+
+    if(!user) { return  false; }
+
+    // true until proven false
+    let allowed = true;
+
+    // checking if user cannot publish property
+    const cannotPublish = (user.permissions || []).findIndex(
+        p => p.verb === "cannot" && p.action == "publish" && p.subject === "properties"
+    )
+
+    if(cannotPublish > -1) {
+        allowed = false;
+    }
+
+    return allowed;
+}
+
+export const canUnpublishProperties = (user?: User) => {
+    if(!user) { return  false; }
+
+    // true until proven false
+    let allowed = true;
+
+    // checking if user cannot upPublish property
+    const cannotUnPublish = (user.permissions || []).findIndex(
+        p => p.verb === "cannot" && p.action == "unpublish" && p.subject === "properties"
+    )
+
+    if(cannotUnPublish > -1) {
+        allowed = false;
+    }
+
+    return allowed
+
 }

@@ -1,9 +1,10 @@
-import {redirect} from "react-router";
+import {LoaderFunctionArgs, redirect} from "react-router";
 import store from "@/store";
 import {updateAuthUser, logout} from "@/store/auth-slice.ts";
 import {appStorage} from "@/lib/storage.ts";
 import {apiGetUserInfo} from "@/api/users.api.ts";
 import {User} from "@/lib/types";
+import {apiGetPropertyDetail} from "@/api/properties.api.ts";
 
 
 const initialiseUserInfo = async () => {
@@ -80,6 +81,18 @@ export const loginLoader = async () => {
         }
 
         return true
+
+    }catch(err) {
+        console.log("error logging in", err);
+        return true
+    }
+}
+
+export const propertyDetailLoader = async ({ params }: LoaderFunctionArgs ) => {
+    try {
+        const propertyId = params.propertyId!;
+        const data = await apiGetPropertyDetail(+propertyId);
+        return data.data;
 
     }catch(err) {
         console.log("error logging in", err);

@@ -2,8 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {LoaderCircle} from "lucide-react";
-import {useMutation, useQuery,} from "@tanstack/react-query";
-import {apiAddNewProperty, apiGetPropertyCategories} from "@/api/properties.api.ts";
+import {useMutation,} from "@tanstack/react-query";
+import {apiAddNewProperty} from "@/api/properties.api.ts";
 import {axiosErrorHandler, customLog, formErrorsHandler} from "@/lib/utils.ts";
 import {toast} from "@/hooks/use-toast.ts";
 import {useForm} from "react-hook-form";
@@ -20,6 +20,7 @@ import FileSelector from "@/components/shared-dashboard/FileSelector.tsx";
 import {ghRegions} from "@/constants/ui.constants.ts";
 import SpecificationsCard from "@/components/agent-dashboard/SpecificationsCard.tsx";
 import {useAppSelector} from "@/hooks";
+import PropertyCategoriesDropdown, {PropertyCategoryDropdownRef} from "@/components/ui/PropertyCategoriesDropdown.tsx";
 
 function AddPropertyPage() {
 
@@ -28,7 +29,7 @@ function AddPropertyPage() {
   const mainImageRef = useRef<InnerFormComponent>(null);
   const otherImagesRef = useRef<InnerFormComponent>(null);
   const auth = useAppSelector( state => state.auth)
-  const { isPending: isPendingCategories, isError: isErrorCategories, data: propertyCategories } = useQuery<{id: number, title: string}[]>({ queryKey: ['property-categories'], queryFn: apiGetPropertyCategories })
+  const propertyCategoriesRef =  useRef<PropertyCategoryDropdownRef>(null);
 
   const {
     register,
@@ -39,7 +40,6 @@ function AddPropertyPage() {
   } = useForm<PropertyFormInput>()
 
   const offerType = watch("offerType")
-  const categoryId = watch("categoryId")
   const currency = watch("currency")
   const country = watch("country")
   const region = watch("region")
@@ -56,10 +56,10 @@ function AddPropertyPage() {
         description: "Property added successfully!",
       })
       reset()
+      propertyCategoriesRef.current?.reset()
       specificationsRef.current?.clear()
       mainImageRef.current?.clear()
       otherImagesRef.current?.clear()
-
     },
     onError: axiosErrorHandler
   })
@@ -164,23 +164,11 @@ function AddPropertyPage() {
                 </div>
                 <div className="w-full">
                   <label className="block text-sm mb-1">Select Category*</label>
-                  <Select
-                      value={categoryId ? String(categoryId) : ""}
-                      onValueChange={(value) => {
-                    setValue('categoryId', +value)
-                  }} required>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Category"/>
-                    </SelectTrigger>
-                    <SelectContent>
-                      {propertyCategories && propertyCategories.map((category) => {
-                        return (
-                            <SelectItem key={category.id}
-                                        value={`${category['id']}`}>{category['title'] as string}</SelectItem>
-                        )
-                      })}
-                    </SelectContent>
-                  </Select>
+                  <PropertyCategoriesDropdown
+                      ref={propertyCategoriesRef}
+                      onCategorySelected={(categoryId) => {
+                    setValue('categoryId', categoryId)
+                  }} />
                 </div>
 
               </div>
@@ -302,7 +290,6 @@ function AddPropertyPage() {
               <Button
                   type="submit"
                   className="bg-primary text-white px-6"
-                  disabled={isPendingCategories || isErrorCategories}
               >
                 {isPending && <LoaderCircle className="animate-spin"/>}
                 {!isPending && <span>Submit Property</span>}

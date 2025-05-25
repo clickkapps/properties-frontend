@@ -7,8 +7,13 @@ import {
 } from "@/components/ui/carousel"
 import {agentsImg, propGalleryImage, womanImg} from "@/assets";
 import ImagePreviewer from "@/components/website/ImagePreviewer.tsx";
+import {PropertyModel} from "@/lib/types";
+import {getCdnFile} from "@/lib/utils.ts";
 
-function PropertyImages() {
+type Props = {
+    property: PropertyModel;
+}
+function PropertyImages({ property }: Props) {
     return (
         <>
             <ImagePreviewer
@@ -22,7 +27,7 @@ function PropertyImages() {
                     <CarouselContent>
                         <CarouselItem>
                                 <a className="aspect-video overflow-hidden rounded-lg" data-fancybox="gallery" href={propGalleryImage}>
-                                    <img src={propGalleryImage} alt="Gallery Item" className="object-cover w-full h-full"/>
+                                    <img src={getCdnFile(property.mainImagePath)} alt="Gallery Item" className="object-cover w-full h-full"/>
                                 </a>
                         </CarouselItem>
                         <CarouselItem>

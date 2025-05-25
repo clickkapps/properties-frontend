@@ -12,7 +12,7 @@ import {Input} from "@/components/ui/input.tsx";
 import {useNavigate} from "react-router";
 import {ModalHandle} from "@/lib/types";
 
-const SearchResults =  forwardRef(({ children }: { children?: ReactNode }, ref: Ref<ModalHandle | undefined>) => {
+const SearchbarModal =  forwardRef( ({ children }: { children?: ReactNode }, ref: Ref<ModalHandle | undefined>) => {
 
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -75,4 +75,4 @@ const SearchResults =  forwardRef(({ children }: { children?: ReactNode }, ref: 
 })
 
 
-export default SearchResults;
+export default SearchbarModal;

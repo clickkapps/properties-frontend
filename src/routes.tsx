@@ -2,7 +2,7 @@ import {createBrowserRouter, RouterProvider} from "react-router";
 import App from "@/App.tsx";
 import ErrorPage from "@/presentation/website/ErrorPage.tsx";
 import LandingPage from "@/presentation/website/LandingPage.tsx";
-import {accountLoader, loginLoader, registrationLoader} from "@/lib/loaders.ts";
+import {accountLoader, loginLoader, propertyDetailLoader, registrationLoader} from "@/lib/loaders.ts";
 import SignInPage from "@/presentation/auth/SignInPage.tsx";
 import AdminSignInPage from "@/presentation/auth/AdminSignInPage.tsx";
 import PropertyListPage from "@/presentation/website/PropertyListPage.tsx";
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
             {   path: "login", loader: loginLoader, element: <SignInPage />,},
             {   path: "admin/login", loader: loginLoader, element: <AdminSignInPage />,},
             {   path: "properties/:type", element: <PropertyListPage />},
-            {   path: "property-detail",  element: <PropertyDetailPage />},
+            {   path: "property-detail/:propertyId", loader: propertyDetailLoader, element: <PropertyDetailPage />},
             {   path: "agents", element: <AgentsPage />},
             {   path: "agent-detail", element: <AgentDetailPage /> },
             {   path: 'register', loader: registrationLoader, element: <RegistrationPage />},

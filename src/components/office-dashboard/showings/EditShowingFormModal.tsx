@@ -82,7 +82,7 @@ const EditShowingFormModal = forwardRef(( { onUpdate, initialValue  } : Props, r
         <div className={"space-y-6"}>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-                <PropertiesDropdown selectedId={propertyShowing?.property?.id} onValueChange={(val) => setValue("propertyId", val)}/>
+                <PropertiesDropdown defaultValue={propertyShowing?.property?.id} onValueChange={(val) => setValue("propertyId", val)}/>
                 <div>
                     <label className="block text-sm  mb-1">Customer First Name</label>
                     <Input

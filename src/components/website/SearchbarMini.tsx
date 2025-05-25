@@ -1,9 +1,6 @@
-import {Search, SearchIcon} from "lucide-react"
-import {Button} from "@/components/ui/button.tsx";
-import {useRef, useState} from "react";
-import SearchResults from "@/components/website/SearchResults.tsx";
+import {Search} from "lucide-react"
+import { useState} from "react";
 import {useNavigate} from "react-router";
-import {ModalHandle} from "@/lib/types";
 import {
     Select,
     SelectContent,
@@ -13,12 +10,11 @@ import {
 } from "@/components/ui/select"
 import {ghRegions} from "@/constants/ui.constants.ts";
 import {Input} from "@/components/ui/input.tsx";
+import MobileSearchBar from "@/components/website/MobileSearchBar.tsx";
 
 
+const SearchbarMini = () => {
 
-const Searchbar = ({ className }: { className: string}) => {
-
-    const modalRef = useRef<ModalHandle>()
     const navigate = useNavigate()
     const [searchValues, setSearchValues] = useState<Record<string, string> | undefined >(undefined)
 
@@ -37,7 +33,7 @@ const Searchbar = ({ className }: { className: string}) => {
     return (
         <>
           {/* Destop */}
-          <div className={`bg-white p-2 rounded-full hidden md:flex items-center w-full max-w-5xl mx-auto ${className}`}>
+          <div className={`bg-white p-2 rounded-full hidden md:flex items-center w-full max-w-5xl mx-auto animated fadeInUp animate__delay-5s`}>
 
 
               <Select onValueChange={(value) => {
@@ -107,14 +103,10 @@ const Searchbar = ({ className }: { className: string}) => {
 
           </div>
           {/* Mobile Screen  */}
-          <Button
-              onClick={ () => {
-                  modalRef.current?.open()
-              }}
-              size={"lg"} className={`rounded-full md:hidden bg-white text-black mt-4 ${className}`}> <SearchIcon /> Search for properties </Button>
-          <SearchResults ref={modalRef} />
+          <MobileSearchBar />
+
         </>
     )
 }
 
-export default Searchbar
+export default SearchbarMini

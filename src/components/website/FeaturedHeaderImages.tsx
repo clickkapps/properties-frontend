@@ -19,8 +19,8 @@ import {Badge} from "@/components/ui/badge.tsx";
 //
 function FeaturedHeaderImages({ className }: { className: string }) {
 
-    const { data, isPending } = useQuery<PropertyModel[]>({ queryKey: ['fetch-featured-properties'], queryFn: () => apiGetProperties( {
-            endpoint: "/public/featured"
+    const { data, isPending } = useQuery<PropertyModel[]>({ queryKey: ['fetch-promoted-properties'], queryFn: () => apiGetProperties( {
+            endpoint: "/public/promoted"
         } ) });
 
     const classes = `w-full container mx-auto p-4 bg-black ${className}`;
@@ -38,36 +38,41 @@ function FeaturedHeaderImages({ className }: { className: string }) {
         >
 
                 <CarouselContent>
-                { isPending &&  Array.from({ length: 6 }, (index) => (
-                    <CarouselItem key={`sk-${index}`} className="md:basis-1/6 cursor-pointer h-[200px]">
-                        <Skeleton className="w-full h-full rounded-full" />
-                    </CarouselItem>
-                )) }
-                {data && data?.map((feature, index) => (
-                    <CarouselItem key={index} className="md:basis-1/6 cursor-pointer h-[200px]">
-                        <Link to="/property-detail">
-                            <div
-                                key={index}
-                                className="relative w-full h-full group"
-                            >
-                                {/* Image */}
-                                <img
-                                    src={getCdnFile(feature.mainImagePath)}
-                                    alt={feature.title}
-                                    className="absolute object-cover w-full h-full group-hover:scale-95 cursor-pointer hover:z-100 transition duration-150"
-                                />
+                    { isPending && Array.from({ length: 6 }).map( (_, index) => {
+                        const key = `sk-${-index}`
+                        return (
+                            <CarouselItem key={key} className="md:basis-1/6 cursor-pointer h-[200px]">
+                                <Skeleton className="w-full h-full aspect-square bg-slate-200"/>
+                            </CarouselItem>
+                        );
+                    }) }
+
+                    {data && data?.map((feature, index) => (
+                        <CarouselItem key={feature.id} className="md:basis-1/6 cursor-pointer h-[200px]">
+                            <Link to="/property-detail">
                                 <div
-                                    className="w-full h-full bg-black/30 group-hover:bg-black/20 absolute transition duration-150"></div>
-                                <div
-                                    className="absolute top-0 left-0 bg-gradient-to-b w-full from-black/60 via-transparent to-transparent p-4">
-                                    <Badge className={"bg-teal-600"}>Promoted</Badge>
-                                    <h3 className="text-white font-bold text-lg">{feature.title}</h3>
-                                    <p className="text-white text-sm">For {capitalize(feature.offerType)}</p>
+                                    key={index}
+                                    className="relative w-full h-full group"
+                                >
+                                    {/* Image */}
+                                    <img
+                                        src={getCdnFile(feature.mainImagePath)}
+                                        alt={feature.title}
+                                        className="absolute object-cover w-full h-full group-hover:scale-95 cursor-pointer hover:z-100 transition duration-150"
+                                    />
+                                    <div
+                                        className="w-full h-full bg-black/30 group-hover:bg-black/20 absolute transition duration-150"></div>
+                                    <div
+                                        className="absolute top-0 left-0 bg-gradient-to-b w-full from-black/60 via-transparent to-transparent p-4">
+                                        <Badge className={"bg-teal-600"}>Promoted</Badge>
+                                        <h3 className="text-white font-bold text-lg">{feature.title}</h3>
+                                        <p className="text-white text-sm">For {capitalize(feature.offerType)}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </Link>
-                    </CarouselItem>
-                ))}
+                            </Link>
+                        </CarouselItem>
+                    ))}
+
                 </CarouselContent>
 
             <CarouselPrevious className="left-8"/>

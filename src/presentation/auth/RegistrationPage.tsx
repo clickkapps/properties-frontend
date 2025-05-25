@@ -11,8 +11,9 @@ import {useToast} from "@/hooks/use-toast.ts";
 import {RegistrationFormInputs} from "@/lib/types";
 import {apiUpdateUserInfo} from "@/api/users.api.ts";
 import {useDispatch} from "react-redux";
-import {updateAuthUser} from "@/store/auth-slice.ts";
+import {logout, updateAuthUser} from "@/store/auth-slice.ts";
 import {useLoaderData, useNavigate} from "react-router";
+import {appStorage} from "@/lib/storage.ts";
 
 
 function RegistrationPage() {
@@ -66,6 +67,12 @@ function RegistrationPage() {
             })
         },
     })
+
+    const returnToLoginHandler = () => {
+        appStorage.removeAccessToken()
+        dispatch(logout())
+        navigate("/login")
+    }
 
     function submitHandler(data: RegistrationFormInputs) {
         mutate(data)
@@ -203,6 +210,8 @@ function RegistrationPage() {
                         </Button>
 
                     </form>
+
+                    <a href='#' onClick={returnToLoginHandler} className="text-blue-700"> Go back to login</a>
 
                 </div>
             </div>

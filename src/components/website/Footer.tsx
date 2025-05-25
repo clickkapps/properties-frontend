@@ -1,5 +1,6 @@
 import { Globe } from 'lucide-react';
 import {shellImg} from "@/assets";
+import {Link} from "react-router";
 
 function Footer({collapse = false, bgColor, className}: {collapse?: boolean, bgColor?: string, className?: string}) {
     return (
@@ -13,34 +14,38 @@ function Footer({collapse = false, bgColor, className}: {collapse?: boolean, bgC
                     <div className="flex flex-col  md:flex-row justify-between gap-10">
 
                         <ul className="flex flex-col decoration-0 gap-4 ">
-                            <li className='tracking-tight hover:text-primary hover:font-bold text-sm mb-4 font-bold'>Quick
+                            <li className='tracking-tight hover:text-gray-300 text-sm mb-4 font-bold'>Quick
                                 links
                             </li>
-                            <li className='tracking-tight hover:text-primary hover:font-bold text-sm'>Consultants
+                            <li className='tracking-tight hover:text-gray-300 text-sm'>
+                                <Link to="/account/agent">My account</Link>
                             </li>
-                            <li className='tracking-tight hover:text-primary hover:font-bold text-sm'>Clients
+                            <li className='tracking-tight hover:text-gray-300 text-sm'>
+                                <Link to="/properties/sale">Properties For Sale</Link>
                             </li>
-                            <li className='tracking-tight hover:text-primary hover:font-bold text-sm'>About us</li>
+                            <li className='tracking-tight hover:text-gray-300 text-sm'>
+                                <Link to="/properties/sale">Properties For Rent</Link>
+                            </li>
                         </ul>
 
                         <ul className="flex flex-col decoration-0 gap-4 ">
-                            <li className='tracking-tight hover:text-primary text-sm mb-4 font-bold'>Get in touch
+                            <li className='tracking-tight hover:text-gray-300 text-sm mb-4 font-bold'>Get in touch
                             </li>
-                            <li className='tracking-tight hover:text-primary text-sm'>Email: support@guidem.services
+                            <li className='tracking-tight hover:text-gray-300 text-sm'>Email: support@guidem.services
                             </li>
-                            <li className='tracking-tight hover:text-primary text-sm'>Tel: +1709333333
+                            <li className='tracking-tight hover:text-gray-300 text-sm'>Tel: +233 24 345 6789
                             </li>
-                            <li className='tracking-tight hover:text-primary text-sm'> Website: guideme.services</li>
+                            <li className='tracking-tight hover:text-gray-300 text-sm'><a target="_blank" href="https://blog.propertiespark.com">Blog: blog.propertiespark.com</a> </li>
                         </ul>
 
                         <ul className="flex flex-col decoration-0 gap-4 items-start">
-                            <li className='tracking-tight hover:text-primary text-sm mb-4 font-bold'>Address
+                            <li className='tracking-tight hover:text-gray-300 text-sm mb-4 font-bold'>Address
                             </li>
-                            <li className='tracking-tight hover:text-primary text-sm'>St. John's
+                            <li className='tracking-tight hover:text-gray-300 text-sm'>Accra
                             </li>
-                            <li className='tracking-tight hover:text-primary text-sm'>Newfoundland & Labrador
+                            <li className='tracking-tight hover:text-gray-300 text-sm'>East Legon Apartments
                             </li>
-                            <li className='tracking-tight hover:text-primary text-sm'>Canada</li>
+                            <li className='tracking-tight hover:text-gray-300 text-sm'>Accra</li>
                         </ul>
                     </div>
 
@@ -63,7 +68,7 @@ function Footer({collapse = false, bgColor, className}: {collapse?: boolean, bgC
                     </div>
                     <div className="hidden md:inline-flex gap-4 ">
                         <Globe/>
-                        <p>Canada</p>
+                        <p>Ghana</p>
                     </div>
                 </div>
             </div>

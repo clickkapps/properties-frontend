@@ -102,6 +102,14 @@ export type User = {
     createdAt?: Date,
     updatedAt?: Date
     activeEntitlement: Entitlement
+    permissions?: PermissionModel[]
+}
+
+export type PermissionModel = {
+    id?: number,
+    verb: string,
+    action?: string,
+    subject?: string,
 }
 
 export type Entitlement = {

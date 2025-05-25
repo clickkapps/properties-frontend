@@ -2,22 +2,45 @@ import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/c
 import {useQuery} from "@tanstack/react-query";
 import {apiGetProperties} from "@/api/properties.api.ts";
 import {PropertyModel} from "@/lib/types";
+import {forwardRef, Ref, useImperativeHandle, useState} from "react";
 
 type Props = {
     onValueChange?: (id: number) => void;
-    selectedId?: number,
+    defaultValue?: number,
 }
 
-function PropertiesDropdown({ selectedId, onValueChange }: Props) {
+export type PropertyDropdownRef = {
+    reset: () => void
+}
+
+const PropertiesDropdown = forwardRef(function PropertiesDropdown({ defaultValue, onValueChange }: Props, ref: Ref<PropertyDropdownRef | undefined>) {
+
+    const [selectedPropertyId, setSelectedPropertyId] = useState<number|undefined>(undefined)
 
     const { data: dataFetchProperties } = useQuery<PropertyModel[]>({ queryKey: ['fetch-properties'], queryFn: () => apiGetProperties( {} ) });
+
+
+    useImperativeHandle(ref, () => {
+        return {
+            reset: () => {
+                setSelectedPropertyId(undefined)
+            }
+        }
+    })
+
+    const propertySelectedHandler = (val: string) => {
+        if(onValueChange) { onValueChange(+val) }
+        setSelectedPropertyId(+val)
+    }
 
     return (
         <div className="w-full">
             <label className="block text-sm mb-1">Select Property*</label>
-            <Select onValueChange={(val: string) => {
-                if(onValueChange) { onValueChange(+val) }
-            }} defaultValue={selectedId ? String(selectedId) : ""}>
+            <Select
+                value={selectedPropertyId ? String(selectedPropertyId) : ""}
+                onValueChange={propertySelectedHandler}
+                    defaultValue={defaultValue ? String(defaultValue) : ""}
+            >
                 <SelectTrigger className="w-full">
                     <SelectValue placeholder="Property"/>
                 </SelectTrigger>
@@ -31,6 +54,6 @@ function PropertiesDropdown({ selectedId, onValueChange }: Props) {
             </Select>
         </div>
     )
-}
+})
 
 export default PropertiesDropdown

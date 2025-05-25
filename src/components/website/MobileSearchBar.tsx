@@ -1,17 +1,22 @@
-import { Search } from "lucide-react";
+import {SearchIcon} from "lucide-react";
+import {Button} from "@/components/ui/button.tsx";
+import SearchbarModal from "@/components/website/SearchbarModal.tsx";
+import {useRef} from "react";
+import {ModalHandle} from "@/lib/types";
 
 const MobileSearchBar = () => {
+
+  const modalRef = useRef<ModalHandle>()
+
   return (
-    <div 
-      className="flex items-center justify-between bg-white rounded-full px-4 py-3 shadow-md w-[250px] mx-auto cursor-pointer"
-    >
-      <Search className="text-gray-600 w-5 h-5" />
-      <input
-        type="text"
-        placeholder="Search"
-        className="bg-transparent outline-none "
-      />
-    </div>
+    <>
+      <Button
+          onClick={ () => {
+            modalRef.current?.open()
+          }}
+          size={"lg"} className={`rounded-full md:hidden bg-white text-black mt-4 animated fadeInUp animate__delay-5s shadow`}> <SearchIcon /> Search for properties </Button>
+      <SearchbarModal ref={modalRef} />
+    </>
   )
 }
 
