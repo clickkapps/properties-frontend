@@ -68,6 +68,9 @@ export interface PropertyModel {
     user: User
     gallery: { id?: number, propertyId?: number, path?: string, caption?: string, createdAt?: string, updatedAt?: string }[],
     specifications?: KeyValue[]
+    category?: {
+    title: string;
+    };
     promoted?: boolean,
     createdAt?: string,
     updatedAt?: string,
@@ -85,7 +88,7 @@ export type KeyValue = {
     id?: number,
     localId?: string,
     title: string
-    value: unknown
+    value: string | number;
 }
 
 export type User = {
