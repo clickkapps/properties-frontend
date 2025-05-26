@@ -53,7 +53,7 @@ export interface PropertyModel {
 
     id?: number
     categoryId: number
-    offerType: string;
+    offerType?: string | null;
     title: string;
     currency: string;
     amount: number,
@@ -122,16 +122,25 @@ export type Entitlement = {
 }
 
 export type PropertyFilters = {
-    country?: string,
+    country?: string|null,
     published?: boolean,
     categoryId?: number,
-    offerType?: string,
-    rooms?: number,
-    washrooms?: number,
-    price?: number,
-    sortBy?: string,
-    sortOrder?: string,
-    search?: string,
+    offerType?: string|null,
+    rooms?: number|null|string,
+    washrooms?: number|null|string,
+    amount?: number|null|string,
+    sortBy?: string|null,
+    sortOrder?: string|null,
+    search?: string|null,
+    region?: string|null,
+    currency?: string|null,
+    address?: string|null,
+    title?: string|null,
+    description?: string|null,
+    bedrooms?: string|null,
+    kitchens?: string|null,
+    maxAmount?: string|null,
+    promoted?: boolean|null|string,
 }
 
 export type ConfirmDialogOptions = {

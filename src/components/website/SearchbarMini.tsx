@@ -94,7 +94,7 @@ const SearchbarMini = () => {
 
             <button
                 onClick={() => {
-                    navigate('/properties/rent')
+                    navigate('/properties')
                 }}
                 className="flex items-center justify-center bg-[#e50005] rounded-full px-4 py-3 space-x-2 text-white font-semibold hover:bg-red-700">
               <Search className="w-5 h-5"/>

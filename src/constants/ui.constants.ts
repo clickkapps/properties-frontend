@@ -14,12 +14,12 @@ import {ListingType, MenuLink} from "@/lib/types";
 export const websiteMenuLinks: MenuLink[] = [
     {
         title: "For Sale",
-        url: "/properties/sale",
+        url: "/properties?offerType=rent",
         external: false
     },
     {
         title: "For Rent",
-        url: "/properties/rent",
+        url: "/properties?offerType=rent",
         external: false
     },
     {

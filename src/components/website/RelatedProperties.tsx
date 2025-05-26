@@ -9,9 +9,9 @@ type Props = {
 }
 function RelatedProperties({ propertyId }: Props) {
 
-    const { data, isPending } = useQuery<PropertyModel[]>({ queryKey: ['fetch-related-properties'], queryFn: () => apiGetProperties( {
-            endpoint: "/public/related/"+propertyId
-        } ) });
+        const { data, isPending } = useQuery<PropertyModel[]>({ queryKey: ['fetch-related-properties'], queryFn: () => apiGetProperties( {
+                endpoint: "/public/related/"+propertyId
+            } ) });
 
 
     return (

@@ -40,7 +40,7 @@ const router = createBrowserRouter([
             {   index: true, element: <LandingPage /> },
             {   path: "login", loader: loginLoader, element: <SignInPage />,},
             {   path: "admin/login", loader: loginLoader, element: <AdminSignInPage />,},
-            {   path: "properties/:type", element: <PropertyListPage />},
+            {   path: "properties", element: <PropertyListPage />},
             {   path: "property-detail/:propertyId", loader: propertyDetailLoader, element: <PropertyDetailPage />},
             {   path: "agents", element: <AgentsPage />},
             {   path: "agent-detail", element: <AgentDetailPage /> },

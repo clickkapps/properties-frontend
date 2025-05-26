@@ -55,7 +55,7 @@ const SearchbarModal =  forwardRef( ({ children }: { children?: ReactNode }, ref
                 <button
                     type='button'
                     onClick={() => {
-                      navigate('/properties/rent')
+                      navigate('/properties')
                     }}
                     className="flex items-center gap-2 bg-[#e50005] text-white font-medium px-4 py-2 rounded-lg hover:bg-red-700">
                   <Search className="w-5 h-5"/> Search
