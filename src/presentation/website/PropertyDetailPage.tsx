@@ -18,7 +18,7 @@ import {PropertyModel} from "@/lib/types";
 function PropertyDetailPage() {
 
     const propertyData = useLoaderData<PropertyModel>()
-
+    
     return (
         <>
             <Navbar className="fixed bg-black w-full z-20 " animate={false}/>
@@ -44,7 +44,7 @@ function PropertyDetailPage() {
                         </div>
                         <div className="h-4"></div>
                         <h2 className="font-normal text-xl md:text-2xl my-4">Property Details</h2>
-                        <PropertyDetailsTable/>
+                        <PropertyDetailsTable property={propertyData}/>
                         <div className="h-12"></div>
                         {/*<ReviewSection/>*/}
                         {/*<div className="h-12"></div>*/}
