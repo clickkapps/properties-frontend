@@ -18,7 +18,6 @@ import {PropertyModel} from "@/lib/types";
 function PropertyDetailPage() {
 
     const propertyData = useLoaderData<PropertyModel>()
-    console.log("propertyData: => ",propertyData)
     
     return (
         <>
