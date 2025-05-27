@@ -51,12 +51,12 @@ const PropertyListItem = ({ property }: Props) => {
             <div className="mt-4 space-y-2 text-black text-[15px]">
               {
                 ((property.rooms || 0) > 0) && (<p className="flex items-center gap-2">
-                  <Bed size={20}/> <span className="font-[Inter]">{property.rooms}</span> - bedrooms
+                  <Bed size={20}/> <span className="font-[Inter]">{property.rooms}</span> - rooms
                 </p>)
               }
               {
                   ((property.washrooms || 0) > 0) && (<p className="flex items-center gap-2">
-                    <Bath size={20}/> <span className="font-[Inter]">{property.washrooms}</span> - bathrooms
+                    <Bath size={20}/> <span className="font-[Inter]">{property.washrooms}</span> - washrooms
                   </p>)
               }
               <p className="flex items-center gap-2">
