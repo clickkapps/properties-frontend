@@ -1,4 +1,5 @@
 import { PropertyModel } from "@/lib/types";
+import {quickFormatDate} from "@/lib/utils.ts";
 
 type Props = {
   property: PropertyModel;
@@ -22,7 +23,7 @@ const PropertyDetailsTable = ({ property }: Props) => {
 
         <div className="p-3 bg-[#F5F5F5] border font-medium">
           Added: <span className="font-normal">
-            {createdAt ? new Date(createdAt).toLocaleDateString() : "N/A"}
+            {createdAt ? quickFormatDate(createdAt) : "N/A"}
           </span>
         </div>
 
