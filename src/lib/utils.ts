@@ -31,11 +31,17 @@ export function customLog(...values: (string|undefined|object)[]) {
     }
 }
 
-export function quickFormatDate(date: Date | string) {
+export function quickFormatDate(date?: Date | string) {
+    if(!date) {
+        return date
+    }
     return format(date, "LLL dd, y")
 }
 
-export function quickFormatDateTime(date: Date | string) {
+export function quickFormatDateTime(date?: Date | string) {
+    if(!date) {
+        return date
+    }
     return format(date, "LLL dd, y h:mm a")
 }
 

@@ -1,7 +1,7 @@
-import { Bed, Bath, Toilet, Star, Heart } from "lucide-react"
+import {Bed, Bath, Star, Heart, Calendar1Icon} from "lucide-react"
 import {Link} from "react-router";
 import {PropertyModel} from "@/lib/types";
-import {getCdnFile} from "@/lib/utils.ts";
+import {getCdnFile, quickFormatDate} from "@/lib/utils.ts";
 import {capitalize} from "lodash";
 
 type Props = {
@@ -22,7 +22,7 @@ const PropertyListItem = ({ property }: Props) => {
 
             <span
                 className="absolute top-3 left-2 bg-white text-black text-[14px] font-medium px-3 py-1 rounded-full  md:group-hover:scale-110  transition duration-150">
-          For { capitalize(property.offerType) }
+          For { capitalize(property.offerType as string) }
         </span>
 
             <button className="absolute top-2 right-2 p-2 rounded-full md:group-hover:scale-110  transition duration-150">
@@ -45,18 +45,22 @@ const PropertyListItem = ({ property }: Props) => {
               </h3>
 
             </div>
-            <p className="text-[#6A6A6A] mt-2">Labadi - Accra</p>
+            <p className="text-[#6A6A6A] mt-2">{ property.address }</p>
 
             {/* Features */}
             <div className="mt-4 space-y-2 text-black text-[15px]">
+              {
+                ((property.rooms || 0) > 0) && (<p className="flex items-center gap-2">
+                  <Bed size={20}/> <span className="font-[Inter]">{property.rooms}</span> - bedrooms
+                </p>)
+              }
+              {
+                  ((property.washrooms || 0) > 0) && (<p className="flex items-center gap-2">
+                    <Bath size={20}/> <span className="font-[Inter]">{property.washrooms}</span> - bathrooms
+                  </p>)
+              }
               <p className="flex items-center gap-2">
-                <Bed size={20}/> <span className="font-[Inter]">5</span> - bedrooms
-              </p>
-              <p className="flex items-center gap-2">
-                <Bath size={20}/> <span className="font-[Inter]">5</span> - bathrooms
-              </p>
-              <p className="flex items-center gap-2">
-                <Toilet size={20}/> <span className="font-[Inter]">5</span> - water closets
+                <Calendar1Icon size={20}/> Posted on { quickFormatDate(property.createdAt) }
               </p>
             </div>
           </div>

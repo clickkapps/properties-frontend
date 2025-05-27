@@ -66,7 +66,7 @@ function FeaturedHeaderImages({ className }: { className: string }) {
                                         className="absolute top-0 left-0 bg-gradient-to-b w-full from-black/60 via-transparent to-transparent p-4">
                                         <Badge className={"bg-teal-600"}>Promoted</Badge>
                                         <h3 className="text-white font-bold text-lg">{feature.title}</h3>
-                                        <p className="text-white text-sm">For {capitalize(feature.offerType)}</p>
+                                        <p className="text-white text-sm">For {capitalize(feature.offerType || "")}</p>
                                     </div>
                                 </div>
                             </Link>

@@ -277,7 +277,7 @@ function ManagePropertyDetail({ selectedProperty }: Props) {
         formData.append("region", data.region);
         formData.append("currency", data.currency);
         formData.append("amount", String(data.amount));
-        formData.append("offerType", data.offerType);
+        formData.append("offerType", data.offerType || "");
         formData.append("categoryId", data.categoryId.toString());
         formData.append("rooms", String(data.rooms));
         if(data.address) {
@@ -410,7 +410,7 @@ function ManagePropertyDetail({ selectedProperty }: Props) {
                                         <label className="block text-sm mb-1">Property For*</label>
                                         <Select onValueChange={(value) => {
                                             setValue('offerType', value)
-                                        }} name={"offerType"} required defaultValue={property.offerType}>
+                                        }} name={"offerType"} required defaultValue={property.offerType || ""}>
                                             <SelectTrigger className="w-full">
                                                 <SelectValue placeholder="Rent or Sale"/>
                                             </SelectTrigger>

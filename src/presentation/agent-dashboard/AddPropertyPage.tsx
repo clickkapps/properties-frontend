@@ -97,7 +97,7 @@ function AddPropertyPage() {
     formData.append("region", data.region);
     formData.append("currency", data.currency);
     formData.append("amount", String(data.amount));
-    formData.append("offerType", data.offerType);
+    formData.append("offerType", data.offerType || "");
     formData.append("categoryId", data.categoryId.toString());
     formData.append("rooms", String(data.rooms));
     if(data.address) {

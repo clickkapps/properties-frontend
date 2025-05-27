@@ -68,7 +68,9 @@ export interface PropertyModel {
     user: User
     gallery: { id?: number, propertyId?: number, path?: string, caption?: string, createdAt?: string, updatedAt?: string }[],
     specifications?: KeyValue[]
-    promoted?: boolean
+    promoted?: boolean,
+    createdAt?: string,
+    updatedAt?: string,
 
 }
 
