@@ -1,7 +1,7 @@
-import {Bed, Bath, Star, Heart, Calendar1Icon} from "lucide-react"
+import {Bed, Bath, Heart, Calendar1Icon} from "lucide-react"
 import {Link} from "react-router";
 import {PropertyModel} from "@/lib/types";
-import {getCdnFile, quickFormatDate} from "@/lib/utils.ts";
+import {formatCurrency, getCdnFile, quickFormatDate} from "@/lib/utils.ts";
 import {capitalize} from "lodash";
 
 type Props = {
@@ -39,13 +39,13 @@ const PropertyListItem = ({ property }: Props) => {
                   <span> {property.title} </span>
                 </div>
                 <div className="inline-flex items-center pl-4 space-x-1 ">
-                  <Star size={12} style={{fill: "black"}}/>
-                  <span className="font-[Inter]">4.92</span>
+                  {/*<Star size={12} style={{fill: "black"}}/>*/}
+                  <span className="font-[Inter]"> { formatCurrency(property.amount, property.currency) }</span>
                 </div>
               </h3>
 
             </div>
-            <p className="text-[#6A6A6A] mt-2">{ property.address }</p>
+            <p className="text-[#6A6A6A] mt-2">{ property.address } ( { property.region } ) </p>
 
             {/* Features */}
             <div className="mt-4 space-y-2 text-black text-[15px]">

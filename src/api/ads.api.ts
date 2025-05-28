@@ -7,3 +7,7 @@ export const apiPostNewAd = async (formData: FormData) => {
 export const apiFetchUserAds = async () => {
     return await apiClient.get(`/advertisements`).then((response) =>  response.data.data)
 }
+
+export const apiFetchPublicAds = async () => {
+    return await apiClient.get(`/advertisements/public`).then((response) =>  response.data.data)
+}

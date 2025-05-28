@@ -17,7 +17,7 @@ import {capitalize} from "lodash";
 import {Badge} from "@/components/ui/badge.tsx";
 
 //
-function FeaturedHeaderImages({ className }: { className: string }) {
+function PromotedProperties({ className }: { className: string }) {
 
     const { data, isPending } = useQuery<PropertyModel[]>({ queryKey: ['fetch-promoted-properties'], queryFn: () => apiGetProperties( {
             endpoint: "/public/promoted"
@@ -32,6 +32,7 @@ function FeaturedHeaderImages({ className }: { className: string }) {
             plugins={[
                 Autoplay({
                     delay: 2000,
+
                 }),
             ]}
             className={classes}
@@ -47,17 +48,17 @@ function FeaturedHeaderImages({ className }: { className: string }) {
                         );
                     }) }
 
-                    {data && data?.map((feature, index) => (
-                        <CarouselItem key={feature.id} className="md:basis-1/6 cursor-pointer h-[200px]">
-                            <Link to="/property-detail">
+                    {data && data?.map((property, index) => (
+                        <CarouselItem key={property.id} className="md:basis-1/6 cursor-pointer h-[200px]">
+                            <Link to={`/property-detail/${property.id}`}>
                                 <div
                                     key={index}
                                     className="relative w-full h-full group"
                                 >
                                     {/* Image */}
                                     <img
-                                        src={getCdnFile(feature.mainImagePath)}
-                                        alt={feature.title}
+                                        src={getCdnFile(property.mainImagePath)}
+                                        alt={property.title}
                                         className="absolute object-cover w-full h-full group-hover:scale-95 cursor-pointer hover:z-100 transition duration-150"
                                     />
                                     <div
@@ -65,8 +66,8 @@ function FeaturedHeaderImages({ className }: { className: string }) {
                                     <div
                                         className="absolute top-0 left-0 bg-gradient-to-b w-full from-black/60 via-transparent to-transparent p-4">
                                         <Badge className={"bg-teal-600"}>Promoted</Badge>
-                                        <h3 className="text-white font-bold text-lg">{feature.title}</h3>
-                                        <p className="text-white text-sm">For {capitalize(feature.offerType || "")}</p>
+                                        <h3 className="text-white font-bold text-lg">{property.title}</h3>
+                                        <p className="text-white text-sm">For {capitalize(property.offerType || "")}</p>
                                     </div>
                                 </div>
                             </Link>
@@ -82,4 +83,4 @@ function FeaturedHeaderImages({ className }: { className: string }) {
     )
 }
 
-export default FeaturedHeaderImages
+export default PromotedProperties

@@ -45,6 +45,15 @@ export function quickFormatDateTime(date?: Date | string) {
     return format(date, "LLL dd, y h:mm a")
 }
 
+export function formatCurrency(amount: number, currency: string = 'GHS', locale: string = 'en-US'): string {
+    return new Intl.NumberFormat(locale, {
+        style: 'currency',
+        currency,
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    }).format(amount);
+}
+
 export function getUuid(): string {
     return uuidv4()
 }

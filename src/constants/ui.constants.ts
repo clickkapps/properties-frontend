@@ -14,7 +14,7 @@ import {ListingType, MenuLink} from "@/lib/types";
 export const websiteMenuLinks: MenuLink[] = [
     {
         title: "For Sale",
-        url: "/properties?offerType=rent",
+        url: "/properties?offerType=sale",
         external: false
     },
     {

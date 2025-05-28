@@ -1,7 +1,7 @@
 import Navbar from "@/components/website/Navbar.tsx";
 import SearchbarMini from "@/components/website/SearchbarMini.tsx";
 // import FeaturedImages from "@/components/website/FeaturedImages.tsx";
-import FeaturedHeaderImages from "@/components/website/FeaturedHeaderImages.tsx";
+import PromotedProperties from "@/components/website/PromotedProperties.tsx";
 import {getCdnFile} from "@/lib/utils.ts";
 
 function Header() {
@@ -22,7 +22,7 @@ function Header() {
                             </div>
                         </div>
                         <div className="absolute bottom-0 left-0 right-0 mx-4 -mb-[100px]">
-                            <FeaturedHeaderImages className="mx-auto" />
+                            <PromotedProperties className="mx-auto" />
                         </div>
                     </div>
                 </div>

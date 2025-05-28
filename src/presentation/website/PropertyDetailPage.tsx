@@ -8,12 +8,10 @@ import PropertyDetailsTable from "@/components/website/PropertyDetailsTable.tsx"
 import {
     // advertImg,
     whatsappIcon} from "@/assets";
-import MarketedBy from "@/components/website/MarketedBy.tsx";
-import ReportListing from "@/components/website/ReportListing.tsx";
-import SafetyTips from "@/components/website/SafetyTips.tsx";
 import RelatedProperties from "@/components/website/RelatedProperties.tsx";
 import {useLoaderData} from "react-router";
 import {PropertyModel} from "@/lib/types";
+
 
 function PropertyDetailPage() {
 
@@ -25,15 +23,22 @@ function PropertyDetailPage() {
             <div className="h-16 md:h-16 "></div>
 
             <main className="container mx-auto">
-                <div className="flex mx-5 md:mx-auto">
-
+                <h2 className="uppercase font-normal text-xl md:text-3xl py-8 mx-5 md:mx-auto">
+                    {propertyData.title}
+                </h2>
+                <div className="flex flex-col md:flex-row mx-5 md:mx-auto gap-8">
                     {/* Left Column*/}
-                    <div className="w-full md:w-[65%]">
-                        <h2 className="uppercase font-normal text-xl md:text-3xl py-8">
-                            { propertyData.title }
-                        </h2>
+                    <div className="w-full md:flex-1">
+
                         <PropertyImages property={propertyData}/>
-                        <h2 className="font-normal text-xl md:text-2xl my-4">Interested in this property?</h2>
+
+                        <div className="h-4"></div>
+
+                    </div>
+
+                    <div className="w-full md:flex-1">
+                        <PropertyDetailsTable property={propertyData}/>
+                        <h2 className="font-normal text-xl md:text-2xl my-8">Interested in this property?</h2>
                         <div className="flex gap-2 md:gap-4">
                             <Button className="bg-[#E50005] flex-1 md:py-6"> <Phone/> Call </Button>
                             <Button className="bg-[#209E48] flex-1 md:py-6">
@@ -42,52 +47,32 @@ function PropertyDetailPage() {
                             </Button>
                             <Button className="bg-[#00014F] flex-1 md:py-6"> <Mail/> Email </Button>
                         </div>
-                        <div className="h-4"></div>
-                        <h2 className="font-normal text-xl md:text-2xl my-4">Property Details</h2>
-                        <PropertyDetailsTable property={propertyData}/>
-                        <div className="h-12"></div>
                         {/*<ReviewSection/>*/}
                         {/*<div className="h-12"></div>*/}
-
-
                     </div>
 
-                    {/* Column Separating Gap */}
-                    <div className="hidden md:block md:w-[10%]"></div>
+                    {/*/!* Column Separating Gap *!/*/}
+                    {/*<div className="hidden md:block md:w-[10%]"></div>*/}
 
-                    {/* Right Column*/}
-                    <div className="hidden md:block md:w-[25%]">
+                    {/*/!* Right Column*!/*/}
+                    {/*<div className="hidden md:block md:w-[25%]">*/}
 
-                        <div className="h-24"></div>
+                    {/*    <div className="h-24"></div>*/}
 
-                        {/*<div className="rounded-lg overflow-hidden">*/}
-                        {/*    <img*/}
-                        {/*        src={advertImg}*/}
-                        {/*        alt="advert"*/}
-                        {/*        className="w-full h-auto"*/}
-                        {/*    />*/}
-                        {/*</div>*/}
+                    {/*    /!*<div className="rounded-lg overflow-hidden">*!/*/}
+                    {/*    /!*    <img*!/*/}
+                    {/*    /!*        src={advertImg}*!/*/}
+                    {/*    /!*        alt="advert"*!/*/}
+                    {/*    /!*        className="w-full h-auto"*!/*/}
+                    {/*    /!*    />*!/*/}
+                    {/*    /!*</div>*!/*/}
 
                         {/* MarketedBy Section */}
-                        <div className="">
-                            <MarketedBy/>
-                        </div>
 
-                        {/* Report Listing Section */}
-                        <div className="my-12">
-                            <ReportListing/>
-                        </div>
-
-                        {/* Safety Tips Section */}
-                        <div className="">
-                            <SafetyTips/>
-                        </div>
-
-                    </div>
+                    {/*</div>*/}
                 </div>
 
-                <h2 className="font-normal text-xl md:text-4xl my-4 text-center">Related Properties</h2>
-                <div className="h-12"></div>
+                <h2 className="font-normal text-xl md:text-4xl mb-8 mt-8 text-center">Related Properties</h2>
 
                 <RelatedProperties propertyId={propertyData.id}/>
 

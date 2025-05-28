@@ -74,7 +74,6 @@ export interface PropertyModel {
     promoted?: boolean,
     createdAt?: string,
     updatedAt?: string,
-
 }
 
 export interface AdvertisementFormInputs {
@@ -107,7 +106,9 @@ export type User = {
     createdAt?: Date,
     updatedAt?: Date
     activeEntitlement: Entitlement
-    permissions?: PermissionModel[]
+    permissions?: PermissionModel[],
+    companyName?: string,
+    companyLocation?: string,
 }
 
 export type PermissionModel = {

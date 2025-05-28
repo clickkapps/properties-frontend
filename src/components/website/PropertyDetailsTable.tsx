@@ -1,5 +1,6 @@
 import { PropertyModel } from "@/lib/types";
-import {quickFormatDate} from "@/lib/utils.ts";
+import {formatCurrency, quickFormatDate} from "@/lib/utils.ts";
+import MarketedBy from "@/components/website/MarketedBy.tsx";
 
 type Props = {
   property: PropertyModel;
@@ -36,7 +37,7 @@ const PropertyDetailsTable = ({ property }: Props) => {
         </div>
 
         <div className="p-3 border font-medium">
-          Price: <span className="font-normal">{currency} {amount}</span>
+          Price: <span className="font-normal font-[Inter]"> { formatCurrency( amount, currency) }</span>
         </div>
       </div>
 
@@ -63,6 +64,11 @@ const PropertyDetailsTable = ({ property }: Props) => {
           </div>
         </div>
       )}
+
+      <div className="mt-4">
+        <MarketedBy user={ property.user }/>
+      </div>
+
     </div>
   );
 };

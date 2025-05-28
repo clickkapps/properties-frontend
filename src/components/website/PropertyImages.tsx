@@ -28,7 +28,9 @@ function PropertyImages({ property }: Props) {
       {/* Top Image Carousel */}
       <ImagePreviewer options={{ Carousel: { infinite: false } }}>
         <div className="max-h-[500px] overflow-hidden rounded-lg mb-4">
-          <Carousel>
+          <Carousel
+
+          >
             <CarouselContent>
               {/* Main Image */}
               <CarouselItem>

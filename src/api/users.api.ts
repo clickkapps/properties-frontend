@@ -1,12 +1,17 @@
 import apiClient from "@/api/config.api.ts";
 import {UserFormInputs} from "@/lib/types";
 
-export const apiGetUserInfo = async(uid?: number) => {
+export const apiGetUserInfo = async(uid?: number, loginId?: string) => {
     return apiClient.get("/users/basic-info", {
         params: {
             uid: uid,
+            loginId: loginId,
         }
     }).then((response) =>  response.data)
+};
+
+export const apiGetUserSupportInfo = async() => {
+    return apiGetUserInfo(undefined, "support_442")
 };
 
 export const apiUpdateUserInfo = async(payload: UserFormInputs ) => {

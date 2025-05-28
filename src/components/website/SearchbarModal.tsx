@@ -1,4 +1,3 @@
-import { Search } from "lucide-react";
 import {createPortal} from "react-dom";
 import {
   Dialog,
@@ -8,14 +7,14 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import {forwardRef, ReactNode, Ref, useImperativeHandle, useState} from "react";
-import {Input} from "@/components/ui/input.tsx";
-import {useNavigate} from "react-router";
+// import {useNavigate} from "react-router";
 import {ModalHandle} from "@/lib/types";
+import SearchbarExtendedForm from "@/components/website/SearchbarExtendedForm.tsx";
 
 const SearchbarModal =  forwardRef( ({ children }: { children?: ReactNode }, ref: Ref<ModalHandle | undefined>) => {
 
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useImperativeHandle(ref, () => {
     return {
@@ -39,30 +38,7 @@ const SearchbarModal =  forwardRef( ({ children }: { children?: ReactNode }, ref
             </DialogDescription>
           </DialogHeader>
           { children || <div className="p-4 flex justify-center">
-            <form className="w-full rounded-xl bg-white relative">
-
-              {/* Fields */}
-              <div className="space-y-3">
-                <Input placeholder="Location" className="py-6" autoFocus={false}/>
-                <Input placeholder="Category" className="py-6" autoFocus={false} />
-                <Input placeholder="Bedroom" className="py-6" autoFocus={false} />
-                <Input placeholder="Price" className="py-6" autoFocus={false} />
-              </div>
-
-              {/* Bottom Buttons */}
-              <div className="flex justify-between items-center mt-5">
-                <button type='reset' className="font-semibold underline">Clear all</button>
-                <button
-                    type='button'
-                    onClick={() => {
-                      navigate('/properties')
-                    }}
-                    className="flex items-center gap-2 bg-[#e50005] text-white font-medium px-4 py-2 rounded-lg hover:bg-red-700">
-                  <Search className="w-5 h-5"/> Search
-                </button>
-              </div>
-
-            </form>
+            <SearchbarExtendedForm />
           </div>
           }
 
