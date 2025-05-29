@@ -3,6 +3,7 @@ import {Link} from "react-router";
 import {PropertyModel} from "@/lib/types";
 import {formatCurrency, getCdnFile, quickFormatDate} from "@/lib/utils.ts";
 import {capitalize} from "lodash";
+import {Badge} from "@/components/ui/badge.tsx";
 
 type Props = {
   property: PropertyModel
@@ -24,6 +25,7 @@ const PropertyListItem = ({ property }: Props) => {
                 className="absolute top-3 left-2 bg-white text-black text-[14px] font-medium px-3 py-1 rounded-full  md:group-hover:scale-110  transition duration-150">
           For { capitalize(property.offerType as string) }
         </span>
+            <span className="absolute bottom-3 left-2">{ property.promoted && <Badge className={"bg-teal-600"}>Promoted</Badge> }</span>
 
             <button className="absolute top-2 right-2 p-2 rounded-full md:group-hover:scale-110  transition duration-150">
               <Heart fill="#000" className="w-[24px] h-[24px] "/>

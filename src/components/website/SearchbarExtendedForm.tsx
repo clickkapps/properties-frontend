@@ -5,12 +5,15 @@ import {ghRegions} from "@/constants/ui.constants.ts";
 import {useDebouncedCallback} from "use-debounce";
 import {Checkbox} from "@/components/ui/checkbox.tsx";
 import {useLocation, useNavigate} from "react-router";
+import usePropertyFilters from "@/hooks/use-property-filters.ts";
 
 type Props = {
     showSearchButton?: boolean;
 }
 
 function SearchbarExtendedForm({ showSearchButton }: Props = { showSearchButton: true} ) {
+
+    const filters = usePropertyFilters()
 
     const navigate = useNavigate()
     const location = useLocation();
@@ -25,6 +28,7 @@ function SearchbarExtendedForm({ showSearchButton }: Props = { showSearchButton:
         }
         navigate(`${location.pathname}?${params.toString()}`);
     };
+
 
     // Debounce callback
     const debouncedSearch = useDebouncedCallback(
@@ -41,11 +45,20 @@ function SearchbarExtendedForm({ showSearchButton }: Props = { showSearchButton:
         // function
         (value) => {
             // setValue(value);
-            updateQueryParam('amount', value);
+            updateQueryParam('maxAmount', value);
         },
         // delay in ms
         1000
     );
+
+    const clearAll = () => {
+        navigate(location.pathname); // Removes all query parameters
+    }
+
+    const navigateToProperties = () => {
+        const params = new URLSearchParams(location.search);
+        navigate(`${location.pathname}?${params.toString()}`);
+    }
 
     return (
         <>
@@ -56,24 +69,24 @@ function SearchbarExtendedForm({ showSearchButton }: Props = { showSearchButton:
 
                     <div>
                         <label className="block text-sm mb-1">General Search</label>
-                        <Input placeholder="Search here" className="py-6 shadow-none" autoFocus={true}
+                        <Input placeholder="Search here" defaultValue={filters.search || ""} className="py-6 shadow-none" autoFocus={true}
                                onChange={(e) => debouncedSearch(e.target.value)}
                         />
                     </div>
                     <div>
-                        <label className="block text-sm mb-1">Set maximum amount</label>
-                        <Input placeholder="Maximum amount" className="py-6 shadow-none" autoFocus={false} type={"number"}
+                        <label className="block text-sm mb-1">Set maximum price</label>
+                        <Input defaultValue={filters.maxAmount || ""} placeholder="Maximum maxAmount" className="py-6 shadow-none font-[Inter]" autoFocus={false} type={"number"}
                                onChange={(e) => debouncedMaxAmount(e.target.value)}
                         />
                     </div>
 
                     <div>
                         <label className="block text-sm mb-1">Set currency</label>
-                        <Select onValueChange={(value) => {
+                        <Select defaultValue={filters.currency || ""} onValueChange={(value) => {
                             updateQueryParam("currency", value)
                         }}>
                             <SelectTrigger className="px-4 py-3 text-[#6A6A6A] shadow-none focus:ring-0 h-full">
-                                <SelectValue placeholder="Property Type"/>
+                                <SelectValue placeholder="Currency"/>
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="GHS">GHS</SelectItem>
@@ -84,7 +97,7 @@ function SearchbarExtendedForm({ showSearchButton }: Props = { showSearchButton:
 
                     <div>
                         <label className="block text-sm mb-1">Set property type</label>
-                        <Select onValueChange={(value) => {
+                        <Select defaultValue={filters.offerType || ""} onValueChange={(value) => {
                             if(value == "any") {
                                 updateQueryParam("offerType", "")
                                 return
@@ -103,7 +116,7 @@ function SearchbarExtendedForm({ showSearchButton }: Props = { showSearchButton:
                     </div>
                     <div>
                         <label className="block text-sm mb-1">Select region</label>
-                        <Select onValueChange={(value) => {
+                        <Select defaultValue={filters.region || ""} onValueChange={(value) => {
                             updateQueryParam("region", value)
                         }}>
                             <SelectTrigger className="px-4 py-3 text-[#6A6A6A] shadow-none focus:ring-0 h-full">
@@ -118,7 +131,7 @@ function SearchbarExtendedForm({ showSearchButton }: Props = { showSearchButton:
                     </div>
                     <div>
                         <label className="block text-sm mb-1">Select rooms</label>
-                        <Select onValueChange={(value) => {
+                        <Select defaultValue={filters.rooms || ""} onValueChange={(value) => {
                             updateQueryParam("rooms", value)
                         }}>
                             <SelectTrigger className="px-4 py-3 text-[#6A6A6A] shadow-none focus:ring-0 h-full">
@@ -139,7 +152,7 @@ function SearchbarExtendedForm({ showSearchButton }: Props = { showSearchButton:
 
                     <div>
                         <label className="block text-sm mb-1">Set washrooms</label>
-                        <Select onValueChange={(value) => {
+                        <Select defaultValue={filters.washrooms || ""} onValueChange={(value) => {
                             updateQueryParam("washrooms", value)
                         }}>
                             <SelectTrigger className="px-4 py-3 text-[#6A6A6A]shadow-none focus:ring-0 h-full">
@@ -159,8 +172,8 @@ function SearchbarExtendedForm({ showSearchButton }: Props = { showSearchButton:
                     </div>
 
                     <div className="flex items-center space-x-2 py-2">
-                        <Checkbox id="terms" onChange={(e) => {
-
+                        <Checkbox checked={ filters.promoted == "true" } id="terms" onCheckedChange={(checked) => {
+                            updateQueryParam("promoted", checked ? "true" : "")
                         }}/>
                         <label
                             htmlFor="terms"
@@ -174,13 +187,11 @@ function SearchbarExtendedForm({ showSearchButton }: Props = { showSearchButton:
 
                 {/* Bottom Buttons */}
                 <div className="flex justify-between items-center mt-5">
-                    <button type='reset' className="font-semibold underline">Clear all</button>
+                    <button type='reset' className="font-semibold underline" onClick={clearAll}>Clear all</button>
                     {
                         (showSearchButton && <button
                             type='button'
-                            onClick={() => {
-
-                            }}
+                            onClick={navigateToProperties}
                             className="flex items-center gap-2 bg-[#e50005] text-white font-medium px-4 py-2 rounded-lg hover:bg-red-700">
                             <Search className="w-5 h-5"/> Search
                         </button>)

@@ -72,7 +72,7 @@ function usePurchasePackage(onPurchaseSuccessFn: ({subId, extra}: {subId:number,
             processPaymentFn({
                 reference,
                 currency,
-                amount,
+                amount: maxAmount,
                 email,
                 pk
             })

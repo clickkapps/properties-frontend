@@ -14,7 +14,7 @@ const MobileSearchBar = () => {
           onClick={ () => {
             modalRef.current?.open()
           }}
-          size={"lg"} className={`rounded-full md:hidden bg-white text-black mt-4 animated fadeInUp animate__delay-5s shadow`}> <SearchIcon /> Search for properties </Button>
+          size={"lg"} className={`rounded-full md:hidden bg-white text-black mt-4 animated fadeInUp animate__delay-5s shadow `}> <SearchIcon /> Search for properties </Button>
       <SearchbarModal ref={modalRef} />
     </>
   )

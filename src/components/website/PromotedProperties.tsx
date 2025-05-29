@@ -65,7 +65,7 @@ function PromotedProperties({ className }: { className: string }) {
                                         className="w-full h-full bg-black/30 group-hover:bg-black/20 absolute transition duration-150"></div>
                                     <div
                                         className="absolute top-0 left-0 bg-gradient-to-b w-full from-black/60 via-transparent to-transparent p-4">
-                                        <Badge className={"bg-teal-600"}>Promoted</Badge>
+                                        { property.promoted && <Badge className={"bg-teal-600"}>Promoted</Badge> }
                                         <h3 className="text-white font-bold text-lg">{property.title}</h3>
                                         <p className="text-white text-sm">For {capitalize(property.offerType || "")}</p>
                                     </div>

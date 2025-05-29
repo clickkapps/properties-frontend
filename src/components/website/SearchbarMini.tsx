@@ -74,13 +74,13 @@ const SearchbarMini = () => {
                   </SelectTrigger>
                   <SelectContent>
                       <SelectItem value="1">1 bedroom</SelectItem>
-                      <SelectItem value="2">2 bedrooms</SelectItem>
-                      <SelectItem value="3">3 bedrooms</SelectItem>
-                      <SelectItem value="4">4 bedrooms</SelectItem>
-                      <SelectItem value="5">5 bedrooms</SelectItem>
-                      <SelectItem value="6">6 bedrooms</SelectItem>
-                      <SelectItem value="7">7 bedrooms</SelectItem>
-                      <SelectItem value="8">9 bedrooms</SelectItem>
+                      <SelectItem value="2">2 rooms</SelectItem>
+                      <SelectItem value="3">3 rooms</SelectItem>
+                      <SelectItem value="4">4 rooms</SelectItem>
+                      <SelectItem value="5">5 rooms</SelectItem>
+                      <SelectItem value="6">6 rooms</SelectItem>
+                      <SelectItem value="7">7 rooms</SelectItem>
+                      <SelectItem value="8">9 rooms</SelectItem>
                   </SelectContent>
               </Select>
 
