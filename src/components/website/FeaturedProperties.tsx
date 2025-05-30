@@ -1,11 +1,11 @@
 import PropertyListItem from "@/components/website/PropertyListItem.tsx";
-import AlphaAd from "@/components/website/AlphaAd.tsx";
 import BetaAd from "@/components/website/BetaAd.tsx";
 import ConsultationServicesAd from "@/components/website/ConsultationServicesAd.tsx";
 import {useQuery} from "@tanstack/react-query";
 import {PropertyModel} from "@/lib/types";
 import {apiGetProperties} from "@/api/properties.api.ts";
 import {Skeleton} from "@/components/ui/skeleton.tsx";
+import AdCarousel from "./AdCarousel";
 
 function FeaturedProperties() {
 
@@ -28,7 +28,7 @@ function FeaturedProperties() {
                     data && data.map((property, index) => {
                     if (index == 4) {
                         return (
-                            <AlphaAd  key={"item-" + index}/>
+                            <AdCarousel key={"item-" + index} />
                         )
                     }
 
