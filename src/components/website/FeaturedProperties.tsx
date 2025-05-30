@@ -6,6 +6,7 @@ import {useQuery} from "@tanstack/react-query";
 import {PropertyModel} from "@/lib/types";
 import {apiGetProperties} from "@/api/properties.api.ts";
 import {Skeleton} from "@/components/ui/skeleton.tsx";
+import AnimatedInView from "@/components/ui/AnimatedInView.tsx";
 
 function FeaturedProperties() {
 
@@ -26,29 +27,40 @@ function FeaturedProperties() {
 
                 {
                     data && data.map((property, index) => {
-                    if (index == 4) {
-                        return (
-                            <AlphaAd  key={"item-" + index}/>
-                        )
-                    }
+                        const delay = index * 0.05; // Optional stagger effect
 
-                    if(index == 9) {
-                        return (
-                            <ConsultationServicesAd key={"item-" + index} />
-                        )
-                    }
+                        if (index === 4) {
+                            return (
+                                <AnimatedInView key={"item-" + index} delay={delay}>
+                                    <AlphaAd />
+                                </AnimatedInView>
+                            );
+                        }
 
-                    if (index == 14) {
-                        return (
-                            <BetaAd  key={"item-" + index}/>
-                        )
-                    }
+                        if (index === 9) {
+                            return (
+                                <AnimatedInView key={"item-" + index} delay={delay}>
+                                    <ConsultationServicesAd />
+                                </AnimatedInView>
+                            );
+                        }
 
-                    return (
-                        <PropertyListItem property={property} key={"item-" + index}/>
-                    )
-                })
+                        if (index === 14) {
+                            return (
+                                <AnimatedInView key={"item-" + index} delay={delay}>
+                                    <BetaAd />
+                                </AnimatedInView>
+                            );
+                        }
+
+                        return (
+                            <AnimatedInView key={"item-" + index} delay={delay}>
+                                <PropertyListItem property={property} />
+                            </AnimatedInView>
+                        );
+                    })
                 }
+
 
             </div>
     )

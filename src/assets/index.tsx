@@ -20,6 +20,7 @@ import reviewImg from "./images/reviewImg.svg"
 import partnerPlaceholderImg from "./images/partner-placeholder.svg"
 import adPlaceholderImg from "./images/ad_placeholder.svg"
 import buySellConsultImg from "./images/buy_sell_consult.svg"
+import brandLogoImg from "./images/brand_logo.png"
 
 //GAllery images
 import house1 from "./images/house1.svg"
@@ -34,7 +35,8 @@ export { shellImg, propertyImg,
   facebookLogo, emailLogo, locationIcon, phoneIcon,
   whatsappIcon, websiteIcon, agentsImg,
   userImg1, userImg2, propGalleryImage, user1, user2, advertImg, reviewImg, partnerPlaceholderImg,
-  adPlaceholderImg, buySellConsultImg
+  adPlaceholderImg, buySellConsultImg,
+  brandLogoImg
 }
 
 // exporting gallery images

@@ -30,15 +30,17 @@ const SearchbarModal =  forwardRef( ({ children }: { children?: ReactNode }, ref
   return createPortal(
       <Dialog open={open} onOpenChange={setOpen}>
         {/*<DialogTrigger>Open</DialogTrigger>*/}
-        <DialogContent>
+        <DialogContent className="h-screen overflow-y-auto">
           <DialogHeader>
             <DialogTitle>What are you looking for?</DialogTitle>
             <DialogDescription>
               Search for any property of your choice
             </DialogDescription>
           </DialogHeader>
-          { children || <div className="p-4 flex justify-center">
-            <SearchbarExtendedForm />
+          { children || <div className="p-4">
+            <SearchbarExtendedForm showSearchButton={true} onSearchBtnTapped={ () => {
+              setOpen(false)
+            }} onClearBtnTapped={ () => setOpen(false)} />
           </div>
           }
 

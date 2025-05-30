@@ -3,6 +3,7 @@ import {useQuery} from "@tanstack/react-query";
 import {PropertyModel} from "@/lib/types";
 import {apiGetProperties} from "@/api/properties.api.ts";
 import {Skeleton} from "@/components/ui/skeleton.tsx";
+import AnimatedInView from "@/components/ui/AnimatedInView.tsx";
 
 type Props = {
     propertyId?: number
@@ -22,9 +23,11 @@ function RelatedProperties({ propertyId }: Props) {
                         <Skeleton key={key} className="w-full h-full aspect-square rounded"/>
                     );
                 }) }
-                {data && data.map((item) => {
+                {data && data.map((item,index) => {
                     return (
-                        <PropertyListItem property={item} key={item.id}/>
+                        <AnimatedInView delay={0.05 * index}>
+                            <PropertyListItem property={item} key={item.id}/>
+                        </AnimatedInView>
                     )
                 })}
         </div>

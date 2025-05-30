@@ -138,13 +138,13 @@ export const officeMenuLinks: MenuLink[] = [
 export const payments: ListingType[] = [
     {
         id: "728ed52f",
-        maxAmount: 100,
+        amount: 100,
         status: "5 Bedroom apartment",
         email: "m@example.com",
     },
     {
         id: "489e1d42",
-        maxAmount: 125,
+        amount: 125,
         status: "2 Bedroom apartment",
         email: "example@gmail.com",
     },

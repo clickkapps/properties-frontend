@@ -9,9 +9,11 @@ import usePropertyFilters from "@/hooks/use-property-filters.ts";
 
 type Props = {
     showSearchButton?: boolean;
+    onSearchBtnTapped?: () => void;
+    onClearBtnTapped?: () => void;
 }
 
-function SearchbarExtendedForm({ showSearchButton }: Props = { showSearchButton: true} ) {
+function SearchbarExtendedForm({ showSearchButton, onSearchBtnTapped, onClearBtnTapped }: Props = { showSearchButton: true} ) {
 
     const filters = usePropertyFilters()
 
@@ -26,7 +28,7 @@ function SearchbarExtendedForm({ showSearchButton }: Props = { showSearchButton:
         } else {
             params.delete(key); // Remove the parameter if value is empty
         }
-        navigate(`${location.pathname}?${params.toString()}`);
+        navigate(`/properties?${params.toString()}`);
     };
 
 
@@ -53,16 +55,22 @@ function SearchbarExtendedForm({ showSearchButton }: Props = { showSearchButton:
 
     const clearAll = () => {
         navigate(location.pathname); // Removes all query parameters
+        if(onClearBtnTapped) {
+            onClearBtnTapped()
+        }
     }
 
     const navigateToProperties = () => {
+        if(onSearchBtnTapped) {
+            onSearchBtnTapped()
+        }
         const params = new URLSearchParams(location.search);
-        navigate(`${location.pathname}?${params.toString()}`);
+        navigate(`/properties?${params.toString()}`);
     }
 
     return (
         <>
-            <div className="w-full rounded-xl bg-white relative">
+            <div className="w-full h-full rounded-xl bg-white relative">
 
                 {/* Fields */}
                 <div className="space-y-3">

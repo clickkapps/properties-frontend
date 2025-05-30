@@ -11,6 +11,7 @@ import {
 import RelatedProperties from "@/components/website/RelatedProperties.tsx";
 import {useLoaderData} from "react-router";
 import {PropertyModel} from "@/lib/types";
+import AnimatedInView from "@/components/ui/AnimatedInView.tsx";
 
 
 function PropertyDetailPage() {
@@ -30,23 +31,27 @@ function PropertyDetailPage() {
                     {/* Left Column*/}
                     <div className="w-full md:flex-1">
 
-                        <PropertyImages property={propertyData}/>
+                        <AnimatedInView delay={0.1}>
+                            <PropertyImages property={propertyData}/>
+                        </AnimatedInView>
 
                         <div className="h-4"></div>
 
                     </div>
 
                     <div className="w-full md:flex-1">
-                        <PropertyDetailsTable property={propertyData}/>
-                        <h2 className="font-normal text-xl md:text-2xl my-8">Interested in this property?</h2>
-                        <div className="flex gap-2 md:gap-4">
-                            <Button className="bg-[#E50005] flex-1 md:py-6"> <Phone/> Call </Button>
-                            <Button className="bg-[#209E48] flex-1 md:py-6">
-                                <img src={whatsappIcon} alt="WhatsApp" className="w-5 h-5 invert"/>
-                                Whatsapp
-                            </Button>
-                            <Button className="bg-[#00014F] flex-1 md:py-6"> <Mail/> Email </Button>
-                        </div>
+                        <AnimatedInView delay={0.2}>
+                            <PropertyDetailsTable property={propertyData}/>
+                            <h2 className="font-normal text-xl md:text-2xl my-8">Interested in this property?</h2>
+                            <div className="flex gap-2 md:gap-4">
+                                <Button className="bg-[#E50005] flex-1 md:py-6"> <Phone/> Call </Button>
+                                <Button className="bg-[#209E48] flex-1 md:py-6">
+                                    <img src={whatsappIcon} alt="WhatsApp" className="w-5 h-5 invert"/>
+                                    Whatsapp
+                                </Button>
+                                <Button className="bg-[#00014F] flex-1 md:py-6"> <Mail/> Email </Button>
+                            </div>
+                        </AnimatedInView>
                         {/*<ReviewSection/>*/}
                         {/*<div className="h-12"></div>*/}
                     </div>

@@ -10,6 +10,7 @@ import MobileSearchBar from "@/components/website/MobileSearchBar.tsx";
 import SearchbarExtendedForm from "@/components/website/SearchbarExtendedForm.tsx";
 import {Badge} from "@/components/ui/badge.tsx";
 import usePropertyFilters from "@/hooks/use-property-filters.ts";
+import AnimatedInView from "@/components/ui/AnimatedInView.tsx";
 
 function PropertyListPage() {
 
@@ -65,9 +66,12 @@ function PropertyListPage() {
                                     <Skeleton key={key} className="w-full h-full aspect-square rounded"/>
                                 );
                             })}
-                            {data && data.map((item) => {
+                            {data && data.map((item, index) => {
+                                const delay = index * 0.05; // Optional stagger effect
                                 return (
-                                    <PropertyListItem property={item} key={item.id}/>
+                                    <AnimatedInView  key={item.id} delay={delay}>
+                                        <PropertyListItem property={item} key={item.id}/>
+                                    </AnimatedInView>
                                 )
                             })}
                         </div>
