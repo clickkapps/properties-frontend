@@ -1,5 +1,4 @@
 import PropertyListItem from "@/components/website/PropertyListItem.tsx";
-import AlphaAd from "@/components/website/AlphaAd.tsx";
 import BetaAd from "@/components/website/BetaAd.tsx";
 import ConsultationServicesAd from "@/components/website/ConsultationServicesAd.tsx";
 import {useQuery} from "@tanstack/react-query";
@@ -7,6 +6,7 @@ import {PropertyModel} from "@/lib/types";
 import {apiGetProperties} from "@/api/properties.api.ts";
 import {Skeleton} from "@/components/ui/skeleton.tsx";
 import AnimatedInView from "@/components/ui/AnimatedInView.tsx";
+import AdCarousel from "./AdCarousel";
 
 function FeaturedProperties() {
 
@@ -27,15 +27,15 @@ function FeaturedProperties() {
 
                 {
                     data && data.map((property, index) => {
-                        const delay = index * 0.05; // Optional stagger effect
+                    const delay = index * 0.05; // Optional stagger effect
 
-                        if (index === 4) {
-                            return (
-                                <AnimatedInView key={"item-" + index} delay={delay}>
-                                    <AlphaAd />
-                                </AnimatedInView>
-                            );
-                        }
+                    if (index == 4) {
+                        return (
+                            <AnimatedInView key={"item-" + index} delay={delay}>
+                                <AdCarousel />
+                            </AnimatedInView>
+                        )
+                    }
 
                         if (index === 9) {
                             return (
