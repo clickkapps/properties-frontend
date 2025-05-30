@@ -11,3 +11,4 @@ export const apiFetchUserAds = async () => {
 export const apiFetchPublicAds = async () => {
     return await apiClient.get(`/advertisements/public`).then((response) =>  response.data.data)
 }
+
