@@ -2,7 +2,7 @@ import {createBrowserRouter, RouterProvider} from "react-router";
 import App from "@/App.tsx";
 import ErrorPage from "@/presentation/website/ErrorPage.tsx";
 import LandingPage from "@/presentation/website/LandingPage.tsx";
-import {accountLoader, loginLoader, propertyDetailLoader, registrationLoader} from "@/lib/loaders.ts";
+import {accountLoader, indexLoader, loginLoader, propertyDetailLoader, registrationLoader} from "@/lib/loaders.ts";
 import SignInPage from "@/presentation/auth/SignInPage.tsx";
 import AdminSignInPage from "@/presentation/auth/AdminSignInPage.tsx";
 import PropertyListPage from "@/presentation/website/PropertyListPage.tsx";
@@ -34,6 +34,8 @@ import AdminPage from "@/presentation/office-dashboard/AdminPage.tsx";
 const router = createBrowserRouter([
 
     {   path: "/",
+        id: "index",
+        loader: indexLoader,
         element: <App />,
         errorElement: <ErrorPage />,
         children: [

@@ -1,5 +1,4 @@
 import PropertyListItem from "@/components/website/PropertyListItem.tsx";
-import BetaAd from "@/components/website/BetaAd.tsx";
 import ConsultationServicesAd from "@/components/website/ConsultationServicesAd.tsx";
 import {useQuery} from "@tanstack/react-query";
 import {PropertyModel} from "@/lib/types";
@@ -45,13 +44,13 @@ function FeaturedProperties() {
                             );
                         }
 
-                        if (index === 14) {
-                            return (
-                                <AnimatedInView key={"item-" + index} delay={delay}>
-                                    <BetaAd />
-                                </AnimatedInView>
-                            );
-                        }
+                        // if (index === 14) {
+                        //     return (
+                        //         <AnimatedInView key={"item-" + index} delay={delay}>
+                        //             <BetaAd />
+                        //         </AnimatedInView>
+                        //     );
+                        // }
 
                         return (
                             <AnimatedInView key={"item-" + index} delay={delay}>

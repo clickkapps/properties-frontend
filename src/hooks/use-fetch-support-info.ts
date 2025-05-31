@@ -1,12 +1,12 @@
 import {useQuery} from "@tanstack/react-query";
 import {User} from "@/lib/types";
-import {apiGetUserSupportInfo} from "@/api/users.api.ts";
+import {apiGetIndexInfo} from "@/api/system.api.ts";
 
 function useFetchSupportInfo() {
 
     const { isPending, data } = useQuery<User>({
         queryKey: ["fetchSupportInfo"],
-        queryFn: () => apiGetUserSupportInfo(),
+        queryFn: () => apiGetIndexInfo(),
     });
 
     return {

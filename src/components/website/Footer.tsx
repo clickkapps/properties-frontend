@@ -1,8 +1,11 @@
 import { Globe } from 'lucide-react';
-import {shellImg} from "@/assets";
-import {Link} from "react-router";
+import {brandLogoImg} from "@/assets";
+import {Link, useRouteLoaderData} from "react-router";
 
 function Footer({collapse = false, bgColor, className}: {collapse?: boolean, bgColor?: string, className?: string}) {
+
+    const { support } = useRouteLoaderData('index')
+
     return (
         <>
             <div className={`${bgColor || 'bg-black'} text-white ${className}`}>
@@ -31,9 +34,9 @@ function Footer({collapse = false, bgColor, className}: {collapse?: boolean, bgC
                         <ul className="flex flex-col decoration-0 gap-4 ">
                             <li className='tracking-tight hover:text-gray-300 text-sm mb-4 font-bold'>Get in touch
                             </li>
-                            <li className='tracking-tight hover:text-gray-300 text-sm'>Email: support@guidem.services
+                            <li className='tracking-tight hover:text-gray-300 text-sm'>Email: { support.contactEmail }
                             </li>
-                            <li className='tracking-tight hover:text-gray-300 text-sm'>Tel: +233 24 345 6789
+                            <li className='tracking-tight hover:text-gray-300 text-sm'>Tel: { support.contactPhone }
                             </li>
                             <li className='tracking-tight hover:text-gray-300 text-sm'><a target="_blank" href="https://blog.propertiespark.com">Blog: blog.propertiespark.com</a> </li>
                         </ul>
@@ -60,11 +63,11 @@ function Footer({collapse = false, bgColor, className}: {collapse?: boolean, bgC
                     <div className="inline-flex gap-8">
                         {/*<img src={GuideMeLogoWhite} alt="GuidMe Logo" className='-mt-1'/>*/}
                         <div className='flex justify-center items-center space-x-1'>
-                            <img src={shellImg} className='w-[25px] h-[25px]' alt="Company logo"/>
-                            <span className='italic text-white'>Name</span>
+                            <img src={brandLogoImg} className='w-[25px] h-[25px]' alt="Company logo"/>
+                            <span className='font-bold text-white'>GHANA MLS</span>
                         </div>
                         <span>©</span>
-                        <span className="font[Inter]">2025</span> Properties, Inc.
+                        <span className="font[Inter]">2025</span> Ghana MLS, Inc.
                     </div>
                     <div className="hidden md:inline-flex gap-4 ">
                         <Globe/>

@@ -5,6 +5,7 @@ import {appStorage} from "@/lib/storage.ts";
 import {apiGetUserInfo} from "@/api/users.api.ts";
 import {User} from "@/lib/types";
 import {apiGetPropertyDetail} from "@/api/properties.api.ts";
+import {apiGetIndexInfo} from "@/api/system.api.ts";
 
 
 const initialiseUserInfo = async () => {
@@ -98,4 +99,12 @@ export const propertyDetailLoader = async ({ params }: LoaderFunctionArgs ) => {
         console.log("error logging in", err);
         return true
     }
+}
+
+export const indexLoader = async () => {
+
+    // fetch support information
+    const data = await apiGetIndexInfo()
+    console.log("support data: ", data)
+    return data.data
 }

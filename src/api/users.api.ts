@@ -10,10 +10,6 @@ export const apiGetUserInfo = async(uid?: number, loginId?: string) => {
     }).then((response) =>  response.data)
 };
 
-export const apiGetUserSupportInfo = async() => {
-    return apiGetUserInfo(undefined, "support_442")
-};
-
 export const apiUpdateUserInfo = async(payload: UserFormInputs ) => {
     await apiClient.put("/users/basic-info", payload,{
         params: {
