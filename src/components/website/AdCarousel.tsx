@@ -1,11 +1,11 @@
 import { advertImg } from "@/assets";
 import { adPlaceholderImg } from "@/assets";
-import { useEffect, useState } from "react";
-import { Mail, Phone, Link2, Info } from "lucide-react"; 
+import { useState } from "react";
+import {PhoneIcon, MailIcon, LinkIcon} from "lucide-react";
 
 import {
   Dialog,
-  DialogContent,
+  DialogContent, DialogDescription, DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -13,8 +13,9 @@ import {
 import {
   Carousel,
   CarouselContent,
-  CarouselItem,
+  CarouselItem, CarouselNext, CarouselPrevious,
 } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 // Ad type
 type Ad = {
@@ -48,108 +49,79 @@ const mockAds: Ad[] = [
 
 function AdCarousel() {
   const [selectedAd, setSelectedAd] = useState<Ad | null>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  // Auto change every 5 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % mockAds.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const handleAdClick = (ad: Ad) => {
-    setSelectedAd(ad);
-  };
 
   return (
     <>
       {/* Carousel Section */}
-      <div className="w-full max-w-[300px] mx-auto">
-        <Carousel>
-          <CarouselContent>
+      <div className="w-full">
+        <Carousel
+            opts={{
+              loop: true,
+            }}
+            plugins={[
+              Autoplay({
+                delay: 5000,
+                stopOnInteraction: false
+              }),
+            ]}
+        >
+          <CarouselContent className="">
             {mockAds.map((ad, index) => (
-              <CarouselItem key={index} className={index === currentIndex ? "block" : "hidden"}>
+              <CarouselItem key={index} className="basis-1/1 h-full w-full">
                 <img
                   src={ad.flyerUrl}
                   alt={ad.title}
                   className="rounded-lg w-full h-auto object-cover cursor-pointer"
-                  onClick={() => handleAdClick(ad)}
+                  onClick={() => setSelectedAd(ad)}
                 />
               </CarouselItem>
             ))}
           </CarouselContent>
+          <CarouselPrevious className="left-4"/>
+          <CarouselNext className="right-4"/>
         </Carousel>
       </div>
 
       {/* Modal Section */}
-      <Dialog open={selectedAd !== null} onOpenChange={() => setSelectedAd(null)}>
-  <DialogContent className="max-w-2xl w-[95%] max-h-[90vh] overflow-y-auto px-4 sm:px-6 py-4 sm:py-6">
-    <DialogHeader>
-      <DialogTitle>{selectedAd?.title}</DialogTitle>
-    </DialogHeader>
+      <Dialog open={selectedAd !== null} onOpenChange={(open) => {
+          if(!open) setSelectedAd(null);
+      }}>
+        <DialogContent className="h-full w-full bg-[#151b23] border-none text-white overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Contact <a className="font-[Inter]" href={"tel:"+selectedAd?.phone}>{selectedAd?.phone}</a></DialogTitle>
+            <DialogDescription> For more information </DialogDescription>
+          </DialogHeader>
 
-    <div className="flex flex-col md:flex-row gap-6 py-4">
-      {/* Flyer Image */}
-      <div className="w-full md:w-[45%] flex justify-center items-start">
-        <img
-          src={selectedAd?.flyerUrl}
-          alt="Ad flyer"
-          className="rounded-lg w-full h-auto max-h-[250px] object-contain"
-        />
-      </div>
+          <img
+              src={selectedAd?.flyerUrl}
+              alt="Ad flyer"
+              className="rounded-lg h-full w-full bg-no-repeat"
+          />
 
-      {/* Info Table */}
-      <div className="w-full md:w-[55%] text-sm border border-gray-200 rounded-lg overflow-hidden">
-        {[
-          {
-            label: "Description",
-            icon: <Info className="w-4 h-4 mr-2" />,
-            value: selectedAd?.description,
-          },
-          {
-            label: "Phone",
-            icon: <Phone className="w-4 h-4 mr-2" />,
-            value: selectedAd?.phone,
-          },
-          {
-            label: "Email",
-            icon: <Mail className="w-4 h-4 mr-2" />,
-            value: selectedAd?.email,
-          },
-          {
-            label: "Link",
-            icon: <Link2 className="w-4 h-4 mr-2" />,
-            value: (
-              <a
-                href={selectedAd?.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 underline block truncate max-w-full"
-              >
-                {selectedAd?.link}
-              </a>
-            ),
-          },
-        ].map((item, idx) => (
-          <div
-            key={idx}
-            className={`flex items-start px-4 py-3 ${
-              idx % 2 === 0 ? "bg-gray-50" : "bg-white"
-            }`}
-          >
-            <div className="flex items-center w-32 font-medium text-gray-700 border-r border-gray-200">
-              {item.icon}
-              {item.label}
+          <DialogFooter className="bg-black/80 rounded">
+
+            <div className="w-full py-2 px-4 flex flex-col divide-y divide-slate-800 text-white rounded">
+
+              <div className="flex flex-row gap-4 py-2 items-center">
+                <PhoneIcon size={16} className="text-blue-500"/>
+                <a href={"tel:"+selectedAd?.phone} className="text-blue-500">{selectedAd?.phone}</a>
+              </div>
+              <div className="flex flex-row gap-4 py-2 items-center">
+                <MailIcon size={16} className="text-blue-500"/>
+                <a href={"mailto:"+selectedAd?.email} className="text-blue-500">{selectedAd?.email}</a>
+              </div>
+              <div className="flex flex-row gap-4 py-2 items-center">
+                <LinkIcon size={16} className="text-blue-500"/>
+                <a target="_blank" href={selectedAd?.link} className="text-blue-500">{selectedAd?.link}</a>
+              </div>
+
             </div>
-            <div className="pl-4 text-gray-800 flex-1 break-words">{item.value}</div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </DialogContent>
-</Dialog>
 
+          </DialogFooter>
+
+
+        </DialogContent>
+      </Dialog>
     </>
   );
 }
