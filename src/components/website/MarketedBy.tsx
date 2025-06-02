@@ -17,22 +17,22 @@ const MarketedBy = ({ user }: Props) => {
         <div className="flex flex-wrap text-sm gap-4">
           <div className="inline-flex items-center space-x-2">
             <img src={locationIcon} alt="Location" className="w-5 h-5" />
-            <span> {user.companyLocation} </span>
+            <span className="font-[Inter]"> {user.companyLocation} </span>
           </div>
 
           <div className="inline-flex items-center space-x-2">
             <img src={phoneIcon} alt="Phone" className="w-5 h-5" />
-            <span>{ user.contactPhone }</span>
+            <span className="font-[Inter]">{ user.contactPhone }</span>
           </div>
 
           <div className="inline-flex items-center space-x-2">
             <img src={whatsappIcon} alt="WhatsApp" className="w-5 h-5" />
-            <span>{ user.contactPhone }</span>
+            <span className="font-[Inter]">{ user.contactPhone }</span>
           </div>
 
           <div className="inline-flex items-center space-x-2">
             <img src={websiteIcon} alt="Website" className="w-5 h-5" />
-            <span>{ user.contactEmail }</span>
+            <span className="font-[Inter]">{ user.contactEmail }</span>
           </div>
         </div>
       </div>

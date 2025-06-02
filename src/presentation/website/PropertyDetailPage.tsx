@@ -44,12 +44,12 @@ function PropertyDetailPage() {
                             <PropertyDetailsTable property={propertyData}/>
                             <h2 className="font-normal text-xl md:text-2xl my-8">Interested in this property?</h2>
                             <div className="flex gap-2 md:gap-4">
-                                <Button className="bg-[#E50005] flex-1 md:py-6"> <Phone/> Call </Button>
-                                <Button className="bg-[#209E48] flex-1 md:py-6">
+                                <Button className="bg-[#E50005] flex-1 md:py-6" onClick={() =>  window.location.href = `tel:${propertyData.user?.contactPhone}`}> <Phone/> Call </Button>
+                                <Button className="bg-[#209E48] flex-1 md:py-6"  onClick={() =>  window.location.href = `https://wa.me/${propertyData.user?.contactPhone}`}>
                                     <img src={whatsappIcon} alt="WhatsApp" className="w-5 h-5 invert"/>
                                     Whatsapp
                                 </Button>
-                                <Button className="bg-[#00014F] flex-1 md:py-6"> <Mail/> Email </Button>
+                                <Button className="bg-[#00014F] flex-1 md:py-6"  onClick={() =>  window.location.href = `tel:${propertyData.user?.contactEmail}`}> <Mail/> Email </Button>
                             </div>
                         </AnimatedInView>
                         {/*<ReviewSection/>*/}

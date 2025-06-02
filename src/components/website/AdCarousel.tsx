@@ -1,5 +1,3 @@
-import { advertImg } from "@/assets";
-import { adPlaceholderImg } from "@/assets";
 import { useState } from "react";
 import {PhoneIcon, MailIcon, LinkIcon} from "lucide-react";
 
@@ -16,39 +14,22 @@ import {
   CarouselItem, CarouselNext, CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-
-// Ad type
-type Ad = {
-  flyerUrl: string;
-  title: string;
-  description: string;
-  phone: string;
-  email: string;
-  link: string;
-};
-
-// Mock data 
-const mockAds: Ad[] = [
-  {
-    flyerUrl: advertImg,
-    title: "Ultramodern Property for Sale",
-    description: "Join us this July for great real estate deals!",
-    phone: "057-263-6005",
-    email: "kojo@gmail.com",
-    link: "https://propertiespark.com/",
-  },
-  {
-    flyerUrl: adPlaceholderImg,
-    title: "Resilience Homes",
-    description: "Live in a home where you feel safe and secure",
-    phone: "024-242-0848",
-    email: "elton@gmail.com",
-    link: "https://propertiespark.com/",
-  },
-];
+import {apiFetchPublicAds} from "@/api/ads.api.ts";
+import {useQuery} from "@tanstack/react-query";
+import {AdvertisementModel} from "@/lib/types";
+import {Skeleton} from "@/components/ui/skeleton.tsx";
+import {getCdnFile} from "@/lib/utils.ts";
 
 function AdCarousel() {
-  const [selectedAd, setSelectedAd] = useState<Ad | null>(null);
+
+  const { isPending, data } = useQuery<AdvertisementModel[]>({queryKey: ["fetchAds"], queryFn: () => apiFetchPublicAds(),});
+  const [selectedAd, setSelectedAd] = useState<AdvertisementModel | null>(null);
+
+  if(isPending) {
+    return (
+        <Skeleton className="w-full h-full aspect-square rounded"/>
+    )
+  }
 
   return (
     <>
@@ -66,12 +47,12 @@ function AdCarousel() {
             ]}
         >
           <CarouselContent className="">
-            {mockAds.map((ad, index) => (
+            {data && data.map((ad, index) => (
               <CarouselItem key={index} className="basis-1/1 h-full w-full">
                 <img
-                  src={ad.flyerUrl}
-                  alt={ad.title}
-                  className="rounded-lg w-full h-auto object-cover cursor-pointer"
+                  src={getCdnFile(ad.imagePath)}
+                  alt={ad.contactPhone}
+                  className="rounded-lg w-full h-full object-cover cursor-pointer"
                   onClick={() => setSelectedAd(ad)}
                 />
               </CarouselItem>
@@ -88,12 +69,12 @@ function AdCarousel() {
       }}>
         <DialogContent className="h-full w-full bg-[#151b23] border-none text-white overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>Contact <a className="font-[Inter]" href={"tel:"+selectedAd?.phone}>{selectedAd?.phone}</a></DialogTitle>
+            <DialogTitle>Contact <a className="font-[Inter]" href={"tel:"+selectedAd?.contactPhone}>{selectedAd?.contactEmail}</a></DialogTitle>
             <DialogDescription> For more information </DialogDescription>
           </DialogHeader>
 
           <img
-              src={selectedAd?.flyerUrl}
+              src={getCdnFile(selectedAd?.imagePath)}
               alt="Ad flyer"
               className="rounded-lg h-full w-full bg-no-repeat"
           />
@@ -104,11 +85,11 @@ function AdCarousel() {
 
               <div className="flex flex-row gap-4 py-2 items-center">
                 <PhoneIcon size={16} className="text-blue-500"/>
-                <a href={"tel:"+selectedAd?.phone} className="text-blue-500">{selectedAd?.phone}</a>
+                <a href={"tel:"+selectedAd?.contactPhone} className="text-blue-500">{selectedAd?.contactEmail}</a>
               </div>
               <div className="flex flex-row gap-4 py-2 items-center">
                 <MailIcon size={16} className="text-blue-500"/>
-                <a href={"mailto:"+selectedAd?.email} className="text-blue-500">{selectedAd?.email}</a>
+                <a href={"mailto:"+selectedAd?.contactEmail} className="text-blue-500">{selectedAd?.contactEmail}</a>
               </div>
               <div className="flex flex-row gap-4 py-2 items-center">
                 <LinkIcon size={16} className="text-blue-500"/>

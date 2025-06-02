@@ -1,7 +1,16 @@
 import {NavLink} from "react-router";
 import {ReactNode} from "react";
 
-function DashboardMenuItem({ icon, title, to = "/", onMenuClicked }: { icon: ReactNode, title: string, active?: boolean, to? : string, onMenuClicked?: (title: string, to: string) => void}) {
+type Props = {
+    icon: ReactNode,
+    title: string,
+    active?: boolean,
+    to? : string,
+    onMenuClicked?: (title: string, to: string) => void,
+    devPhase?: "completed" | "in_progress" | "not_started"
+}
+
+function DashboardMenuItem({ icon, title, to = "/", onMenuClicked, devPhase = "not_started" }: Props ) {
 
     function menClickHandler() {
         if (onMenuClicked) {
@@ -20,8 +29,13 @@ function DashboardMenuItem({ icon, title, to = "/", onMenuClicked }: { icon: Rea
                 end={true}
             >
 
-                {icon}
-                <span className="text-sm">{title}</span>
+                { (devPhase == "not_started" || devPhase == "in_progress") &&  <span className="text-slate-400" >{icon}</span> }
+                { devPhase == "completed" &&  <span>{icon}</span> }
+
+                <span className={`text-sm`}>
+                    { (devPhase == "not_started" || devPhase == "in_progress")  &&  <span className="text-slate-400" >{title}</span> }
+                    { devPhase == "completed" &&  <span>{title}</span> }
+                </span>
             </NavLink>
     )
 }

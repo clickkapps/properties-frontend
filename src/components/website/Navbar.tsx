@@ -83,7 +83,7 @@ const Navbar = ({ animate = true, className, children, rightMenuLinks, bgColor =
           ) : (
             <Button variant={'link'} className="w-full md:w-auto rounded-none md:rounded border text-white" onClick={() => {
               navigate("/login")
-            }}>My Account</Button>
+            }}>Login / Register</Button>
         )}
 
       </ul>

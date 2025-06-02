@@ -17,6 +17,7 @@ function OfficeSideBar() {
                             icon={<Icon size={20}/>}
                             title={ link.title }
                             to={link.url}
+                            devPhase={link.devPhase}
                         />
                     )
                 })

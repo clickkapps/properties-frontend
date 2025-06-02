@@ -87,40 +87,37 @@ export const axiosErrorHandler = (error: Error) => {
 // my rule for permissions in the application is, its always true util its changed to false
 
 // method naming convention: verbActionSubject
-export const canPublishProperties = (user?: User) => {
+const checkIfUserCannot = (action: string,  subject: string, user?: User,  verb = "cannot") => {
 
-    if(!user) { return  false; }
-
-    // true until proven false
-    let allowed = true;
-
-    // checking if user cannot publish property
-    const cannotPublish = (user.permissions || []).findIndex(
-        p => p.verb === "cannot" && p.action == "publish" && p.subject === "properties"
-    )
-
-    if(cannotPublish > -1) {
-        allowed = false;
-    }
-
-    return allowed;
-}
-
-export const canUnpublishProperties = (user?: User) => {
     if(!user) { return  false; }
 
     // true until proven false
     let allowed = true;
 
     // checking if user cannot upPublish property
-    const cannotUnPublish = (user.permissions || []).findIndex(
-        p => p.verb === "cannot" && p.action == "unpublish" && p.subject === "properties"
+    const cannotDo = (user.permissions || []).findIndex(
+        p => p.verb === verb && p.action == action && p.subject === subject
     )
 
-    if(cannotUnPublish > -1) {
+    if(cannotDo > -1) {
         allowed = false;
     }
 
     return allowed
+}
 
+export const canPublishProperties = (user?: User) => {
+    return checkIfUserCannot("publish", "properties", user)
+}
+
+export const canUnpublishProperties = (user?: User) => {
+    return checkIfUserCannot("unpublish", "properties", user)
+}
+
+export const canPublishAds = (user?: User) => {
+    return checkIfUserCannot("publish", "advertisements", user)
+}
+
+export const canCreateAds = (user?: User) => {
+    return checkIfUserCannot("create", "advertisements", user)
 }

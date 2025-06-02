@@ -23,9 +23,9 @@ import usePurchasePackage from "@/hooks/use-purchase-package.ts";
 import {addYears} from "date-fns";
 import {useMutation} from "@tanstack/react-query";
 import {apiUpdateUserEntitlement} from "@/api/users.api.ts";
-import {AxiosError} from "axios";
 import {toast} from "@/hooks/use-toast.ts";
 import {updateAuthUser} from "@/store/auth-slice.ts";
+import {axiosErrorHandler} from "@/lib/utils.ts";
 
 function EntitlementSubscriptionModal() {
 
@@ -46,14 +46,7 @@ function EntitlementSubscriptionModal() {
             });
             dispatch(onCloseSubscriptionDialog({ option: null }));
         },
-        onError: (error) => {
-            const axiosError = error as AxiosError<{ message: string }>;
-            toast({
-                variant: "destructive",
-                title: "Uh oh! Something went wrong",
-                description: axiosError.response?.data?.message || "Sorry! connection failed",
-            });
-        }
+        onError: axiosErrorHandler
     })
 
     const onPurchaseSuccessFn = useCallback(({ subId }: { subId: number, extra?: { userId?: number} } ) => {

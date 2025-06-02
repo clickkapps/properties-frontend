@@ -38,7 +38,7 @@ const Packages = ({ className, showTitle = true, }: Props) => {
 
     const activateClickedHandler = (pkg: PackageModel) => {
         if(!currentUser) {
-            navigate("/login")
+            navigate("/account/agent/membership")
             return
         }
 

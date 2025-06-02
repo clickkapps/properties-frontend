@@ -3,7 +3,8 @@ export type MenuLink = {
     icon?: ElementType;
     url: string;
     external: boolean;
-    target?: '_blank' | '_top' | '_self'
+    target?: '_blank' | '_top' | '_self',
+    devPhase: "completed" | "in_progress" | "not_started"
 }
 
 export type ModalHandle = {
@@ -100,6 +101,9 @@ export type User = {
     publicKey?: string,
     contactEmail?: string,
     contactPhone?: string,
+    contactRegion?: string,
+    contactAddress?: string,
+    contactCountry?: string,
     lastLoginAt?: Date,
     currentLoginAt?: Date,
     basicInfoUpdatedAt?: Date,

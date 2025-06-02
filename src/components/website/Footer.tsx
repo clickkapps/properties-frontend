@@ -44,11 +44,11 @@ function Footer({collapse = false, bgColor, className}: {collapse?: boolean, bgC
                         <ul className="flex flex-col decoration-0 gap-4 items-start">
                             <li className='tracking-tight hover:text-gray-300 text-sm mb-4 font-bold'>Address
                             </li>
-                            <li className='tracking-tight hover:text-gray-300 text-sm'>Accra
+                            <li className='tracking-tight hover:text-gray-300 text-sm'>{ support.contactRegion }
                             </li>
-                            <li className='tracking-tight hover:text-gray-300 text-sm'>East Legon Apartments
+                            <li className='tracking-tight hover:text-gray-300 text-sm'>{ support.contactAddress }
                             </li>
-                            <li className='tracking-tight hover:text-gray-300 text-sm'>Accra</li>
+                            <li className='tracking-tight hover:text-gray-300 text-sm'>{ support.contactCountry }</li>
                         </ul>
                     </div>
 

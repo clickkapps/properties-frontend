@@ -16,7 +16,6 @@ import MyPropertiesPage from "@/presentation/agent-dashboard/MyPropertiesPage.ts
 import AddPropertyOptionPage from "@/presentation/agent-dashboard/AddPropertyOptionPage.tsx";
 import AddPropertyPage from "@/presentation/agent-dashboard/AddPropertyPage.tsx";
 import AddNewAdvertisementPage from "@/presentation/agent-dashboard/AddNewAdvertisementPage.tsx";
-import AdvertisementsPage from "@/presentation/agent-dashboard/AdvertisementsPage.tsx";
 import MembershipPage from "@/presentation/agent-dashboard/MembershipPage.tsx";
 import OfficeLayout from "@/components/office-dashboard/OfficeLayout.tsx";
 import OfficeHomePage from "@/presentation/office-dashboard/OfficeHomePage.tsx";
@@ -30,6 +29,8 @@ import ConveyancePage from "@/presentation/office-dashboard/ConveyancePage.tsx";
 import VirtualTourPage from "@/presentation/office-dashboard/VirtualTourPage.tsx";
 import FinancialsPage from "@/presentation/office-dashboard/FinancialsPage.tsx";
 import AdminPage from "@/presentation/office-dashboard/AdminPage.tsx";
+import AgentAdvertisementsPage from "@/presentation/agent-dashboard/AgentAdvertisementsPage.tsx";
+import OfficeAdvertisementPage from "@/presentation/office-dashboard/OfficeAdvertisementPage.tsx";
 
 const router = createBrowserRouter([
 
@@ -60,7 +61,7 @@ const router = createBrowserRouter([
                             { path: "add-listing-option", element: <AddPropertyOptionPage />},
                             { path: "add-listing", element: <AddPropertyPage /> },
                             { path: "create-ads", element: <AddNewAdvertisementPage /> },
-                            { path: "adverts", element: <AdvertisementsPage /> },
+                            { path: "adverts", element: <AgentAdvertisementsPage /> },
                             { path: "membership", element: <MembershipPage /> },
                         ]
                     },
@@ -72,6 +73,7 @@ const router = createBrowserRouter([
                             { path: "properties", element: <PropertiesPage />},
                             { path: "agents", element: <OfficeAgentsPage /> },
                             { path: "approvals", element: <ApprovalsPage /> },
+                            { path: "adverts", element: <OfficeAdvertisementPage /> },
                             { path: "viewings", element: <PropertyShowingsPage /> },
                             { path: "photography", element: <PhotographyPage /> },
                             { path: "legal", element: <LegalPage /> },

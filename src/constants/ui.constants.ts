@@ -2,9 +2,8 @@ import {
     Award,
     BriefcaseConveyorBeltIcon, Camera, EyeIcon,
     House,
-    LayoutDashboard,
+    LayoutDashboard, RocketIcon,
     ScrollText,
-    Star,
     UserCog,
     UsersRound, VideoIcon,
     WalletCards
@@ -15,22 +14,26 @@ export const websiteMenuLinks: MenuLink[] = [
     {
         title: "For Sale",
         url: "/properties?offerType=sale",
-        external: false
+        external: false,
+        devPhase: "completed"
     },
     {
         title: "For Rent",
         url: "/properties?offerType=rent",
-        external: false
+        external: false,
+        devPhase: "completed"
     },
     {
         title: "Agents",
         url: "/agents",
-        external: false
+        external: false,
+        devPhase: "not_started"
     },
     {
         title: "Blog",
         url: "http://18.119.142.189",
-        external: true
+        external: true,
+        devPhase: "completed"
     },
     // {
     //     title: "Back Office (Temporal)",
@@ -44,25 +47,29 @@ export const agentMenuLinks: MenuLink[] = [
         title: "Dashboard",
         url: "/account/agent",
         external: false,
-        icon: LayoutDashboard
+        icon: LayoutDashboard,
+        devPhase: "not_started"
     },
     {
         title: "My Listings",
         url: "/account/agent/listings",
         external: false,
-        icon: House
+        icon: House,
+        devPhase: "completed"
     },
     {
         title: "Advertisements",
         url: "/account/agent/adverts",
         external: false,
-        icon: Star
+        icon: RocketIcon,
+        devPhase: "completed"
     },
     {
         title: "Membership",
         url: "/account/agent/membership",
         external: false,
-        icon: Award
+        icon: Award,
+        devPhase: "completed"
     },
 ]
 
@@ -71,7 +78,8 @@ export const officeMenuLinks: MenuLink[] = [
         title: "Dashboard",
         url: "/account/office",
         external: false,
-        icon: LayoutDashboard
+        icon: LayoutDashboard,
+        devPhase: "not_started"
     },
     // {
     //     title: "Properties",
@@ -83,55 +91,71 @@ export const officeMenuLinks: MenuLink[] = [
         title: "Properties",
         url: "/account/office/approvals",
         external: false,
-        icon: House
+        icon: House,
+        devPhase: "completed"
     },
     {
         title: "Scheduled Viewings",
         url: "/account/office/viewings",
         external: false,
-        icon: EyeIcon
+        icon: EyeIcon,
+        devPhase: "completed"
+    },
+    {
+        title: "Advertisements",
+        url: "/account/office/adverts",
+        external: false,
+        icon: RocketIcon,
+        devPhase: "completed"
     },
     {
         title: "Officers",
         url: "/account/office/admins",
         external: false,
-        icon: UserCog
+        icon: UserCog,
+        devPhase: "not_started"
     },
     {
         title: "Agents",
         url: "/account/office/agents",
         external: false,
-        icon: UsersRound
+        icon: UsersRound,
+        devPhase: "not_started"
     },
     {
         title: "Photography",
         url: "/account/office/photography",
         external: false,
-        icon: Camera
+        icon: Camera,
+        devPhase: "not_started"
     },
     {
         title: "Legal",
         url: "/account/office/legal",
         external: false,
-        icon: ScrollText
+        icon: ScrollText,
+        devPhase: "not_started"
     },
     {
         title: "Conveyance",
         url: "/account/office/conveyance",
         external: false,
-        icon: BriefcaseConveyorBeltIcon
+        icon: BriefcaseConveyorBeltIcon,
+        devPhase: "not_started"
     },
     {
         title: "Virtual Tour",
         url: "/account/office/virtual-tour",
         external: false,
-        icon: VideoIcon
+        icon: VideoIcon,
+        devPhase: "not_started"
     },
     {
         title: "Financials",
         url: "/account/office/financials",
         external: false,
-        icon: WalletCards
+        icon: WalletCards,
+        devPhase: "not_started"
     },
 ]
 
