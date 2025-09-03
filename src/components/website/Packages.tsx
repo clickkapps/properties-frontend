@@ -68,7 +68,8 @@ const Packages = ({ className, showTitle = true, }: Props) => {
                   >
                       <div>
                           <h3 className="text-lg font-semibold mb-4">{pkg.uiTitle}</h3>
-                          <p className="text-4xl font-semibold mb-6 font-[Inter]">{pkg.currency} {pkg.price}</p>
+                          <p className="text-4xl font-semibold mb-6 font-[Inter]">CAD ${pkg.price}</p>
+                          {/*{pkg.currency}*/}
                           <p className="text-md font-semibold text-gray-700 mb-6 group-hover:text-gray-400">
                               {pkg.description} benefits
                           </p>

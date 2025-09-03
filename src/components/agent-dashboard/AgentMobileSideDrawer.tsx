@@ -45,7 +45,7 @@ function AgentMobileSideDrawer() {
                     <div className="h-8"></div>
                 </DrawerContent>
             </Drawer>,
-            document.getElementById("root") as HTMLElement,
+            document.getElementById("modal") as HTMLElement,
         )
 
     )

@@ -31,10 +31,10 @@ const SignInPage = () => {
   const { mutate, isPending } = useMutation({
       mutationKey: ['auth'],
       mutationFn: apiLoginWithPhone,
-      onSuccess: async (rep) => {
+      onSuccess: async (resp) => {
 
-          customLog("verification request success", rep);
-          const data = rep.data;
+          customLog("verification request success", resp);
+          const data = resp.data;
           reset()
           verificationPayloadRef.current = {
               serverId: data.serverId,
@@ -42,6 +42,10 @@ const SignInPage = () => {
               isNew: data.isNew
           }
           setShowOTP(true)
+          toast({
+              title: "Please check your phone",
+              description: resp.message,
+          })
       },
       onError: async (error) => {
           const axiosError = error as AxiosError<{ message: string }>;

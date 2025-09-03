@@ -1,4 +1,3 @@
-import { reviewImg } from "@/assets";
 import { Star } from "lucide-react";
 
 const ReviewCard = () => {
@@ -7,7 +6,7 @@ const ReviewCard = () => {
       {/* Profile Image - Completely Separated on the Left */}
       <div className="flex-shrink-0">
         <img
-          src={reviewImg}
+          src={""}
           alt="David Holm"
           className="w-14 h-14 rounded-full"
         />

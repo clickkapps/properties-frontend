@@ -64,14 +64,14 @@ function Footer({collapse = false, bgColor, className}: {collapse?: boolean, bgC
                         {/*<img src={GuideMeLogoWhite} alt="GuidMe Logo" className='-mt-1'/>*/}
                         <div className='flex justify-center items-center space-x-1'>
                             <img src={brandLogoImg} className='w-[25px] h-[25px]' alt="Company logo"/>
-                            <span className='font-bold text-white'>GHANA MLS</span>
+                            <span className='font-bold text-white'>Properties Park</span>
                         </div>
                         <span>©</span>
-                        <span className="font[Inter]">2025</span> Ghana MLS, Inc.
+                        <span className="font[Inter]">2025</span> Properties Park, Inc.
                     </div>
                     <div className="hidden md:inline-flex gap-4 ">
                         <Globe/>
-                        <p>Ghana</p>
+                        <p>Canada</p>
                     </div>
                 </div>
             </div>

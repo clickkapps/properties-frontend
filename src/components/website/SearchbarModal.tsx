@@ -11,7 +11,7 @@ import {forwardRef, ReactNode, Ref, useImperativeHandle, useState} from "react";
 import {ModalHandle} from "@/lib/types";
 import SearchbarExtendedForm from "@/components/website/SearchbarExtendedForm.tsx";
 
-const SearchbarModal =  forwardRef( ({ children }: { children?: ReactNode }, ref: Ref<ModalHandle | undefined>) => {
+const SearchbarModal =  forwardRef( ({ children }: { children?: ReactNode }, ref: Ref<ModalHandle | undefined> ) => {
 
   const [open, setOpen] = useState(false);
   // const navigate = useNavigate();
