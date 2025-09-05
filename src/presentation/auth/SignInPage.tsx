@@ -101,8 +101,7 @@ const SignInPage = () => {
                                       },
                                       pattern: {
                                           value: /^(\+?\d{1,3}[- ]?)?\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}$/,
-                                          message: 'Invalid phone number format',
-                                      },
+                                          message: 'Invalid phone number format'},
                                       // if you need custom validation
                                       validate: value => {
                                           return value.length > 9 || "Must be longer than 10 chars"
@@ -115,7 +114,7 @@ const SignInPage = () => {
                               <div className="flex items-center justify-between px-4 py-3 border-t border-gray-300">
                                   <div className="flex flex-col">
                                       <span className="text-xs">Country code</span>
-                                      <span className="text-xs">Ghana (+233)</span>
+                                      <span className="text-xs">Canada / US (+1)</span>
                                   </div>
                                   {/*<ChevronDown className="w-4 h-4 text-gray-500"/>*/}
                               </div>
