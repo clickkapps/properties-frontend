@@ -4,6 +4,7 @@ import {PropertyModel} from "@/lib/types";
 import {formatCurrency, getCdnFile, quickFormatDate} from "@/lib/utils.ts";
 import {capitalize} from "lodash";
 import {Badge} from "@/components/ui/badge.tsx";
+import {LazyImage} from "@/components/ui/LazyImage.tsx";
 
 type Props = {
   property: PropertyModel
@@ -15,16 +16,11 @@ const PropertyListItem = ({ property }: Props) => {
           {/* Image Section */}
           <div className="relative group">
 
-            <img
-                src={getCdnFile(property.mainImagePath)}
-                alt="House for Sale"
-                className="aspect-square w-full h-full object-cover rounded-lg md:hover:scale-105 cursor-pointer md:hover:z-100 transition duration-150"
-            />
-
+            <LazyImage src={getCdnFile(property.mainImagePath)} className="aspect-square w-full h-full object-cover rounded-lg md:hover:scale-105 cursor-pointer md:hover:z-100 transition duration-150"/>
             <span
                 className="absolute top-3 left-2 bg-white text-black text-[14px] font-medium px-3 py-1 rounded-full  md:group-hover:scale-110  transition duration-150">
-          For { capitalize(property.offerType as string) }
-        </span>
+              For { capitalize(property.offerType as string) }
+            </span>
             <span className="absolute bottom-3 left-2">{ property.promoted && <Badge className={"bg-teal-600"}>Promoted</Badge> }</span>
 
             <button className="absolute top-2 right-2 p-2 rounded-full md:group-hover:scale-110  transition duration-150">

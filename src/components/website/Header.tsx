@@ -12,7 +12,7 @@ function Header() {
 
                 <div className="h-[80%] w-full">
                     <div className={`h-full w-full bg-cover bg-center relative`}
-                         style={{backgroundImage: `url(${getCdnFile("property-11.webp")})`}}>
+                         style={{backgroundImage: `url(${getCdnFile("property-11.avif")})`}}>
                         <div className="h-full w-full bg-black/50 absolute"></div>
                         <div className="absolute h-full w-full -mt-[50px]">
                             <div className="flex flex-col justify-center items-center h-full text-white gap-4 mx-8 text-center">
